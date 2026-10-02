@@ -6,14 +6,14 @@ import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.data.worldgen.biome.OverworldBiomes;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.biome.Biome;
-import net.minecraft.world.level.levelgen.carver.ConfiguredWorldCarver;
+import net.minecraft.world.level.levelgen.carver.WorldCarver;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 import net.regions_unexplored.datagen.provider.registry.biome.*;
 import net.regions_unexplored.registry.data.RUBiomes;
 
 public class RUBiomeBootstrap {
     public static void bootstrap(BootstrapContext<Biome> context) {
-        HolderGetter<ConfiguredWorldCarver<?>> carversGetter = context.lookup(Registries.CONFIGURED_CARVER);
+        HolderGetter<WorldCarver> carversGetter = context.lookup(Registries.CARVER);
         HolderGetter<PlacedFeature> featuresGetter = context.lookup(Registries.PLACED_FEATURE);
 
         //FOREST

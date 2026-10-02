@@ -1,0 +1,167 @@
+{
+  "type": "minecraft:weighted_random_selector",
+  "features": [
+    {
+      "data": {
+        "feature": {
+          "type": "lithostitched:placed",
+          "feature": {
+            "feature": {
+              "type": "minecraft:simple_block",
+              "to_place": {
+                "id": "regions_unexplored:tassel",
+                "properties": {
+                  "half": "lower"
+                }
+              }
+            },
+            "placement": [
+              {
+                "type": "minecraft:count",
+                "count": 127
+              },
+              {
+                "type": "minecraft:offset",
+                "x": {
+                  "type": "minecraft:trapezoid",
+                  "max": 7,
+                  "min": -7,
+                  "plateau": 0
+                },
+                "y": {
+                  "type": "minecraft:trapezoid",
+                  "max": 3,
+                  "min": -3,
+                  "plateau": 0
+                },
+                "z": {
+                  "type": "minecraft:trapezoid",
+                  "max": 7,
+                  "min": -7,
+                  "plateau": 0
+                }
+              },
+              {
+                "type": "minecraft:block_predicate_filter",
+                "predicate": {
+                  "type": "minecraft:matching_block_tag",
+                  "tag": "minecraft:air"
+                }
+              }
+            ]
+          }
+        },
+        "placement": []
+      },
+      "weight": 1
+    },
+    {
+      "data": {
+        "feature": {
+          "type": "lithostitched:placed",
+          "feature": {
+            "feature": {
+              "type": "minecraft:simple_block",
+              "to_place": {
+                "id": "regions_unexplored:day_lily",
+                "properties": {
+                  "half": "lower"
+                }
+              }
+            },
+            "placement": [
+              {
+                "type": "minecraft:count",
+                "count": 127
+              },
+              {
+                "type": "minecraft:offset",
+                "x": {
+                  "type": "minecraft:trapezoid",
+                  "max": 7,
+                  "min": -7,
+                  "plateau": 0
+                },
+                "y": {
+                  "type": "minecraft:trapezoid",
+                  "max": 3,
+                  "min": -3,
+                  "plateau": 0
+                },
+                "z": {
+                  "type": "minecraft:trapezoid",
+                  "max": 7,
+                  "min": -7,
+                  "plateau": 0
+                }
+              },
+              {
+                "type": "minecraft:block_predicate_filter",
+                "predicate": {
+                  "type": "minecraft:matching_block_tag",
+                  "tag": "minecraft:air"
+                }
+              }
+            ]
+          }
+        },
+        "placement": []
+      },
+      "weight": 1
+    },
+    {
+      "data": {
+        "feature": {
+          "type": "lithostitched:placed",
+          "feature": {
+            "feature": {
+              "type": "minecraft:simple_block",
+              "to_place": {
+                "id": "regions_unexplored:meadow_sage",
+                "properties": {
+                  "half": "lower"
+                }
+              }
+            },
+            "placement": [
+              {
+                "type": "minecraft:count",
+                "count": 127
+              },
+              {
+                "type": "minecraft:offset",
+                "x": {
+                  "type": "minecraft:trapezoid",
+                  "max": 7,
+                  "min": -7,
+                  "plateau": 0
+                },
+                "y": {
+                  "type": "minecraft:trapezoid",
+                  "max": 3,
+                  "min": -3,
+                  "plateau": 0
+                },
+                "z": {
+                  "type": "minecraft:trapezoid",
+                  "max": 7,
+                  "min": -7,
+                  "plateau": 0
+                }
+              },
+              {
+                "type": "minecraft:block_predicate_filter",
+                "predicate": {
+                  "type": "minecraft:matching_block_tag",
+                  "tag": "minecraft:air"
+                }
+              }
+            ]
+          }
+        },
+        "placement": []
+      },
+      "weight": 1
+    }
+  ]
+}

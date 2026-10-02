@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "regions_unexplored:palm_beard_from_palm_log"
+        "recipes": "regions_unexplored:palm_beard_from_palm_log"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

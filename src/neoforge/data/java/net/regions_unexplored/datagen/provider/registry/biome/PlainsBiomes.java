@@ -7,10 +7,11 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.attribute.BackgroundMusic;
 import net.minecraft.world.attribute.EnvironmentAttributes;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.EntityTypes;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.level.biome.*;
 import net.minecraft.world.level.levelgen.GenerationStep;
-import net.minecraft.world.level.levelgen.carver.ConfiguredWorldCarver;
+import net.minecraft.world.level.levelgen.carver.WorldCarver;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 import net.regions_unexplored.datagen.provider.registry.configured_feature.RUShrubFeatures;
 import net.regions_unexplored.datagen.provider.registry.util.RUBiomeUtils;
@@ -25,12 +26,12 @@ public class PlainsBiomes {
         MobSpawnSettings.Builder spawnBuilder = new MobSpawnSettings.Builder();
         BiomeDefaultFeatures.plainsSpawns(spawnBuilder);
         if (hasWolfSpawns) {
-            spawnBuilder.addSpawn(MobCategory.CREATURE, 2, new MobSpawnSettings.SpawnerData(EntityType.WOLF, 4, 4));
+            spawnBuilder.addSpawn(EntityTypes.WOLF, 2, 4, 4);
         }
         return spawnBuilder;
     }
 
-    private static BiomeGenerationSettings.Builder basePlainsGeneration(HolderGetter<PlacedFeature> featureGetter, HolderGetter<ConfiguredWorldCarver<?>> carverGetter) {
+    private static BiomeGenerationSettings.Builder basePlainsGeneration(HolderGetter<PlacedFeature> featureGetter, HolderGetter<WorldCarver> carverGetter) {
         BiomeGenerationSettings.Builder builder = new BiomeGenerationSettings.Builder(featureGetter, carverGetter);
         RUBiomeUtils.globalOverworldGeneration(builder);
         BiomeDefaultFeatures.addDefaultOres(builder);
@@ -40,7 +41,7 @@ public class PlainsBiomes {
         return builder;
     }
 
-    public static Biome flowerFields(HolderGetter<PlacedFeature> featureGetter, HolderGetter<ConfiguredWorldCarver<?>> carverGetter) {
+    public static Biome flowerFields(HolderGetter<PlacedFeature> featureGetter, HolderGetter<WorldCarver> carverGetter) {
         BiomeSpecialEffects.Builder effectBuilder = effectBuilder()
             .foliageColorOverride(0x5db743)
             .grassColorOverride(0x73c94b);
@@ -66,7 +67,7 @@ public class PlainsBiomes {
             .build();
     }
 
-    public static Biome grassland(HolderGetter<PlacedFeature> featureGetter, HolderGetter<ConfiguredWorldCarver<?>> carverGetter) {
+    public static Biome grassland(HolderGetter<PlacedFeature> featureGetter, HolderGetter<WorldCarver> carverGetter) {
         BiomeSpecialEffects.Builder effectBuilder = effectBuilder()
             .foliageColorOverride(0x92bf54)
             .grassColorOverride(0xa3c563);
@@ -92,7 +93,7 @@ public class PlainsBiomes {
             .build();
     }
 
-    public static Biome cloverPlains(HolderGetter<PlacedFeature> featureGetter, HolderGetter<ConfiguredWorldCarver<?>> carverGetter) {
+    public static Biome cloverPlains(HolderGetter<PlacedFeature> featureGetter, HolderGetter<WorldCarver> carverGetter) {
         BiomeSpecialEffects.Builder effectBuilder = effectBuilder()
             .foliageColorOverride(0xa3c563)
             .grassColorOverride(0xa3c563);
@@ -117,7 +118,7 @@ public class PlainsBiomes {
             .build();
     }
 
-    public static Biome poppyFields(HolderGetter<PlacedFeature> featureGetter, HolderGetter<ConfiguredWorldCarver<?>> carverGetter) {
+    public static Biome poppyFields(HolderGetter<PlacedFeature> featureGetter, HolderGetter<WorldCarver> carverGetter) {
         BiomeSpecialEffects.Builder effectBuilder = effectBuilder()
             .foliageColorOverride(0x73a538)
             .grassColorOverride(0x84c445);
@@ -142,7 +143,7 @@ public class PlainsBiomes {
             .build();
     }
 
-    public static Biome prairie(HolderGetter<PlacedFeature> featureGetter, HolderGetter<ConfiguredWorldCarver<?>> carverGetter) {
+    public static Biome prairie(HolderGetter<PlacedFeature> featureGetter, HolderGetter<WorldCarver> carverGetter) {
         BiomeSpecialEffects.Builder effectBuilder = effectBuilder()
             .foliageColorOverride(0x77b14d)
             .grassColorOverride(0xd6d579);
@@ -169,7 +170,7 @@ public class PlainsBiomes {
             .build();
     }
 
-    public static Biome shrubland(HolderGetter<PlacedFeature> featureGetter, HolderGetter<ConfiguredWorldCarver<?>> carverGetter) {
+    public static Biome shrubland(HolderGetter<PlacedFeature> featureGetter, HolderGetter<WorldCarver> carverGetter) {
         BiomeSpecialEffects.Builder effectBuilder = effectBuilder()
             .foliageColorOverride(0xff76af57)
             .grassColorOverride(0xff9ab75b);

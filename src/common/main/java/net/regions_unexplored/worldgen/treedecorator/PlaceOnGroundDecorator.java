@@ -1,5 +1,6 @@
 package net.regions_unexplored.worldgen.treedecorator;
 
+import net.minecraft.core.Holder;
 import com.google.common.collect.Lists;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
@@ -26,7 +27,7 @@ public class PlaceOnGroundDecorator extends TreeDecorator {
         ExtraCodecs.POSITIVE_INT.fieldOf("tries").orElse(128).forGetter(p -> p.tries),
         ExtraCodecs.NON_NEGATIVE_INT.fieldOf("radius").orElse(2).forGetter(p -> p.radius),
         ExtraCodecs.NON_NEGATIVE_INT.fieldOf("height").orElse(1).forGetter(p -> p.height),
-        BlockStateProvider.CODEC.fieldOf("block_state_provider").forGetter(p -> p.blockStateProvider)
+        BlockStateProvider.CODEC.xmap(Holder::value, Holder::direct).fieldOf("block_state_provider").forGetter(p -> p.blockStateProvider)
     ).apply(i, PlaceOnGroundDecorator::new));
     public static final TreeDecoratorType<PlaceOnGroundDecorator> TYPE = new TreeDecoratorType<>(CODEC);
 

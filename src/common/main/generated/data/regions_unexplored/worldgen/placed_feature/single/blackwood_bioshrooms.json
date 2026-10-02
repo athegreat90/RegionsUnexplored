@@ -28,12 +28,7 @@
         "predicates": [
           {
             "type": "minecraft:would_survive",
-            "state": {
-              "Name": "regions_unexplored:blue_bioshroom",
-              "Properties": {
-                "stage": "0"
-              }
-            }
+            "state": "regions_unexplored:blue_bioshroom"
           },
           {
             "type": "minecraft:matching_block_tag",

@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:simple_block",
+  "to_place": {
+    "id": "regions_unexplored:elephant_ear",
+    "properties": {
+      "half": "lower"
+    }
+  }
+}

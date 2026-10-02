@@ -1,0 +1,25 @@
+{
+  "type": "regions_unexplored:kapok_tree",
+  "branch_provider": {
+    "id": "regions_unexplored:kapok_branch",
+    "properties": {
+      "facing": "north"
+    }
+  },
+  "foliage_provider": {
+    "id": "regions_unexplored:kapok_leaves",
+    "properties": {
+      "distance": "7",
+      "persistent": "false",
+      "waterlogged": "false"
+    }
+  },
+  "minimum_size": 20,
+  "size_variation": 7,
+  "trunk_provider": {
+    "id": "regions_unexplored:kapok_log",
+    "properties": {
+      "axis": "y"
+    }
+  }
+}

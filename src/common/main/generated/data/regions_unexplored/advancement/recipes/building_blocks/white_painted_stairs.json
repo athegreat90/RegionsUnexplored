@@ -3,7 +3,7 @@
   "criteria": {
     "has_the_recipe": {
       "conditions": {
-        "recipe": "regions_unexplored:white_painted_stairs"
+        "recipes": "regions_unexplored:white_painted_stairs"
       },
       "trigger": "minecraft:recipe_unlocked"
     },

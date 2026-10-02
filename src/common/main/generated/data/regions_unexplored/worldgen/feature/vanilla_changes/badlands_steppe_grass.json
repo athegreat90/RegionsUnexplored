@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:weighted_random_selector",
+  "features": [
+    {
+      "data": {
+        "feature": "regions_unexplored:patch/desert_shrub_on_sand",
+        "placement": []
+      },
+      "weight": 1
+    },
+    {
+      "data": {
+        "feature": "regions_unexplored:patch/steppe_grass_on_sand",
+        "placement": []
+      },
+      "weight": 1
+    }
+  ]
+}

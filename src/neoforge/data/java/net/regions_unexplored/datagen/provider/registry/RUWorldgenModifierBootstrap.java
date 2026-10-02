@@ -5,18 +5,18 @@ import dev.worldgen.lithostitched.api.util.InjectionType;
 import dev.worldgen.lithostitched.api.worldgen.modifier.WorldgenModifier;
 import dev.worldgen.lithostitched.api.worldgen.processor.LithostitchedProcessorLists;
 import dev.worldgen.lithostitched.api.worldgen.processor.LithostitchedProcessors;
-import dev.worldgen.lithostitched.api.worldgen.surface.LithostitchedSurfaceRules;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.HolderSet;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.data.worldgen.ProcessorLists;
+import net.minecraft.data.worldgen.material.OverworldMaterialRules;
 import net.minecraft.data.worldgen.placement.VegetationPlacements;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.world.level.Level;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.Biomes;
 import net.minecraft.world.level.levelgen.GenerationStep.Decoration;
+import net.minecraft.world.level.levelgen.material.rule.MaterialRule;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureProcessorList;
 import net.regions_unexplored.RegionsUnexplored;
@@ -28,11 +28,14 @@ import net.regions_unexplored.registry.data.RUSurfaceRules;
 
 public class RUWorldgenModifierBootstrap {
     public static void bootstrap(BootstrapContext<WorldgenModifier> context) {
+        HolderGetter<MaterialRule> materialRules = context.lookup(Registries.MATERIAL_RULE);
         context.register(
             key("surface_rule/overworld"),
-            WorldgenModifier.builder().addSurfaceRule(Level.OVERWORLD, InjectionType.PREPEND, LithostitchedSurfaceRules.reference(
-                context.lookup(LithostitchedRegistries.SURFACE_RULE).getOrThrow(RUSurfaceRules.OVERWORLD)
-            ))
+            WorldgenModifier.builder().setMaterialRule(
+                materialRules.getOrThrow(OverworldMaterialRules.OVERWORLD),
+                materialRules.getOrThrow(RUSurfaceRules.OVERWORLD),
+                InjectionType.PREPEND
+            )
         );
         
         HolderGetter<StructureProcessorList> registry = context.lookup(Registries.PROCESSOR_LIST);

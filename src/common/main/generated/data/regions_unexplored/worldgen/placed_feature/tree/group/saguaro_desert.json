@@ -4,7 +4,6 @@
     {
       "type": "minecraft:noise_based_count",
       "noise_factor": 75.0,
-      "noise_offset": 0.0,
       "noise_to_count_ratio": 1
     },
     {
@@ -22,12 +21,7 @@
       "type": "minecraft:block_predicate_filter",
       "predicate": {
         "type": "minecraft:would_survive",
-        "state": {
-          "Name": "regions_unexplored:saguaro_cactus_flower",
-          "Properties": {
-            "stage": "0"
-          }
-        }
+        "state": "regions_unexplored:saguaro_cactus_flower"
       }
     },
     {

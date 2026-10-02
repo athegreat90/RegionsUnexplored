@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:weighted_random_selector",
+  "features": [
+    {
+      "data": {
+        "feature": "regions_unexplored:nether/tree/brim_willow",
+        "placement": []
+      },
+      "weight": 1
+    },
+    {
+      "data": {
+        "feature": "regions_unexplored:nether/tree/tall_brim_willow",
+        "placement": []
+      },
+      "weight": 1
+    }
+  ]
+}

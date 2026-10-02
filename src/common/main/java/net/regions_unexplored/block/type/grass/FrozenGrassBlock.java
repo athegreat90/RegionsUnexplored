@@ -13,13 +13,7 @@ import net.regions_unexplored.block.RUBlockUtils;
 import net.regions_unexplored.registry.tag.*;
 
 public class FrozenGrassBlock extends VegetationBlock {
-    public static final MapCodec<? extends FrozenGrassBlock> CODEC = simpleCodec(FrozenGrassBlock::new);
     protected static final VoxelShape SHAPE = RUBlockUtils.column(12, 0, 13);
-    
-    @Override
-    protected MapCodec<? extends FrozenGrassBlock> codec() {
-        return CODEC;
-    }
     
     public FrozenGrassBlock(Properties properties) {
         super(properties);

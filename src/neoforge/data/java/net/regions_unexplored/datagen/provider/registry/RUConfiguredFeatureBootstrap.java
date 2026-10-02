@@ -3,12 +3,12 @@ package net.regions_unexplored.datagen.provider.registry;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
+import net.minecraft.world.level.levelgen.feature.Feature;
 import net.regions_unexplored.RegionsUnexplored;
 import net.regions_unexplored.datagen.provider.registry.configured_feature.*;
 
 public class RUConfiguredFeatureBootstrap {
-    public static void bootstrap(BootstrapContext<ConfiguredFeature<?, ?>> context) {
+    public static void bootstrap(BootstrapContext<Feature> context) {
         RuAquaticFeatures.bootstrap(context);
         RuMiscOverworldFeatures.bootstrap(context);
         RuNetherFeatures.bootstrap(context);

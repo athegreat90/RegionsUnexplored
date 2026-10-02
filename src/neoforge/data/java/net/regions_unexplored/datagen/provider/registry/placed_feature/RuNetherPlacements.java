@@ -78,7 +78,7 @@ public class RuNetherPlacements {
         register(context, RuNetherPlacements.OBSIDIAN_SPIRE, placementNether(1));
         register(context, RuNetherPlacements.TREE_GROUP_BLACKSTONE_BASIN, placementNether(1).filter(RUBlocks.COBALT_EARLIGHT.get()));
 
-        register(context, RuNetherPlacements.POINTED_REDSTONE, CountPlacement.of(UniformInt.of(192, 256)), inSquare(), PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT, CountPlacement.of(UniformInt.of(1, 5)), RandomOffsetPlacement.of(ClampedNormalInt.of(0.0F, 3.0F, -10, 10), ClampedNormalInt.of(0.0F, 0.6F, -2, 2)), BiomeFilter.biome());
+        register(context, RuNetherPlacements.POINTED_REDSTONE, CountPlacement.of(UniformInt.of(192, 256)), inSquare(), PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT, CountPlacement.of(UniformInt.of(1, 5)), OffsetPlacement.of(ClampedNormalInt.of(0.0F, 3.0F, -10, 10), ClampedNormalInt.of(0.0F, 0.6F, -2, 2)), BiomeFilter.biome());
         register(context, RuNetherPlacements.LARGE_POINTED_REDSTONE, CountPlacement.of(UniformInt.of(10, 48)), inSquare(), PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT, BiomeFilter.biome());
         register(context, RuNetherPlacements.POINTED_REDSTONE_CLUSTER, CountPlacement.of(UniformInt.of(78, 126)), inSquare(), PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT, BiomeFilter.biome());
     }

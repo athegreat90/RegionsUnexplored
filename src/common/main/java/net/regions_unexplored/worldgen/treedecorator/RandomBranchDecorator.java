@@ -5,6 +5,7 @@ import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.Holder;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.RandomSource;
@@ -38,9 +39,9 @@ public class RandomBranchDecorator extends TreeDecorator {
     private final Block branchBlock;
     private final Block logBlock;
     private final int requiredEmptyBlocks;
-    private final Optional<BlockStateProvider> leavesProvider;
+    private final Optional<Holder<BlockStateProvider>> leavesProvider;
 
-    public RandomBranchDecorator(float probability, Block branchBlock, Block logBlock, int requiredEmptyBlocks, Optional<BlockStateProvider> leavesProvider) {
+    public RandomBranchDecorator(float probability, Block branchBlock, Block logBlock, int requiredEmptyBlocks, Optional<Holder<BlockStateProvider>> leavesProvider) {
         this.probability = probability;
         this.branchBlock = branchBlock;
         this.logBlock = logBlock;
@@ -53,18 +54,18 @@ public class RandomBranchDecorator extends TreeDecorator {
     }
 
     public static RandomBranchDecorator create(float probability, NaturalSet naturalSet, WoodSet woodSet, int requiredEmptyBlocks) {
-        return create(probability, naturalSet, woodSet, requiredEmptyBlocks, BlockStateProvider.simple(naturalSet.getLeaves()));
-    }
-    
-    public static RandomBranchDecorator create(float probability, Block branch, Block log, Block leaves, int requiredEmptyBlocks) {
-        return new RandomBranchDecorator(probability, branch, log, requiredEmptyBlocks, Optional.of(BlockStateProvider.simple(leaves)));
+        return create(probability, naturalSet, woodSet, requiredEmptyBlocks, BlockStateProvider.holderOf(naturalSet.getLeaves()));
     }
 
-    public static RandomBranchDecorator create(float probability, NaturalSet naturalSet, WoodSet woodSet, int requiredEmptyBlocks, BlockStateProvider leavesProvider) {
+    public static RandomBranchDecorator create(float probability, Block branch, Block log, Block leaves, int requiredEmptyBlocks) {
+        return new RandomBranchDecorator(probability, branch, log, requiredEmptyBlocks, Optional.of(BlockStateProvider.holderOf(leaves)));
+    }
+
+    public static RandomBranchDecorator create(float probability, NaturalSet naturalSet, WoodSet woodSet, int requiredEmptyBlocks, Holder<BlockStateProvider> leavesProvider) {
         return create(probability, naturalSet, woodSet.getLog(), requiredEmptyBlocks, leavesProvider);
     }
-    
-    public static RandomBranchDecorator create(float probability, NaturalSet naturalSet, Block log, int requiredEmptyBlocks, BlockStateProvider leavesProvider) {
+
+    public static RandomBranchDecorator create(float probability, NaturalSet naturalSet, Block log, int requiredEmptyBlocks, Holder<BlockStateProvider> leavesProvider) {
         return new RandomBranchDecorator(probability, naturalSet.getBranch(), log, requiredEmptyBlocks, Optional.of(leavesProvider));
     }
 
@@ -108,7 +109,7 @@ public class RandomBranchDecorator extends TreeDecorator {
 
     private void placeLeaves(Context context, BlockPos pos) {
         if (context.isAir(pos)) {
-            context.setBlock(pos, this.leavesProvider.get().getState(context.level(), context.random(), pos).trySetValue(LeavesBlock.DISTANCE, 1));
+            context.setBlock(pos, this.leavesProvider.get().value().getState(context.level(), context.random(), pos).trySetValue(LeavesBlock.DISTANCE, 1));
         }
     }
 

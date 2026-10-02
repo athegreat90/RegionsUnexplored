@@ -1,0 +1,25 @@
+{
+  "type": "regions_unexplored:aspen_tree",
+  "branch_provider": {
+    "id": "regions_unexplored:birch_branch",
+    "properties": {
+      "facing": "north"
+    }
+  },
+  "foliage_provider": {
+    "id": "minecraft:birch_leaves",
+    "properties": {
+      "distance": "7",
+      "persistent": "false",
+      "waterlogged": "false"
+    }
+  },
+  "minimum_size": 4,
+  "size_variation": 3,
+  "trunk_provider": {
+    "id": "minecraft:birch_log",
+    "properties": {
+      "axis": "y"
+    }
+  }
+}

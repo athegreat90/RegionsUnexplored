@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "regions_unexplored:silver_birch_wood"
+        "recipes": "regions_unexplored:silver_birch_wood"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

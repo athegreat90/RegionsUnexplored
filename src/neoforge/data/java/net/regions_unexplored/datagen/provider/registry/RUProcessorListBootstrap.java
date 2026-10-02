@@ -5,7 +5,7 @@ import dev.worldgen.lithostitched.api.worldgen.processor.RandomSettings;
 import dev.worldgen.lithostitched.api.worldgen.processor.enums.ProcessorPosition;
 import dev.worldgen.lithostitched.api.worldgen.processor.enums.RandomMode;
 import dev.worldgen.lithostitched.api.worldgen.processorcondition.LithostitchedProcessorConditions;
-import dev.worldgen.lithostitched.worldgen.processor.condition.MatchingBiomes;
+import dev.worldgen.lithostitched.impl.worldgen.processor.condition.MatchingBiomes;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.HolderSet;
 import net.minecraft.core.registries.Registries;

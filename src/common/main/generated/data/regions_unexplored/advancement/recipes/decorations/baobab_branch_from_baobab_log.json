@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "regions_unexplored:baobab_branch_from_baobab_log"
+        "recipes": "regions_unexplored:baobab_branch_from_baobab_log"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

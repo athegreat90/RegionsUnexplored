@@ -13,7 +13,7 @@ import java.util.Objects;
 
 public class FurnaceBurnTimes {
     public static final List<Item> BURN_TIME_300 = new ArrayList<>();
-    public static final List<Item> BURN_TIME_200 = RUBlocks.WOOD_SETS.stream().map(WoodSet::getDoor).filter(Objects::nonNull).map(Block::asItem).toList();
+    public static final List<Item> BURN_TIME_200 = RUBlocks.WOOD_SETS.stream().filter(set -> !set.fireproof).map(WoodSet::getDoor).filter(Objects::nonNull).map(Block::asItem).toList();
     public static final List<Item> BURN_TIME_150 = new ArrayList<>();
     public static final List<Item> BURN_TIME_100 = new ArrayList<>();
 

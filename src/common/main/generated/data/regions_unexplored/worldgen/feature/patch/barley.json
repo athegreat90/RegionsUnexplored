@@ -1,0 +1,48 @@
+{
+  "type": "lithostitched:placed",
+  "feature": {
+    "feature": {
+      "type": "minecraft:simple_block",
+      "to_place": {
+        "id": "regions_unexplored:barley",
+        "properties": {
+          "half": "lower"
+        }
+      }
+    },
+    "placement": [
+      {
+        "type": "minecraft:count",
+        "count": 144
+      },
+      {
+        "type": "minecraft:offset",
+        "x": {
+          "type": "minecraft:trapezoid",
+          "max": 7,
+          "min": -7,
+          "plateau": 0
+        },
+        "y": {
+          "type": "minecraft:trapezoid",
+          "max": 3,
+          "min": -3,
+          "plateau": 0
+        },
+        "z": {
+          "type": "minecraft:trapezoid",
+          "max": 7,
+          "min": -7,
+          "plateau": 0
+        }
+      },
+      {
+        "type": "minecraft:block_predicate_filter",
+        "predicate": {
+          "type": "minecraft:matching_block_tag",
+          "tag": "minecraft:air"
+        }
+      }
+    ]
+  }
+}

@@ -17,7 +17,7 @@ import net.minecraft.util.ExtraCodecs;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.Climate;
-import net.minecraft.world.level.levelgen.DensityFunction;
+import net.minecraft.world.level.levelgen.densityfunction.DensityFunction;
 import net.regions_unexplored.config.RUConfigHandler;
 import net.regions_unexplored.config.json5.CommentedMapCodec;
 import net.regions_unexplored.registry.data.RUBiomes;
@@ -167,13 +167,13 @@ public class BiomeTarget {
 			Registry<DensityFunction> dfs = registries.lookupOrThrow(Registries.DENSITY_FUNCTION);
 			return builder.forcePlacement(
 				biome,
-				ParameterBuilder.create().climateMin(DEPTH, 0.2).densityFunctionMin(dfs.getOrThrow(RUDensityFunctions.INFERNO_WEIGHT), 0.001)
+				ParameterBuilder.create().climateMin(DEPTH, 0.2f).densityFunctionMin(dfs.getOrThrow(RUDensityFunctions.INFERNO_WEIGHT), 0.001f)
 			);
 		}
 		if (biome.is(RUBiomes.CHALK_CLIFFS)) {
 			return builder.forcePlacement(
 				biome,
-				ParameterBuilder.create().climateRange(CONTINENTALNESS, -0.19, -0.11).climateMax(EROSION, -0.6).climateRange(TEMPERATURE, -0.1, 0.2)
+				ParameterBuilder.create().climateRange(CONTINENTALNESS, -0.19f, -0.11f).climateMax(EROSION, -0.6f).climateRange(TEMPERATURE, -0.1f, 0.2f)
 			);
 		}
 		
@@ -185,7 +185,7 @@ public class BiomeTarget {
 		if (this.parameters.isEmpty()) return builder;
 		for (var entry : this.parameters.get().entrySet()) {
 			DoubleRange range = entry.getValue();
-			builder.climateRange(entry.getKey(), range.min(), range.max());
+			builder.climateRange(entry.getKey(), (float) range.min(), (float) range.max());
 		}
 		return builder;
 	}

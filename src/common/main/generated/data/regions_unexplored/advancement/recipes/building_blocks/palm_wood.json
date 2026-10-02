@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "regions_unexplored:palm_wood"
+        "recipes": "regions_unexplored:palm_wood"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

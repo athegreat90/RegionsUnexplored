@@ -1,6 +1,7 @@
 package net.regions_unexplored.block.type.nether;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.block.BonemealSource;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
@@ -10,27 +11,27 @@ import net.minecraft.world.level.block.BonemealableBlock;
 import net.minecraft.world.level.block.NyliumBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.chunk.ChunkGenerator;
-import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
+import net.minecraft.world.level.levelgen.feature.Feature;
 
 public class RUNyliumBlock extends NyliumBlock implements BonemealableBlock {
-    protected final ResourceKey<ConfiguredFeature<?, ?>> feature;
+    protected final ResourceKey<Feature> feature;
 
-    public RUNyliumBlock(Properties properties, ResourceKey<ConfiguredFeature<?, ?>> bonemeal) {
+    public RUNyliumBlock(Properties properties, ResourceKey<Feature> bonemeal) {
         super(properties);
         this.feature = bonemeal;
     }
 
     @Override
-    public void performBonemeal(ServerLevel level, RandomSource random, BlockPos pos, BlockState state) {
+    public void performBonemeal(ServerLevel level, RandomSource random, BlockPos pos, BlockState state, BonemealSource source) {
         BlockPos abovePos = pos.above();
         ChunkGenerator generator = level.getChunkSource().getGenerator();
-        Registry<ConfiguredFeature<?, ?>> registry = level.registryAccess().lookupOrThrow(Registries.CONFIGURED_FEATURE);
+        Registry<Feature> registry = level.registryAccess().lookupOrThrow(Registries.FEATURE);
         this.place(registry, this.feature, level, generator, random, abovePos);
     }
     
     private void place(
-        final Registry<ConfiguredFeature<?, ?>> registry,
-        final ResourceKey<ConfiguredFeature<?, ?>> id,
+        final Registry<Feature> registry,
+        final ResourceKey<Feature> id,
         final ServerLevel level,
         final ChunkGenerator generator,
         final RandomSource random,

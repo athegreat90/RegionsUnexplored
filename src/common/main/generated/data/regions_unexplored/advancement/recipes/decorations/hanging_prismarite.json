@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "regions_unexplored:hanging_prismarite"
+        "recipes": "regions_unexplored:hanging_prismarite"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

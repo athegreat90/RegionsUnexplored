@@ -9,11 +9,12 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.attribute.BackgroundMusic;
 import net.minecraft.world.attribute.EnvironmentAttributes;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.EntityTypes;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.level.biome.*;
 import net.minecraft.world.level.levelgen.GenerationStep;
 import net.minecraft.world.level.levelgen.GenerationStep.Decoration;
-import net.minecraft.world.level.levelgen.carver.ConfiguredWorldCarver;
+import net.minecraft.world.level.levelgen.carver.WorldCarver;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 import net.regions_unexplored.datagen.provider.registry.configured_feature.RUShrubFeatures;
 import net.regions_unexplored.datagen.provider.registry.util.RUBiomeUtils;
@@ -29,29 +30,28 @@ public class WetBiomes {
     private static MobSpawnSettings.Builder baseSwampSpawning(boolean hasWolfSpawns) {
         MobSpawnSettings.Builder spawnBuilder = new MobSpawnSettings.Builder();
         BiomeDefaultFeatures.commonSpawns(spawnBuilder);
-        spawnBuilder.addSpawn(MobCategory.MONSTER, 1, new MobSpawnSettings.SpawnerData(EntityType.SLIME, 1, 1));
-        spawnBuilder.addSpawn(MobCategory.CREATURE, 10, new MobSpawnSettings.SpawnerData(EntityType.FROG, 2, 5));
-        spawnBuilder.addSpawn(MobCategory.WATER_AMBIENT, 25, new MobSpawnSettings.SpawnerData(EntityType.TROPICAL_FISH, 8, 8));
+        spawnBuilder.addSpawn(EntityTypes.SLIME, 1, 1, 1);
+        spawnBuilder.addSpawn(EntityTypes.FROG, 10, 2, 5);
+        spawnBuilder.addSpawn(EntityTypes.TROPICAL_FISH, 25, 8, 8);
         if (hasWolfSpawns) {
-            spawnBuilder.addSpawn(MobCategory.CREATURE, 4, new MobSpawnSettings.SpawnerData(EntityType.WOLF, 2, 4));
-            spawnBuilder.creatureGenerationProbability(0.03F);
+            spawnBuilder.addSpawn(EntityTypes.WOLF, 4, 2, 4);
         }
         return spawnBuilder;
     }
     private static MobSpawnSettings.Builder baseJungleSpawning(boolean hasWolfSpawns) {
         MobSpawnSettings.Builder spawnBuilder = new MobSpawnSettings.Builder();
         BiomeDefaultFeatures.farmAnimals(spawnBuilder);
-        spawnBuilder.addSpawn(MobCategory.CREATURE, 10, new MobSpawnSettings.SpawnerData(EntityType.CHICKEN, 4, 4));
-        spawnBuilder.addSpawn(MobCategory.CREATURE, 40, new MobSpawnSettings.SpawnerData(EntityType.PARROT, 1, 2));
-        spawnBuilder.addSpawn(MobCategory.MONSTER, 2, new MobSpawnSettings.SpawnerData(EntityType.OCELOT, 1, 1));
+        spawnBuilder.addSpawn(EntityTypes.CHICKEN, 10, 4, 4);
+        spawnBuilder.addSpawn(EntityTypes.PARROT, 40, 1, 2);
+        spawnBuilder.addSpawn(EntityTypes.OCELOT, MobCategory.MONSTER, 2, net.minecraft.util.valueproviders.ConstantInt.of(1));
         BiomeDefaultFeatures.commonSpawns(spawnBuilder);
         if (hasWolfSpawns) {
-	        spawnBuilder.addSpawn(MobCategory.CREATURE, 8, new MobSpawnSettings.SpawnerData(EntityType.WOLF, 2, 4));
+	        spawnBuilder.addSpawn(EntityTypes.WOLF, 8, 2, 4);
         }
         return spawnBuilder;
     }
     
-    private static BiomeGenerationSettings.Builder baseSwampGeneration(HolderGetter<PlacedFeature> featureGetter, HolderGetter<ConfiguredWorldCarver<?>> carverGetter, boolean hasLilyPads, boolean hasFlowers) {
+    private static BiomeGenerationSettings.Builder baseSwampGeneration(HolderGetter<PlacedFeature> featureGetter, HolderGetter<WorldCarver> carverGetter, boolean hasLilyPads, boolean hasFlowers) {
         BiomeGenerationSettings.Builder builder = new BiomeGenerationSettings.Builder(featureGetter, carverGetter);
         BiomeDefaultFeatures.addFossilDecoration(builder);
         RUBiomeUtils.globalOverworldGeneration(builder);
@@ -72,7 +72,7 @@ public class WetBiomes {
         return builder;
     }
 
-    private static BiomeGenerationSettings.Builder baseJungleGeneration(HolderGetter<PlacedFeature> featureGetter, HolderGetter<ConfiguredWorldCarver<?>> carverGetter, boolean sparseMelons) {
+    private static BiomeGenerationSettings.Builder baseJungleGeneration(HolderGetter<PlacedFeature> featureGetter, HolderGetter<WorldCarver> carverGetter, boolean sparseMelons) {
         BiomeGenerationSettings.Builder builder = new BiomeGenerationSettings.Builder(featureGetter, carverGetter);
         RUBiomeUtils.globalOverworldGeneration(builder);
         BiomeDefaultFeatures.addDefaultOres(builder);
@@ -90,7 +90,7 @@ public class WetBiomes {
         return builder;
     }
 
-    public static Biome bayou(HolderGetter<PlacedFeature> featureGetter, HolderGetter<ConfiguredWorldCarver<?>> carverGetter) {
+    public static Biome bayou(HolderGetter<PlacedFeature> featureGetter, HolderGetter<WorldCarver> carverGetter) {
         BiomeSpecialEffects.Builder effectBuilder = new BiomeSpecialEffects.Builder()
             .waterColor(0x437c4a)
             .foliageColorOverride(0x71934c)
@@ -112,9 +112,10 @@ public class WetBiomes {
         MobSpawnSettings.Builder spawnBuilder = baseSwampSpawning(true);
 
         return biomeBuilder(1, 1)
-            .setAttribute(EnvironmentAttributes.SKY_COLOR, 0xa2c1b5)
-            .setAttribute(EnvironmentAttributes.FOG_COLOR, 0xb1ccb5)
-            .setAttribute(EnvironmentAttributes.WATER_FOG_COLOR, 0x60894a)
+            .setAttribute(EnvironmentAttributes.CREATURE_WORLD_GEN_SPAWN_PROBABILITY, 0.03F)
+            .setAttribute(EnvironmentAttributes.SKY_COLOR, rgb(0xa2c1b5))
+            .setAttribute(EnvironmentAttributes.FOG_COLOR, rgb(0xb1ccb5))
+            .setAttribute(EnvironmentAttributes.WATER_FOG_COLOR, rgb(0x60894a))
             .setAttribute(EnvironmentAttributes.BACKGROUND_MUSIC, new BackgroundMusic(SoundEvents.MUSIC_BIOME_SWAMP))
             .specialEffects(effectBuilder.build())
             .mobSpawnSettings(spawnBuilder.build())
@@ -122,7 +123,7 @@ public class WetBiomes {
             .build();
     }
 
-    public static Biome eucalyptusForest(HolderGetter<PlacedFeature> featureGetter, HolderGetter<ConfiguredWorldCarver<?>> carverGetter) {
+    public static Biome eucalyptusForest(HolderGetter<PlacedFeature> featureGetter, HolderGetter<WorldCarver> carverGetter) {
         BiomeSpecialEffects.Builder effectBuilder = effectBuilder()
             .foliageColorOverride(8828203)
             .grassColorOverride(9680182);
@@ -147,7 +148,7 @@ public class WetBiomes {
             .build();
     }
 
-    public static Biome fen(HolderGetter<PlacedFeature> featureGetter, HolderGetter<ConfiguredWorldCarver<?>> carverGetter) {
+    public static Biome fen(HolderGetter<PlacedFeature> featureGetter, HolderGetter<WorldCarver> carverGetter) {
         BiomeSpecialEffects.Builder effectBuilder = effectBuilder()
             .waterColor(0x4e8bb3)
             .foliageColorOverride(8754506)
@@ -171,7 +172,8 @@ public class WetBiomes {
         MobSpawnSettings.Builder spawnBuilder = baseSwampSpawning(true);
 
         return biomeBuilder(0.85f, 0.7f)
-            .setAttribute(EnvironmentAttributes.WATER_FOG_COLOR, 0x3b6683)
+            .setAttribute(EnvironmentAttributes.CREATURE_WORLD_GEN_SPAWN_PROBABILITY, 0.03F)
+            .setAttribute(EnvironmentAttributes.WATER_FOG_COLOR, rgb(0x3b6683))
             .setAttribute(EnvironmentAttributes.BACKGROUND_MUSIC, new BackgroundMusic(SoundEvents.MUSIC_BIOME_SWAMP))
             .specialEffects(effectBuilder.build())
             .mobSpawnSettings(spawnBuilder.build())
@@ -179,7 +181,7 @@ public class WetBiomes {
             .build();
     }
 
-    public static Biome marsh(HolderGetter<PlacedFeature> featureGetter, HolderGetter<ConfiguredWorldCarver<?>> carverGetter) {
+    public static Biome marsh(HolderGetter<PlacedFeature> featureGetter, HolderGetter<WorldCarver> carverGetter) {
         BiomeSpecialEffects.Builder effectBuilder = effectBuilder()
             .waterColor(0x477bb7)
             .foliageColorOverride(0x80c16c)
@@ -201,17 +203,17 @@ public class WetBiomes {
 
         //add mob spawns
         MobSpawnSettings.Builder spawnBuilder = baseSwampSpawning(false);
-        spawnBuilder.addSpawn(MobCategory.AXOLOTLS, 5, new MobSpawnSettings.SpawnerData(EntityType.AXOLOTL, 2, 6));
+        spawnBuilder.addSpawn(EntityTypes.AXOLOTL, 5, 2, 6);
 
         return biomeBuilder(1, 1)
-            .setAttribute(EnvironmentAttributes.WATER_FOG_COLOR, 0x2f4d5e)
+            .setAttribute(EnvironmentAttributes.WATER_FOG_COLOR, rgb(0x2f4d5e))
             .setAttribute(EnvironmentAttributes.BACKGROUND_MUSIC, new BackgroundMusic(SoundEvents.MUSIC_BIOME_SWAMP))
             .specialEffects(effectBuilder.build())
             .mobSpawnSettings(spawnBuilder.build())
             .generationSettings(builder.build())
             .build();
     }
-    public static Biome fungalFen(HolderGetter<PlacedFeature> featureGetter, HolderGetter<ConfiguredWorldCarver<?>> carverGetter) {
+    public static Biome fungalFen(HolderGetter<PlacedFeature> featureGetter, HolderGetter<WorldCarver> carverGetter) {
         BiomeSpecialEffects.Builder effectBuilder = new BiomeSpecialEffects.Builder()
             .waterColor(6338444)
             .foliageColorOverride(10667597)
@@ -233,12 +235,13 @@ public class WetBiomes {
 
         //add mob spawns
         MobSpawnSettings.Builder spawnBuilder = baseSwampSpawning(true);
-        spawnBuilder.addSpawn(MobCategory.CREATURE, 8, new MobSpawnSettings.SpawnerData(EntityType.MOOSHROOM, 4, 8));
-        spawnBuilder.addSpawn(MobCategory.AXOLOTLS, 4, new MobSpawnSettings.SpawnerData(EntityType.AXOLOTL, 2, 4));
+        spawnBuilder.addSpawn(EntityTypes.MOOSHROOM, 8, 4, 8);
+        spawnBuilder.addSpawn(EntityTypes.AXOLOTL, 4, 2, 4);
 
         return biomeBuilder(1.15f, 1)
-            .setAttribute(EnvironmentAttributes.FOG_COLOR, 0xc0e1d1)
-            .setAttribute(EnvironmentAttributes.WATER_FOG_COLOR, 0x00644a)
+            .setAttribute(EnvironmentAttributes.CREATURE_WORLD_GEN_SPAWN_PROBABILITY, 0.03F)
+            .setAttribute(EnvironmentAttributes.FOG_COLOR, rgb(0xc0e1d1))
+            .setAttribute(EnvironmentAttributes.WATER_FOG_COLOR, rgb(0x00644a))
             .setAttribute(EnvironmentAttributes.BACKGROUND_MUSIC, new BackgroundMusic(SoundEvents.MUSIC_BIOME_SWAMP))
             .specialEffects(effectBuilder.build())
             .mobSpawnSettings(spawnBuilder.build())
@@ -246,7 +249,7 @@ public class WetBiomes {
             .build();
     }
 
-    public static Biome oldGrowthBayou(HolderGetter<PlacedFeature> featureGetter, HolderGetter<ConfiguredWorldCarver<?>> carverGetter) {
+    public static Biome oldGrowthBayou(HolderGetter<PlacedFeature> featureGetter, HolderGetter<WorldCarver> carverGetter) {
         BiomeSpecialEffects.Builder effectBuilder = new BiomeSpecialEffects.Builder()
             .waterColor(-12354486)
             .foliageColorOverride(-9333940)
@@ -268,9 +271,9 @@ public class WetBiomes {
         MobSpawnSettings.Builder spawnBuilder = baseSwampSpawning(false);
 
         return biomeBuilder(1.2f, 1)
-            .setAttribute(EnvironmentAttributes.SKY_COLOR, 0x87ad82)
-            .setAttribute(EnvironmentAttributes.FOG_COLOR, 0x87ad82)
-            .setAttribute(EnvironmentAttributes.WATER_FOG_COLOR, 0x60894a)
+            .setAttribute(EnvironmentAttributes.SKY_COLOR, rgb(0x87ad82))
+            .setAttribute(EnvironmentAttributes.FOG_COLOR, rgb(0x87ad82))
+            .setAttribute(EnvironmentAttributes.WATER_FOG_COLOR, rgb(0x60894a))
             .setAttribute(EnvironmentAttributes.BACKGROUND_MUSIC, new BackgroundMusic(SoundEvents.MUSIC_BIOME_SWAMP))
             .specialEffects(effectBuilder.build())
             .mobSpawnSettings(spawnBuilder.build())
@@ -278,7 +281,7 @@ public class WetBiomes {
             .build();
     }
     
-    public static Biome rainforest(HolderGetter<PlacedFeature> featureGetter, HolderGetter<ConfiguredWorldCarver<?>> carverGetter) {
+    public static Biome rainforest(HolderGetter<PlacedFeature> featureGetter, HolderGetter<WorldCarver> carverGetter) {
         BiomeSpecialEffects.Builder effectBuilder = new BiomeSpecialEffects.Builder()
             .waterColor(2202835)
             .foliageColorOverride(-11032271)
@@ -299,7 +302,7 @@ public class WetBiomes {
         MobSpawnSettings.Builder spawnBuilder = baseJungleSpawning(false);
         
         return biomeBuilder(0.95f, 0.9f)
-            .setAttribute(EnvironmentAttributes.WATER_FOG_COLOR, 0x0a57a6)
+            .setAttribute(EnvironmentAttributes.WATER_FOG_COLOR, rgb(0x0a57a6))
             .setAttribute(EnvironmentAttributes.BACKGROUND_MUSIC, new BackgroundMusic(SoundEvents.MUSIC_BIOME_JUNGLE))
             .specialEffects(effectBuilder.build())
             .mobSpawnSettings(spawnBuilder.build())
@@ -307,7 +310,7 @@ public class WetBiomes {
             .build();
     }
 
-    public static Biome sparseRainforest(HolderGetter<PlacedFeature> featureGetter, HolderGetter<ConfiguredWorldCarver<?>> carverGetter) {
+    public static Biome sparseRainforest(HolderGetter<PlacedFeature> featureGetter, HolderGetter<WorldCarver> carverGetter) {
         BiomeSpecialEffects.Builder effectBuilder = new BiomeSpecialEffects.Builder()
             .waterColor(2202835)
             .foliageColorOverride(-11032271)
@@ -328,7 +331,7 @@ public class WetBiomes {
         MobSpawnSettings.Builder spawnBuilder = baseJungleSpawning(true);
 
         return biomeBuilder(0.95f, 0.9f)
-            .setAttribute(EnvironmentAttributes.WATER_FOG_COLOR, 0x0a57a6)
+            .setAttribute(EnvironmentAttributes.WATER_FOG_COLOR, rgb(0x0a57a6))
             .setAttribute(EnvironmentAttributes.BACKGROUND_MUSIC, new BackgroundMusic(SoundEvents.MUSIC_BIOME_JUNGLE))
             .specialEffects(effectBuilder.build())
             .mobSpawnSettings(spawnBuilder.build())

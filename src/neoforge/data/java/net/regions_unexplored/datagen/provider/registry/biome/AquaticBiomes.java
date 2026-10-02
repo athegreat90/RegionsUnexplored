@@ -11,10 +11,11 @@ import net.minecraft.world.attribute.BackgroundMusic;
 import net.minecraft.world.attribute.EnvironmentAttribute;
 import net.minecraft.world.attribute.EnvironmentAttributes;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.EntityTypes;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.level.biome.*;
 import net.minecraft.world.level.levelgen.GenerationStep;
-import net.minecraft.world.level.levelgen.carver.ConfiguredWorldCarver;
+import net.minecraft.world.level.levelgen.carver.WorldCarver;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 import net.regions_unexplored.datagen.provider.registry.configured_feature.RUShrubFeatures;
 import net.regions_unexplored.datagen.provider.registry.util.RUBiomeUtils;
@@ -33,9 +34,9 @@ public class AquaticBiomes {
         MobSpawnSettings.Builder spawnBuilder = new MobSpawnSettings.Builder();
         BiomeDefaultFeatures.farmAnimals(spawnBuilder);
         if(isTropical){
-            spawnBuilder.addSpawn(MobCategory.CREATURE, 10, new MobSpawnSettings.SpawnerData(EntityType.CHICKEN, 4, 4));
-            spawnBuilder.addSpawn(MobCategory.CREATURE, 40, new MobSpawnSettings.SpawnerData(EntityType.PARROT, 1, 2));
-            spawnBuilder.addSpawn(MobCategory.MONSTER, 2, new MobSpawnSettings.SpawnerData(EntityType.OCELOT, 1, 1));
+            spawnBuilder.addSpawn(EntityTypes.CHICKEN, 10, 4, 4);
+            spawnBuilder.addSpawn(EntityTypes.PARROT, 40, 1, 2);
+            spawnBuilder.addSpawn(EntityTypes.OCELOT, MobCategory.MONSTER, 2, net.minecraft.util.valueproviders.ConstantInt.of(1));
         }
         BiomeDefaultFeatures.commonSpawns(spawnBuilder);
         return spawnBuilder;
@@ -49,14 +50,14 @@ public class AquaticBiomes {
     
     private static MobSpawnSettings.Builder baseRiverSpawning(boolean moreDrowned) {
         MobSpawnSettings.Builder spawnBuilder = new MobSpawnSettings.Builder();
-        spawnBuilder.addSpawn(MobCategory.WATER_CREATURE, 2, new MobSpawnSettings.SpawnerData(EntityType.SQUID, 1, 4));
-        spawnBuilder.addSpawn(MobCategory.WATER_AMBIENT, 5, new MobSpawnSettings.SpawnerData(EntityType.SALMON, 1, 5));
+        spawnBuilder.addSpawn(EntityTypes.SQUID, 2, 1, 4);
+        spawnBuilder.addSpawn(EntityTypes.SALMON, 5, 1, 5);
         BiomeDefaultFeatures.commonSpawns(spawnBuilder);
-        spawnBuilder.addSpawn(MobCategory.MONSTER, moreDrowned ? 100 : 1, new MobSpawnSettings.SpawnerData(EntityType.DROWNED, 1, 1));
+        spawnBuilder.addSpawn(EntityTypes.DROWNED, moreDrowned ? 100 : 1, 1, 1);
         return spawnBuilder;
     }
 
-    private static BiomeGenerationSettings.Builder baseOceanGeneration(HolderGetter<PlacedFeature> featureGetter, HolderGetter<ConfiguredWorldCarver<?>> carverGetter) {
+    private static BiomeGenerationSettings.Builder baseOceanGeneration(HolderGetter<PlacedFeature> featureGetter, HolderGetter<WorldCarver> carverGetter) {
         BiomeGenerationSettings.Builder builder = new BiomeGenerationSettings.Builder(featureGetter, carverGetter);
         RUBiomeUtils.globalOverworldGeneration(builder);
         BiomeDefaultFeatures.addDefaultOres(builder);
@@ -67,7 +68,7 @@ public class AquaticBiomes {
         BiomeDefaultFeatures.addDefaultExtraVegetation(builder, true);
         return builder;
     }
-    private static BiomeGenerationSettings.Builder baseRiverGeneration(HolderGetter<PlacedFeature> featureGetter, HolderGetter<ConfiguredWorldCarver<?>> carverGetter) {
+    private static BiomeGenerationSettings.Builder baseRiverGeneration(HolderGetter<PlacedFeature> featureGetter, HolderGetter<WorldCarver> carverGetter) {
         BiomeGenerationSettings.Builder builder = new BiomeGenerationSettings.Builder(featureGetter, carverGetter);
         RUBiomeUtils.globalOverworldGeneration(builder);
         BiomeDefaultFeatures.addDefaultOres(builder);
@@ -77,7 +78,7 @@ public class AquaticBiomes {
         builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, AquaticPlacements.SEAGRASS_RIVER);
         return builder;
     }
-    private static BiomeGenerationSettings.Builder baseIslandGeneration(HolderGetter<PlacedFeature> featureGetter, HolderGetter<ConfiguredWorldCarver<?>> carverGetter, boolean isTropical) {
+    private static BiomeGenerationSettings.Builder baseIslandGeneration(HolderGetter<PlacedFeature> featureGetter, HolderGetter<WorldCarver> carverGetter, boolean isTropical) {
         BiomeGenerationSettings.Builder builder = new BiomeGenerationSettings.Builder(featureGetter, carverGetter);
         RUBiomeUtils.globalOverworldGeneration(builder);
         BiomeDefaultFeatures.addDefaultOres(builder);
@@ -92,7 +93,7 @@ public class AquaticBiomes {
         return builder;
     }
 
-    public static Biome alphaGrove(HolderGetter<PlacedFeature> featureGetter, HolderGetter<ConfiguredWorldCarver<?>> carverGetter) {
+    public static Biome alphaGrove(HolderGetter<PlacedFeature> featureGetter, HolderGetter<WorldCarver> carverGetter) {
         BiomeSpecialEffects.Builder effectBuilder = new BiomeSpecialEffects.Builder()
             .waterColor(1857757)
             .foliageColorOverride(6028091)
@@ -115,7 +116,7 @@ public class AquaticBiomes {
         MobSpawnSettings.Builder spawnBuilder = baseIslandSpawning(false);
 
         return biomeBuilder(0.6f, 0.6f)
-            .setAttribute(EnvironmentAttributes.WATER_FOG_COLOR, 0x446fd2)
+            .setAttribute(EnvironmentAttributes.WATER_FOG_COLOR, rgb(0x446fd2))
             .setAttribute(EnvironmentAttributes.BACKGROUND_MUSIC, new BackgroundMusic(SoundEvents.MUSIC_BIOME_FOREST))
             .specialEffects(effectBuilder.build())
             .mobSpawnSettings(spawnBuilder.build())
@@ -123,7 +124,7 @@ public class AquaticBiomes {
             .build();
     }
 
-    public static Biome coldRiver(HolderGetter<PlacedFeature> featureGetter, HolderGetter<ConfiguredWorldCarver<?>> carverGetter) {
+    public static Biome coldRiver(HolderGetter<PlacedFeature> featureGetter, HolderGetter<WorldCarver> carverGetter) {
         BiomeSpecialEffects.Builder effectBuilder = new BiomeSpecialEffects.Builder()
                 .waterColor(NORMAL_WATER_COLOR)
                 .foliageColorOverride(-5718172)
@@ -143,7 +144,7 @@ public class AquaticBiomes {
             .build();
     }
 
-    public static Biome hyacinthDeeps(HolderGetter<PlacedFeature> featureGetter, HolderGetter<ConfiguredWorldCarver<?>> carverGetter) {
+    public static Biome hyacinthDeeps(HolderGetter<PlacedFeature> featureGetter, HolderGetter<WorldCarver> carverGetter) {
         BiomeSpecialEffects.Builder effectBuilder = new BiomeSpecialEffects.Builder()
             .waterColor(3770057)
             .foliageColorOverride(-8275350)
@@ -164,17 +165,17 @@ public class AquaticBiomes {
 
         //add mob spawns
         MobSpawnSettings.Builder spawnBuilder = baseOceanSpawning();
-        spawnBuilder.addSpawn(MobCategory.WATER_AMBIENT, 5, new MobSpawnSettings.SpawnerData(EntityType.SALMON, 1, 5));
+        spawnBuilder.addSpawn(EntityTypes.SALMON, 5, 1, 5);
 
         return biomeBuilder(0.5f, 0.5f)
-            .setAttribute(EnvironmentAttributes.WATER_FOG_COLOR, 0x052133)
+            .setAttribute(EnvironmentAttributes.WATER_FOG_COLOR, rgb(0x052133))
             .specialEffects(effectBuilder.build())
             .mobSpawnSettings(spawnBuilder.build())
             .generationSettings(builder.build())
             .build();
     }
 
-    public static Biome muddyRiver(HolderGetter<PlacedFeature> featureGetter, HolderGetter<ConfiguredWorldCarver<?>> carverGetter) {
+    public static Biome muddyRiver(HolderGetter<PlacedFeature> featureGetter, HolderGetter<WorldCarver> carverGetter) {
         BiomeSpecialEffects.Builder effectBuilder = new BiomeSpecialEffects.Builder()
             .waterColor(0x3f6fb4)
             .foliageColorOverride(-7159980)
@@ -192,14 +193,14 @@ public class AquaticBiomes {
         MobSpawnSettings.Builder spawnBuilder = baseRiverSpawning(true);
 
         return biomeBuilder(0.6f, 0.7f)
-            .setAttribute(EnvironmentAttributes.WATER_FOG_COLOR, 0x717868)
+            .setAttribute(EnvironmentAttributes.WATER_FOG_COLOR, rgb(0x717868))
             .specialEffects(effectBuilder.build())
             .mobSpawnSettings(spawnBuilder.build())
             .generationSettings(builder.build())
             .build();
     }
 
-    public static Biome tropicalRiver(HolderGetter<PlacedFeature> featureGetter, HolderGetter<ConfiguredWorldCarver<?>> carverGetter) {
+    public static Biome tropicalRiver(HolderGetter<PlacedFeature> featureGetter, HolderGetter<WorldCarver> carverGetter) {
         BiomeSpecialEffects.Builder effectBuilder = new BiomeSpecialEffects.Builder()
             .waterColor(2202835)
             .foliageColorOverride(4237620)
@@ -213,18 +214,18 @@ public class AquaticBiomes {
 
         //add mob spawns
         MobSpawnSettings.Builder spawnBuilder = baseRiverSpawning(false);
-        spawnBuilder.addSpawn(MobCategory.CREATURE, 5, new MobSpawnSettings.SpawnerData(EntityType.TURTLE, 1, 1));
-        spawnBuilder.addSpawn(MobCategory.WATER_AMBIENT, 25, new MobSpawnSettings.SpawnerData(EntityType.TROPICAL_FISH, 8, 8));
+        spawnBuilder.addSpawn(EntityTypes.TURTLE, 5, 1, 1);
+        spawnBuilder.addSpawn(EntityTypes.TROPICAL_FISH, 25, 8, 8);
 
         return biomeBuilder(0.8f, 0.7f)
-            .setAttribute(EnvironmentAttributes.WATER_FOG_COLOR, 0x0a57a6)
+            .setAttribute(EnvironmentAttributes.WATER_FOG_COLOR, rgb(0x0a57a6))
             .specialEffects(effectBuilder.build())
             .mobSpawnSettings(spawnBuilder.build())
             .generationSettings(builder.build())
             .build();
     }
 
-    public static Biome rockyReef(HolderGetter<PlacedFeature> featureGetter, HolderGetter<ConfiguredWorldCarver<?>> carverGetter) {
+    public static Biome rockyReef(HolderGetter<PlacedFeature> featureGetter, HolderGetter<WorldCarver> carverGetter) {
         BiomeSpecialEffects.Builder effectBuilder = new BiomeSpecialEffects.Builder()
                 .waterColor(-13255466)
                 .foliageColorOverride(-11617740)
@@ -246,20 +247,20 @@ public class AquaticBiomes {
 
         //add mob spawns
         MobSpawnSettings.Builder spawnBuilder = (new MobSpawnSettings.Builder())
-                .addSpawn(MobCategory.WATER_CREATURE, 1, new MobSpawnSettings.SpawnerData(EntityType.SQUID, 1, 3))
-                .addSpawn(MobCategory.WATER_AMBIENT, 25, new MobSpawnSettings.SpawnerData(EntityType.TROPICAL_FISH, 8, 8))
-                .addSpawn(MobCategory.WATER_CREATURE, 2, new MobSpawnSettings.SpawnerData(EntityType.DOLPHIN, 1, 2));
+                .addSpawn(EntityTypes.SQUID, 1, 1, 3)
+                .addSpawn(EntityTypes.TROPICAL_FISH, 25, 8, 8)
+                .addSpawn(EntityTypes.DOLPHIN, 2, 1, 2);
         BiomeDefaultFeatures.commonSpawns(spawnBuilder);
 
         return biomeBuilder(0.8f, 0.5f)
-            .setAttribute(EnvironmentAttributes.WATER_FOG_COLOR, 0x558aa8)
+            .setAttribute(EnvironmentAttributes.WATER_FOG_COLOR, rgb(0x558aa8))
             .specialEffects(effectBuilder.build())
             .mobSpawnSettings(spawnBuilder.build())
             .generationSettings(builder.build())
             .build();
     }
 
-    public static Biome ashenWoodland(HolderGetter<PlacedFeature> featureGetter, HolderGetter<ConfiguredWorldCarver<?>> carverGetter) {
+    public static Biome ashenWoodland(HolderGetter<PlacedFeature> featureGetter, HolderGetter<WorldCarver> carverGetter) {
         BiomeSpecialEffects.Builder effectBuilder = new BiomeSpecialEffects.Builder()
             .waterColor(0x8B949A)
             .foliageColorOverride(15326658)
@@ -280,14 +281,14 @@ public class AquaticBiomes {
 
         //add mob spawns
         MobSpawnSettings.Builder spawnBuilder = new MobSpawnSettings.Builder();
-        spawnBuilder.addSpawn(MobCategory.MONSTER, 1, new MobSpawnSettings.SpawnerData(RUEntityTypes.ASHEN.get(), 4, 4));
-        spawnBuilder.addMobCharge(RUEntityTypes.ASHEN.get(), 1, 0.25);
+        spawnBuilder.addSpawn(RUEntityTypes.ASHEN.get(), 1, 4, 4);
+        spawnBuilder.addMobSpawnCost(RUEntityTypes.ASHEN.get(), 1, 0.25);
         BiomeDefaultFeatures.caveSpawns(spawnBuilder);
 
         return biomeBuilder(2f, 0f)
-            .setAttribute(EnvironmentAttributes.SKY_COLOR, 0xb1ae9c)
-            .setAttribute(EnvironmentAttributes.FOG_COLOR, 0x9e958f)
-            .setAttribute(EnvironmentAttributes.WATER_FOG_COLOR, 0x558aa8)
+            .setAttribute(EnvironmentAttributes.SKY_COLOR, rgb(0xb1ae9c))
+            .setAttribute(EnvironmentAttributes.FOG_COLOR, rgb(0x9e958f))
+            .setAttribute(EnvironmentAttributes.WATER_FOG_COLOR, rgb(0x558aa8))
             .setAttribute(EnvironmentAttributes.MUSIC_VOLUME, 0f)
             .setAttribute(EnvironmentAttributes.AMBIENT_PARTICLES, List.of(new AmbientParticle(ParticleTypes.ASH, 0.005F)))
             .specialEffects(effectBuilder.build())
@@ -296,7 +297,7 @@ public class AquaticBiomes {
             .build();
     }
 
-    public static Biome tropics(HolderGetter<PlacedFeature> featureGetter, HolderGetter<ConfiguredWorldCarver<?>> carverGetter) {
+    public static Biome tropics(HolderGetter<PlacedFeature> featureGetter, HolderGetter<WorldCarver> carverGetter) {
         BiomeSpecialEffects.Builder effectBuilder = new BiomeSpecialEffects.Builder()
             .waterColor(0xff35bcd6)
             .foliageColorOverride(-11617740)
@@ -315,7 +316,7 @@ public class AquaticBiomes {
         MobSpawnSettings.Builder spawnBuilder = baseIslandSpawning(true);
 
         return biomeBuilder(1.05f, 0.95f)
-            .setAttribute(EnvironmentAttributes.WATER_FOG_COLOR, 0x558aa8)
+            .setAttribute(EnvironmentAttributes.WATER_FOG_COLOR, rgb(0x558aa8))
             .setAttribute(EnvironmentAttributes.BACKGROUND_MUSIC, new BackgroundMusic(SoundEvents.MUSIC_BIOME_JUNGLE))
             .specialEffects(effectBuilder.build())
             .mobSpawnSettings(spawnBuilder.build())

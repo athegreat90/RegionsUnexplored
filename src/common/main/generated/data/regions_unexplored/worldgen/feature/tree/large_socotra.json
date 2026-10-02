@@ -1,0 +1,25 @@
+{
+  "type": "regions_unexplored:large_socotra_tree",
+  "branch_provider": {
+    "id": "regions_unexplored:socotra_branch",
+    "properties": {
+      "facing": "north"
+    }
+  },
+  "foliage_provider": {
+    "id": "regions_unexplored:socotra_leaves",
+    "properties": {
+      "distance": "7",
+      "persistent": "false",
+      "waterlogged": "false"
+    }
+  },
+  "minimum_size": 8,
+  "size_variation": 5,
+  "trunk_provider": {
+    "id": "regions_unexplored:socotra_log",
+    "properties": {
+      "axis": "y"
+    }
+  }
+}

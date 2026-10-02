@@ -1,6 +1,7 @@
 package net.regions_unexplored.block.type.food;
 
 import com.mojang.serialization.MapCodec;
+import net.minecraft.world.level.block.BonemealSource;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
@@ -30,16 +31,10 @@ import net.regions_unexplored.registry.RUItems;
 import net.regions_unexplored.registry.data.RULootTables;
 
 public class DuskmelonBlock extends VegetationBlock implements BonemealableBlock {
-   public static final MapCodec<? extends DuskmelonBlock> CODEC = simpleCodec(DuskmelonBlock::new);
    public static final IntegerProperty AGE = BlockStateProperties.AGE_2;
    private static final VoxelShape SAPLING_SHAPE = RUBlockUtils.column(10, 0, 8);
    private static final VoxelShape MID_GROWTH_SHAPE = RUBlockUtils.column(14, 0, 16);
    
-   @Override
-   protected MapCodec<? extends VegetationBlock> codec() {
-      return CODEC;
-   }
-
    public DuskmelonBlock(Properties properties) {
       super(properties);
       this.registerDefaultState(this.stateDefinition.any().setValue(AGE, 0));
@@ -83,6 +78,7 @@ public class DuskmelonBlock extends VegetationBlock implements BonemealableBlock
             Block.dropFromBlockInteractLootTable(
                 serverLevel,
                 RULootTables.HARVEST_DUSKMELON,
+                pos,
                 state,
                 level.getBlockEntity(pos),
                 null,
@@ -109,17 +105,17 @@ public class DuskmelonBlock extends VegetationBlock implements BonemealableBlock
    }
    
    @Override
-   public boolean isValidBonemealTarget(LevelReader levelReader, BlockPos blockPos, BlockState blockState) {
+   public boolean isValidBonemealTarget(LevelReader levelReader, BlockPos blockPos, BlockState blockState, BonemealSource source) {
       return blockState.getValue(AGE) < 2;
    }
 
    @Override
-   public boolean isBonemealSuccess(Level level, RandomSource randomSource, BlockPos blockPos, BlockState blockState) {
+   public boolean isBonemealSuccess(Level level, RandomSource randomSource, BlockPos blockPos, BlockState blockState, BonemealSource source) {
       return true;
    }
    
    @Override
-   public void performBonemeal(ServerLevel serverLevel, RandomSource randomSource, BlockPos blockPos, BlockState blockState) {
+   public void performBonemeal(ServerLevel serverLevel, RandomSource randomSource, BlockPos blockPos, BlockState blockState, BonemealSource source) {
       int i = Math.min(3, blockState.getValue(AGE) + 1);
       serverLevel.setBlock(blockPos, blockState.setValue(AGE, i), 2);
    }

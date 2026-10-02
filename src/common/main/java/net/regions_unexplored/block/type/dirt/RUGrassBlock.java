@@ -1,9 +1,10 @@
 package net.regions_unexplored.block.type.dirt;
 
 import java.util.Optional;
+import net.minecraft.world.level.block.BonemealSource;
 import java.util.function.Supplier;
 
-import net.minecraft.advancements.CriteriaTriggers;
+import net.minecraft.advancements.triggers.CriteriaTriggers;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceKey;
@@ -14,15 +15,14 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.FluidTags;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.HoeItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.item.ShovelItem;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.*;
@@ -61,17 +61,17 @@ public class RUGrassBlock extends SnowyBlock implements BonemealableBlock {
 			return InteractionResult.PASS;
 		}
 		
-		if (stack.getItem() instanceof ShovelItem && this.pathBlock.isPresent()) {
+		if (stack.is(ItemTags.SHOVELS) && this.pathBlock.isPresent()) {
 			if (!level.isClientSide()) {
-				updateBlock(this.pathBlock, SoundEvents.SHOVEL_FLATTEN, stack, level, pos, player, hand);
+				updateBlock(this.pathBlock, SoundEvents.SHOVEL_FLATTEN.value(), stack, level, pos, player, hand);
 				return InteractionResult.SUCCESS_SERVER;
 			}
 			return InteractionResult.SUCCESS;
 		}
 		
-		if (stack.getItem() instanceof HoeItem && this.farmlandBlock.isPresent()) {
+		if (stack.is(ItemTags.HOES) && this.farmlandBlock.isPresent()) {
 			if (!level.isClientSide()) {
-				updateBlock(this.farmlandBlock, SoundEvents.HOE_TILL, stack, level, pos, player, hand);
+				updateBlock(this.farmlandBlock, SoundEvents.HOE_TILL.value(), stack, level, pos, player, hand);
 				return InteractionResult.SUCCESS_SERVER;
 			}
 			return InteractionResult.SUCCESS;
@@ -98,18 +98,18 @@ public class RUGrassBlock extends SnowyBlock implements BonemealableBlock {
 	}
 	
 	@Override
-	public boolean isValidBonemealTarget(final LevelReader level, final BlockPos pos, final BlockState state) {
+	public boolean isValidBonemealTarget(final LevelReader level, final BlockPos pos, final BlockState state, BonemealSource source) {
 		return level.getBlockState(pos.above()).isAir() && !level.isOutsideBuildHeight(pos.above());
 	}
 	
 	@Override
-	public boolean isBonemealSuccess(final Level level, final RandomSource random, final BlockPos pos, final BlockState state) {
+	public boolean isBonemealSuccess(final Level level, final RandomSource random, final BlockPos pos, final BlockState state, BonemealSource source) {
 		return true;
 	}
 	
 	@Override
-	public void performBonemeal(final ServerLevel level, final RandomSource random, final BlockPos pos, final BlockState state) {
-		RUBlockActions.performBonemeal(this, level, random, pos, this.bonemealFeature);
+	public void performBonemeal(final ServerLevel level, final RandomSource random, final BlockPos pos, final BlockState state, BonemealSource source) {
+		RUBlockActions.performBonemeal(this, level, random, pos, this.bonemealFeature, source);
 	}
 	
 	@Override
@@ -143,7 +143,7 @@ public class RUGrassBlock extends SnowyBlock implements BonemealableBlock {
 		} else if (aboveState.getFluidState().isFull()) {
 			return false;
 		} else {
-			int lightBlockInto = LightEngine.getLightBlockInto(state, aboveState, Direction.UP, aboveState.getLightDampening());
+			int lightBlockInto = LightEngine.getLightDampeningInto(state, aboveState, Direction.UP, aboveState.getLightDampening());
 			return lightBlockInto < 15;
 		}
 	}

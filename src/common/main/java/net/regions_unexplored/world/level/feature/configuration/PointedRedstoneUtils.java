@@ -8,7 +8,7 @@ import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.block.state.properties.DripstoneThickness;
+import net.minecraft.world.level.block.state.properties.SpeleothemThickness;
 import net.regions_unexplored.block.type.base.SpeleothemBlock;
 import net.regions_unexplored.registry.RUBlocks;
 
@@ -59,19 +59,19 @@ public class PointedRedstoneUtils {
 
     public static void buildBaseToTipColumn(Direction direction, int i1, boolean bool, Consumer<BlockState> consumer) {
         if (i1 >= 3) {
-            consumer.accept(createPointedRedstone(direction, DripstoneThickness.BASE));
+            consumer.accept(createPointedRedstone(direction, SpeleothemThickness.BASE));
 
             for(int i = 0; i < i1 - 3; ++i) {
-                consumer.accept(createPointedRedstone(direction, DripstoneThickness.MIDDLE));
+                consumer.accept(createPointedRedstone(direction, SpeleothemThickness.MIDDLE));
             }
         }
 
         if (i1 >= 2) {
-            consumer.accept(createPointedRedstone(direction, DripstoneThickness.FRUSTUM));
+            consumer.accept(createPointedRedstone(direction, SpeleothemThickness.FRUSTUM));
         }
 
         if (i1 >= 1) {
-            consumer.accept(createPointedRedstone(direction, bool ? DripstoneThickness.TIP_MERGE : DripstoneThickness.TIP));
+            consumer.accept(createPointedRedstone(direction, bool ? SpeleothemThickness.TIP_MERGE : SpeleothemThickness.TIP));
         }
 
     }
@@ -100,7 +100,7 @@ public class PointedRedstoneUtils {
         }
     }
 
-    public static BlockState createPointedRedstone(Direction direction, DripstoneThickness thickness) {
+    public static BlockState createPointedRedstone(Direction direction, SpeleothemThickness thickness) {
         return RUBlocks.REDSTONE_SPIKE.get().defaultBlockState().setValue(SpeleothemBlock.TIP_DIRECTION, direction).setValue(SpeleothemBlock.THICKNESS, thickness);
     }
 

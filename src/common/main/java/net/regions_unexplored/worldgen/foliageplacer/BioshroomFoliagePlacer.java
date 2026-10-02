@@ -1,12 +1,13 @@
 package net.regions_unexplored.worldgen.foliageplacer;
 
+import net.minecraft.core.Holder;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.RandomSource;
 import net.minecraft.util.valueproviders.ConstantInt;
 import net.minecraft.world.level.LevelSimulatedReader;
 import net.minecraft.world.level.WorldGenLevel;
-import net.minecraft.world.level.levelgen.feature.configurations.TreeConfiguration;
+import net.minecraft.world.level.levelgen.feature.TreeFeature;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.BlobFoliagePlacer;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacerType;
 import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
@@ -14,7 +15,7 @@ import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvi
 import static net.regions_unexplored.worldgen.foliageplacer.RUFoliagePlacerUtils.*;
 
 public class BioshroomFoliagePlacer extends BlobFoliagePlacer {
-    public static final MapCodec<BioshroomFoliagePlacer> CODEC = BlockStateProvider.CODEC.fieldOf("secondary_provider").xmap(BioshroomFoliagePlacer::new, BioshroomFoliagePlacer::secondaryProvider);
+    public static final MapCodec<BioshroomFoliagePlacer> CODEC = BlockStateProvider.CODEC.xmap(Holder::value, Holder::direct).fieldOf("secondary_provider").xmap(BioshroomFoliagePlacer::new, BioshroomFoliagePlacer::secondaryProvider);
     public static final FoliagePlacerType<BioshroomFoliagePlacer> TYPE = new FoliagePlacerType<>(CODEC);
     private final BlockStateProvider secondaryProvider;
     
@@ -37,7 +38,7 @@ public class BioshroomFoliagePlacer extends BlobFoliagePlacer {
         final WorldGenLevel level,
         final FoliageSetter foliageSetter,
         final RandomSource random,
-        final TreeConfiguration config,
+        final TreeFeature config,
         final int treeHeight,
         final FoliageAttachment foliageAttachment,
         final int foliageHeight,
@@ -45,7 +46,7 @@ public class BioshroomFoliagePlacer extends BlobFoliagePlacer {
         final int offset
     ) {
         BlockPos origin = foliageAttachment.pos();
-        Context context = new Context(level, foliageSetter, random, config.foliageProvider, origin, offset);
+        Context context = new Context(level, foliageSetter, random, config.foliageProvider().value(), origin, offset);
         if (random.nextBoolean()) {
             placeSquare(context, 1, 0, false);
         } else {

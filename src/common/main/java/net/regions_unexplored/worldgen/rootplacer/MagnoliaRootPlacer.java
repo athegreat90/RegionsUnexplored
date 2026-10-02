@@ -4,13 +4,14 @@ import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.Holder;
 import net.minecraft.util.RandomSource;
 import net.minecraft.util.valueproviders.IntProvider;
 import net.minecraft.world.level.LevelSimulatedReader;
 import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.RotatedPillarBlock;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.levelgen.feature.configurations.TreeConfiguration;
+import net.minecraft.world.level.levelgen.feature.TreeFeature;
 import net.minecraft.world.level.levelgen.feature.rootplacers.AboveRootPlacement;
 import net.minecraft.world.level.levelgen.feature.rootplacers.RootPlacer;
 import net.minecraft.world.level.levelgen.feature.rootplacers.RootPlacerType;
@@ -25,7 +26,7 @@ public class MagnoliaRootPlacer extends RootPlacer {
 	public static final RootPlacerType<MagnoliaRootPlacer> TYPE = new RootPlacerType<>(CODEC);
 	private static final int MAX_ROOT_LENGTH = 6;
 	
-	public MagnoliaRootPlacer(IntProvider trunkOffsetY, BlockStateProvider rootProvider, Optional<AboveRootPlacement> aboveRootPlacement) {
+	public MagnoliaRootPlacer(IntProvider trunkOffsetY, Holder<BlockStateProvider> rootProvider, Optional<AboveRootPlacement> aboveRootPlacement) {
 		super(trunkOffsetY, rootProvider, aboveRootPlacement);
 	}
 	
@@ -41,7 +42,7 @@ public class MagnoliaRootPlacer extends RootPlacer {
 		final RandomSource random,
 		final BlockPos origin,
 		final BlockPos trunkOrigin,
-		final TreeConfiguration config
+		final TreeFeature config
 	) {
 		Map<BlockPos, UnaryOperator<BlockState>> rootPositions = new HashMap<>();
 		

@@ -9,7 +9,6 @@ import static net.regions_unexplored.util.BlockCompatUtil.*;
 
 public class BlockToolCompat {
     public static void setup() {
-        // TODO: For 26.1 port, replace with `strippables` data map on Neo
         for (WoodSet set : RUBlocks.WOOD_SETS) {
             Block log = set.getLog();
             Block strippedLog = set.getStrippedLog();
@@ -35,9 +34,6 @@ public class BlockToolCompat {
         registerShovelled(RUBlocks.PEAT_DIRT.get(), RUBlocks.PEAT_DIRT_PATH.get().defaultBlockState());
         registerShovelled(RUBlocks.SILT_PODZOL.get(), RUBlocks.SILT_DIRT_PATH.get().defaultBlockState());
         registerShovelled(RUBlocks.SILT_DIRT.get(), RUBlocks.SILT_DIRT_PATH.get().defaultBlockState());
-
-        registerShovelled(RUBlocks.CHALK_GRASS_BLOCK.get(), RUBlocks.CHALK.get().defaultBlockState());
-        registerShovelled(RUBlocks.CHALK_GRASS_BLOCK.get(), RUBlocks.CHALK.get().defaultBlockState());
 
         registerShovelled(RUBlocks.CHALK_GRASS_BLOCK.get(), RUBlocks.CHALK.get().defaultBlockState());
         registerShovelled(RUBlocks.ARGILLITE_GRASS_BLOCK.get(), RUBlocks.ARGILLITE.get().defaultBlockState());

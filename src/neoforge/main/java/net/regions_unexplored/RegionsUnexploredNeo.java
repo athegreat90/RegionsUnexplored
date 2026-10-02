@@ -3,6 +3,7 @@ package net.regions_unexplored;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.entity.BlockEntityTypes;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.ModContainer;
@@ -10,6 +11,8 @@ import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.neoforged.neoforge.event.entity.EntityAttributeCreationEvent;
+import net.neoforged.neoforge.event.ModifyDefaultComponentsEvent;
+import net.regions_unexplored.item.RUItemComponents;
 import net.neoforged.neoforge.event.entity.RegisterSpawnPlacementsEvent;
 import net.neoforged.neoforge.registries.NeoForgeRegistries;
 import net.regions_unexplored.client.RegionsUnexploredClient;
@@ -42,6 +45,7 @@ public class RegionsUnexploredNeo {
         bus.addListener(this::setupBlockEntities);
         bus.addListener(this::registerSpawnPlacements);
         bus.addListener(this::registerDefaultAttributes);
+        bus.addListener(this::modifyItemComponents);
 
 
         REGISTER_CACHE.values().forEach(deferredRegister -> deferredRegister.register(bus));
@@ -53,19 +57,23 @@ public class RegionsUnexploredNeo {
     private void setupBlockEntities(BlockEntityTypeAddBlocksEvent event) {
         for (WoodSet set : RUBlocks.WOOD_SETS) {
             if (set.getSign() != null) {
-                event.modify(BlockEntityType.SIGN, set.getSign());
+                event.modify(BlockEntityTypes.SIGN, set.getSign());
             }
             if (set.getWallSign() != null) {
-                event.modify(BlockEntityType.SIGN, set.getWallSign());
+                event.modify(BlockEntityTypes.SIGN, set.getWallSign());
             }
 
             if (set.getHangingSign() != null) {
-                event.modify(BlockEntityType.HANGING_SIGN, set.getHangingSign());
+                event.modify(BlockEntityTypes.HANGING_SIGN, set.getHangingSign());
             }
             if (set.getWallHangingSign() != null) {
-                event.modify(BlockEntityType.HANGING_SIGN, set.getWallHangingSign());
+                event.modify(BlockEntityTypes.HANGING_SIGN, set.getWallHangingSign());
             }
         }
+    }
+
+    private void modifyItemComponents(ModifyDefaultComponentsEvent event) {
+        RUItemComponents.modify((item, modifier) -> event.modify(item, (builder, registries, currentItem) -> modifier.accept(builder)));
     }
     
     private void registerSpawnPlacements(RegisterSpawnPlacementsEvent event) {

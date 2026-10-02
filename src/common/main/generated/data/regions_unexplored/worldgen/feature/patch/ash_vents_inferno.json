@@ -1,0 +1,198 @@
+{
+  "type": "lithostitched:placed",
+  "feature": {
+    "feature": {
+      "type": "lithostitched:placed",
+      "feature": {
+        "feature": {
+          "type": "minecraft:random_selector",
+          "default": {
+            "feature": {
+              "type": "minecraft:block_column",
+              "allowed_placement": {
+                "type": "minecraft:all_of",
+                "predicates": [
+                  {
+                    "type": "minecraft:matching_block_tag",
+                    "tag": "minecraft:air"
+                  },
+                  {
+                    "type": "minecraft:not",
+                    "predicate": {
+                      "type": "minecraft:any_of",
+                      "predicates": [
+                        {
+                          "type": "minecraft:matching_blocks",
+                          "blocks": "regions_unexplored:ash_vent",
+                          "offset": [
+                            0,
+                            0,
+                            -1
+                          ]
+                        },
+                        {
+                          "type": "minecraft:matching_blocks",
+                          "blocks": "regions_unexplored:ash_vent",
+                          "offset": [
+                            1,
+                            0,
+                            0
+                          ]
+                        },
+                        {
+                          "type": "minecraft:matching_blocks",
+                          "blocks": "regions_unexplored:ash_vent",
+                          "offset": [
+                            0,
+                            0,
+                            1
+                          ]
+                        },
+                        {
+                          "type": "minecraft:matching_blocks",
+                          "blocks": "regions_unexplored:ash_vent",
+                          "offset": [
+                            -1,
+                            0,
+                            0
+                          ]
+                        }
+                      ]
+                    }
+                  }
+                ]
+              },
+              "direction": "up",
+              "layers": [
+                {
+                  "height": {
+                    "type": "minecraft:uniform",
+                    "max_inclusive": 4,
+                    "min_inclusive": 0
+                  },
+                  "provider": {
+                    "id": "minecraft:basalt",
+                    "properties": {
+                      "axis": "y"
+                    }
+                  }
+                },
+                {
+                  "height": {
+                    "type": "minecraft:weighted_list",
+                    "distribution": [
+                      {
+                        "data": 0,
+                        "weight": 9
+                      },
+                      {
+                        "data": 1,
+                        "weight": 1
+                      }
+                    ]
+                  },
+                  "provider": {
+                    "id": "regions_unexplored:ash_vent"
+                  }
+                }
+              ],
+              "prioritize_tip": true
+            },
+            "placement": []
+          },
+          "features": [
+            {
+              "chance": 0.7,
+              "feature": {
+                "feature": {
+                  "type": "minecraft:simple_block",
+                  "to_place": {
+                    "type": "minecraft:weighted",
+                    "entries": [
+                      {
+                        "data": "minecraft:basalt",
+                        "weight": 8
+                      },
+                      {
+                        "data": "minecraft:smooth_basalt",
+                        "weight": 8
+                      },
+                      {
+                        "data": "minecraft:magma_block",
+                        "weight": 1
+                      }
+                    ]
+                  }
+                },
+                "placement": []
+              }
+            }
+          ]
+        },
+        "placement": [
+          {
+            "type": "minecraft:block_predicate_filter",
+            "predicate": {
+              "type": "minecraft:all_of",
+              "predicates": [
+                {
+                  "type": "minecraft:matching_block_tag",
+                  "tag": "minecraft:air"
+                },
+                {
+                  "type": "minecraft:has_sturdy_face",
+                  "direction": "up",
+                  "offset": [
+                    0,
+                    -1,
+                    0
+                  ]
+                }
+              ]
+            }
+          },
+          {
+            "type": "minecraft:offset",
+            "x": 0,
+            "y": -1,
+            "z": 0
+          }
+        ]
+      }
+    },
+    "placement": [
+      {
+        "type": "minecraft:count",
+        "count": 144
+      },
+      {
+        "type": "minecraft:offset",
+        "x": {
+          "type": "minecraft:trapezoid",
+          "max": 5,
+          "min": -5,
+          "plateau": 0
+        },
+        "y": {
+          "type": "minecraft:trapezoid",
+          "max": 1,
+          "min": -1,
+          "plateau": 0
+        },
+        "z": {
+          "type": "minecraft:trapezoid",
+          "max": 5,
+          "min": -5,
+          "plateau": 0
+        }
+      },
+      {
+        "type": "minecraft:block_predicate_filter",
+        "predicate": {
+          "type": "minecraft:matching_block_tag",
+          "tag": "minecraft:air"
+        }
+      }
+    ]
+  }
+}

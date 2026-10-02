@@ -1,4 +1,4 @@
-// 26.1.2	2026-07-22T18:04:02.4183019	Tags for minecraft:block mod id regions_unexplored
+// 26.3	2026-10-02T23:08:10.450603	Tags for minecraft:block mod id regions_unexplored
 ea8b8f6b2f430d03e607eca76aae3d7cc7490153 data/c/tags/block/fences/wooden.json
 98584abed8bda97702f8e7eb6abe15be7ed61c1b data/c/tags/block/fence_gates/wooden.json
 fbd3b5574bd57030107ab08e4b239ea1520ad7e1 data/c/tags/block/glass_blocks.json
@@ -19,7 +19,7 @@ ebcf7881dcf42cb3d8c8b5c2e92ebf16fd9d7284 data/minecraft/tags/block/axolotls_spaw
 81f5e63f6e2825682a3c500f029f3900997c1635 data/minecraft/tags/block/ceiling_hanging_signs.json
 066e0dd0337506623e2c75472a614193d962b6d6 data/minecraft/tags/block/climbable.json
 69c6847b104e7676022e5e22588b60f57b6704c7 data/minecraft/tags/block/combination_step_sound_blocks.json
-aed2d5c4edbfff92c5c4482aacc9d45f85eaae1a data/minecraft/tags/block/convertable_to_mud.json
+aed2d5c4edbfff92c5c4482aacc9d45f85eaae1a data/minecraft/tags/block/convertible_to_mud.json
 ba46759feb6064dab9e10929c1506fa73ab3f527 data/minecraft/tags/block/crystal_sound_blocks.json
 2c5344dd6032f6c89bc6940d502b395e8a0315de data/minecraft/tags/block/dirt.json
 9cdd939a688f285cefb44a7c3b0b24c1200ff4d0 data/minecraft/tags/block/dragon_immune.json
@@ -53,7 +53,6 @@ ca9cd6acb745fe8f4f2b799f2c3d052990ac4413 data/minecraft/tags/block/mineable/shov
 50fd989e28f0c322a7c71da5f445451f7a7c24dc data/minecraft/tags/block/nylium.json
 e525dce519521ffa483578397a6c13a57c5e24d1 data/minecraft/tags/block/oak_logs.json
 a27e7054a99fa10eb2354c3ac2f702a7c9db7dbb data/minecraft/tags/block/overrides_mushroom_light_requirement.json
-4b0f72febafc16da901b0f0c2e9718cfdfb6ebb1 data/minecraft/tags/block/overworld_carver_replaceables.json
 35682a435daf595b0d45efb8b7731023976e2597 data/minecraft/tags/block/overworld_natural_logs.json
 3ba09d5092fa23740d80147a98cbf90b5a3e2928 data/minecraft/tags/block/parrots_spawnable_on.json
 9220355c8c8047d3c5fc5f2b45bcf28b568b9b0b data/minecraft/tags/block/planks.json

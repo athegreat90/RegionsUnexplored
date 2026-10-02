@@ -1,0 +1,25 @@
+{
+  "type": "regions_unexplored:mega_baobab_tree",
+  "branch_provider": {
+    "id": "regions_unexplored:baobab_branch",
+    "properties": {
+      "facing": "north"
+    }
+  },
+  "foliage_provider": {
+    "id": "regions_unexplored:baobab_leaves",
+    "properties": {
+      "distance": "7",
+      "persistent": "false",
+      "waterlogged": "false"
+    }
+  },
+  "minimum_size": 5,
+  "size_variation": 5,
+  "trunk_provider": {
+    "id": "regions_unexplored:baobab_log",
+    "properties": {
+      "axis": "y"
+    }
+  }
+}

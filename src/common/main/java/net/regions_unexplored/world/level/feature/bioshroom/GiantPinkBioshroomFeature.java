@@ -1,5 +1,7 @@
 package net.regions_unexplored.world.level.feature.bioshroom;
 
+import net.minecraft.world.level.chunk.ChunkGenerator;
+
 import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;

@@ -8,10 +8,11 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.attribute.BackgroundMusic;
 import net.minecraft.world.attribute.EnvironmentAttributes;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.EntityTypes;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.level.biome.*;
 import net.minecraft.world.level.levelgen.GenerationStep;
-import net.minecraft.world.level.levelgen.carver.ConfiguredWorldCarver;
+import net.minecraft.world.level.levelgen.carver.WorldCarver;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 import net.regions_unexplored.datagen.provider.registry.configured_feature.RUShrubFeatures;
 import net.regions_unexplored.datagen.provider.registry.placed_feature.RuTreePlacements;
@@ -24,25 +25,24 @@ public class AridBiomes {
     private static MobSpawnSettings.Builder baseSavannaSpawning(boolean hasExtraWolves) {
         MobSpawnSettings.Builder spawnBuilder = new MobSpawnSettings.Builder();
         BiomeDefaultFeatures.desertSpawns(spawnBuilder);
-        spawnBuilder.addSpawn(MobCategory.CREATURE, 10, new MobSpawnSettings.SpawnerData(EntityType.ARMADILLO, 2, 3));
-        spawnBuilder.addSpawn(MobCategory.CREATURE, hasExtraWolves ? 8 : 4, new MobSpawnSettings.SpawnerData(EntityType.WOLF, 4, 8));
+        spawnBuilder.addSpawn(EntityTypes.ARMADILLO, 10, 2, 3);
+        spawnBuilder.addSpawn(EntityTypes.WOLF, hasExtraWolves ? 8 : 4, 4, 8);
         return spawnBuilder;
     }
     
     private static MobSpawnSettings.Builder baseDesertSpawning(boolean hasArmadilloSpawns) {
         MobSpawnSettings.Builder spawnBuilder = new MobSpawnSettings.Builder();
         BiomeDefaultFeatures.farmAnimals(spawnBuilder);
-        spawnBuilder.addSpawn(MobCategory.CREATURE, 1, new MobSpawnSettings.SpawnerData(EntityType.HORSE, 2, 6));
-        spawnBuilder.addSpawn(MobCategory.CREATURE, 1, new MobSpawnSettings.SpawnerData(EntityType.DONKEY, 1, 2));
+        spawnBuilder.addSpawn(EntityTypes.HORSE, 1, 2, 6);
+        spawnBuilder.addSpawn(EntityTypes.DONKEY, 1, 1, 2);
         BiomeDefaultFeatures.commonSpawns(spawnBuilder);
         if(hasArmadilloSpawns) {
-            spawnBuilder.addSpawn(MobCategory.CREATURE, 6, new MobSpawnSettings.SpawnerData(EntityType.ARMADILLO, 1, 2));
-            spawnBuilder.creatureGenerationProbability(0.03F);
+            spawnBuilder.addSpawn(EntityTypes.ARMADILLO, 6, 1, 2);
         }
         return spawnBuilder;
     }
 
-    private static BiomeGenerationSettings.Builder baseSavannaGeneration(HolderGetter<PlacedFeature> featureGetter, HolderGetter<ConfiguredWorldCarver<?>> carverGetter, boolean addGrass) {
+    private static BiomeGenerationSettings.Builder baseSavannaGeneration(HolderGetter<PlacedFeature> featureGetter, HolderGetter<WorldCarver> carverGetter, boolean addGrass) {
         BiomeGenerationSettings.Builder builder = new BiomeGenerationSettings.Builder(featureGetter, carverGetter);
         globalOverworldGeneration(builder);
         if (addGrass) {
@@ -56,7 +56,7 @@ public class AridBiomes {
         return builder;
     }
     
-    private static BiomeGenerationSettings.Builder baseDesertGeneration(HolderGetter<PlacedFeature> featureGetter, HolderGetter<ConfiguredWorldCarver<?>> carverGetter, boolean denseCactus) {
+    private static BiomeGenerationSettings.Builder baseDesertGeneration(HolderGetter<PlacedFeature> featureGetter, HolderGetter<WorldCarver> carverGetter, boolean denseCactus) {
         BiomeGenerationSettings.Builder builder = new BiomeGenerationSettings.Builder(featureGetter, carverGetter);
         BiomeDefaultFeatures.addFossilDecoration(builder);
         globalOverworldGeneration(builder);
@@ -76,7 +76,7 @@ public class AridBiomes {
         return builder;
     }
 
-    public static Biome baobabSavanna(HolderGetter<PlacedFeature> featureGetter, HolderGetter<ConfiguredWorldCarver<?>> carverGetter) {
+    public static Biome baobabSavanna(HolderGetter<PlacedFeature> featureGetter, HolderGetter<WorldCarver> carverGetter) {
         BiomeSpecialEffects.Builder effectBuilder = new BiomeSpecialEffects.Builder()
             .waterColor(NORMAL_WATER_COLOR)
             .foliageColorOverride(-6636971)
@@ -101,7 +101,7 @@ public class AridBiomes {
             .build();
     }
 
-    public static Biome dryBushland(HolderGetter<PlacedFeature> featureGetter, HolderGetter<ConfiguredWorldCarver<?>> carverGetter) {
+    public static Biome dryBushland(HolderGetter<PlacedFeature> featureGetter, HolderGetter<WorldCarver> carverGetter) {
         BiomeSpecialEffects.Builder effectBuilder = new BiomeSpecialEffects.Builder()
             .waterColor(NORMAL_WATER_COLOR)
             .foliageColorOverride(-5060484)
@@ -129,7 +129,7 @@ public class AridBiomes {
             .build();
     }
 
-    public static Biome joshuaDesert(HolderGetter<PlacedFeature> featureGetter, HolderGetter<ConfiguredWorldCarver<?>> carverGetter) {
+    public static Biome joshuaDesert(HolderGetter<PlacedFeature> featureGetter, HolderGetter<WorldCarver> carverGetter) {
         BiomeSpecialEffects.Builder effectBuilder = new BiomeSpecialEffects.Builder()
             .waterColor(NORMAL_WATER_COLOR)
             .foliageColorOverride(0x7fae4d)
@@ -150,6 +150,7 @@ public class AridBiomes {
         MobSpawnSettings.Builder spawnBuilder = baseDesertSpawning(true);
 
         return biomeBuilder(2f, 0f, false)
+            .setAttribute(EnvironmentAttributes.CREATURE_WORLD_GEN_SPAWN_PROBABILITY, 0.03F)
             .setAttribute(EnvironmentAttributes.BACKGROUND_MUSIC, new BackgroundMusic(SoundEvents.MUSIC_BIOME_DESERT))
             .specialEffects(effectBuilder.build())
             .mobSpawnSettings(spawnBuilder.build())
@@ -157,7 +158,7 @@ public class AridBiomes {
             .build();
     }
 
-    public static Biome outback(HolderGetter<PlacedFeature> featureGetter, HolderGetter<ConfiguredWorldCarver<?>> carverGetter) {
+    public static Biome outback(HolderGetter<PlacedFeature> featureGetter, HolderGetter<WorldCarver> carverGetter) {
         BiomeSpecialEffects.Builder effectBuilder = new BiomeSpecialEffects.Builder()
             .waterColor(NORMAL_WATER_COLOR)
             .foliageColorOverride(-8016810)
@@ -176,10 +177,10 @@ public class AridBiomes {
 
         //add mob spawns
         MobSpawnSettings.Builder spawnBuilder = baseDesertSpawning(true);
-        spawnBuilder.addSpawn(MobCategory.CREATURE, 4, new MobSpawnSettings.SpawnerData(EntityType.WOLF, 4, 8));
-        spawnBuilder.creatureGenerationProbability(0.04F);
+        spawnBuilder.addSpawn(EntityTypes.WOLF, 4, 4, 8);
 
         return biomeBuilder(2f, 0f, false)
+            .setAttribute(EnvironmentAttributes.CREATURE_WORLD_GEN_SPAWN_PROBABILITY, 0.04F)
             .setAttribute(EnvironmentAttributes.BACKGROUND_MUSIC, new BackgroundMusic(SoundEvents.MUSIC_BIOME_DESERT))
                 .specialEffects(effectBuilder.build())
                 .mobSpawnSettings(spawnBuilder.build())
@@ -187,7 +188,7 @@ public class AridBiomes {
                 .build();
     }
 
-    public static Biome saguaroDesert(HolderGetter<PlacedFeature> featureGetter, HolderGetter<ConfiguredWorldCarver<?>> carverGetter) {
+    public static Biome saguaroDesert(HolderGetter<PlacedFeature> featureGetter, HolderGetter<WorldCarver> carverGetter) {
         BiomeSpecialEffects.Builder effectBuilder = new BiomeSpecialEffects.Builder()
             .waterColor(NORMAL_WATER_COLOR)
             .foliageColorOverride(-6836695)
@@ -214,7 +215,7 @@ public class AridBiomes {
             .build();
     }
 
-    public static Biome steppe(HolderGetter<PlacedFeature> featureGetter, HolderGetter<ConfiguredWorldCarver<?>> carverGetter) {
+    public static Biome steppe(HolderGetter<PlacedFeature> featureGetter, HolderGetter<WorldCarver> carverGetter) {
         BiomeSpecialEffects.Builder effectBuilder = new BiomeSpecialEffects.Builder()
             .waterColor(NORMAL_WATER_COLOR)
             .foliageColorOverride(-5589135)

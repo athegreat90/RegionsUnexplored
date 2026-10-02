@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:simple_block",
+  "to_place": {
+    "id": "regions_unexplored:magnolia_shrub",
+    "properties": {
+      "half": "lower"
+    }
+  }
+}

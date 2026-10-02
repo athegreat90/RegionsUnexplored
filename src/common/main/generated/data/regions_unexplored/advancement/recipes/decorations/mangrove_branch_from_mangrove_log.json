@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "regions_unexplored:mangrove_branch_from_mangrove_log"
+        "recipes": "regions_unexplored:mangrove_branch_from_mangrove_log"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

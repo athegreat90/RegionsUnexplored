@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "regions_unexplored:kapok_branch_from_kapok_log"
+        "recipes": "regions_unexplored:kapok_branch_from_kapok_log"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

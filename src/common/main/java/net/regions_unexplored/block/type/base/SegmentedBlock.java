@@ -22,7 +22,6 @@ import net.regions_unexplored.util.RUUtils;
 import java.util.function.BiFunction;
 
 public class SegmentedBlock extends VegetationBlock {
-	public static final MapCodec<? extends SegmentedBlock> CODEC = simpleCodec(SegmentedBlock::new);
 	public static final EnumProperty<Direction> FACING = BlockStateProperties.HORIZONTAL_FACING;
 	public static final IntegerProperty AMOUNT = BlockStateProperties.FLOWER_AMOUNT;
 	private static final BiFunction<Direction, Integer, VoxelShape> SHAPE_BY_PROPERTIES = RUUtils.memoize((direction, amount) -> {
@@ -41,11 +40,6 @@ public class SegmentedBlock extends VegetationBlock {
 		
 		return mergedShapes.singleEncompassing();
 	});
-	
-	@Override
-	protected MapCodec<? extends VegetationBlock> codec() {
-		return CODEC;
-	}
 	
 	protected SegmentedBlock(Properties properties) {
 		super(properties);

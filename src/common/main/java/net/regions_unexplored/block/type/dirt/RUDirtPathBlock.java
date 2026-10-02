@@ -24,17 +24,8 @@ import javax.annotation.Nullable;
 
 public class RUDirtPathBlock extends Block {
     private static final VoxelShape SHAPE = RUBlockUtils.column(16.0, 0.0, 15.0);
-    public static final MapCodec<RUDirtPathBlock> CODEC = RecordCodecBuilder.mapCodec(i -> i.group(
-        ResourceKey.codec(Registries.BLOCK).fieldOf("base_block").forGetter(block -> block.baseBlock),
-        propertiesCodec()
-    ).apply(i, RUDirtPathBlock::new));
-    
+
     private final ResourceKey<Block> baseBlock;
-    
-    @Override
-    public MapCodec<RUDirtPathBlock> codec() {
-        return CODEC;
-    }
     
     public RUDirtPathBlock(ResourceKey<Block> baseBlock, Properties properties) {
         super(properties);

@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "regions_unexplored:baobab_slab"
+        "recipes": "regions_unexplored:baobab_slab"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

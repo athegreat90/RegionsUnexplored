@@ -1,6 +1,7 @@
 package net.regions_unexplored.block.type.aquatic;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.block.BonemealSource;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
@@ -29,7 +30,7 @@ public class FloweringLilyPadBlock extends LilyPadBlock implements BonemealableB
     }
 
     @Override
-    public boolean isValidBonemealTarget(LevelReader level, BlockPos pos, BlockState state) {
+    public boolean isValidBonemealTarget(LevelReader level, BlockPos pos, BlockState state, BonemealSource source) {
         BlockPos belowPos = pos.below();
         for (Direction direction : Direction.Plane.HORIZONTAL) {
             if (
@@ -48,12 +49,12 @@ public class FloweringLilyPadBlock extends LilyPadBlock implements BonemealableB
     }
 
     @Override
-    public boolean isBonemealSuccess(Level level, RandomSource random, BlockPos pos, BlockState state) {
+    public boolean isBonemealSuccess(Level level, RandomSource random, BlockPos pos, BlockState state, BonemealSource source) {
         return true;
     }
 
     @Override
-    public void performBonemeal(ServerLevel level, RandomSource random, BlockPos pos, BlockState state) {
+    public void performBonemeal(ServerLevel level, RandomSource random, BlockPos pos, BlockState state, BonemealSource source) {
         GiantLilyPadBlock.tryPlace(level, pos, random);
     }
 }

@@ -21,15 +21,13 @@
         "mode": "per_block",
         "name": "lithostitched:default"
       },
-      "then": [
-        {
-          "blocks": {
-            "minecraft:dirt_path": "regions_unexplored:silt_dirt_path",
-            "minecraft:grass_block": "regions_unexplored:silt_grass_block"
-          },
-          "processor_type": "lithostitched:block_swap"
-        }
-      ]
+      "then": {
+        "blocks": {
+          "minecraft:dirt_path": "regions_unexplored:silt_dirt_path",
+          "minecraft:grass_block": "regions_unexplored:silt_grass_block"
+        },
+        "processor_type": "lithostitched:block_swap"
+      }
     },
     {
       "else": [],
@@ -52,15 +50,13 @@
         "mode": "per_block",
         "name": "lithostitched:default"
       },
-      "then": [
-        {
-          "blocks": {
-            "minecraft:dirt_path": "regions_unexplored:peat_dirt_path",
-            "minecraft:grass_block": "regions_unexplored:peat_grass_block"
-          },
-          "processor_type": "lithostitched:block_swap"
-        }
-      ]
+      "then": {
+        "blocks": {
+          "minecraft:dirt_path": "regions_unexplored:peat_dirt_path",
+          "minecraft:grass_block": "regions_unexplored:peat_grass_block"
+        },
+        "processor_type": "lithostitched:block_swap"
+      }
     }
   ]
 }

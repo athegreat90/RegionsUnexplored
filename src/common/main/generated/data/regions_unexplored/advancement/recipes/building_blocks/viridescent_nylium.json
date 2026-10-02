@@ -23,7 +23,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "regions_unexplored:viridescent_nylium"
+        "recipes": "regions_unexplored:viridescent_nylium"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

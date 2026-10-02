@@ -7,6 +7,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.EntityTypes;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
@@ -24,7 +25,6 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import net.regions_unexplored.registry.RUBlocks;
 
 public class GiantLilyPadBlock extends HorizontalDirectionalBlock {
-    public static final MapCodec<? extends GiantLilyPadBlock> CODEC = simpleCodec(GiantLilyPadBlock::new);
     public static final EnumProperty<Direction> FACING = HorizontalDirectionalBlock.FACING;
     
     protected static final VoxelShape NORTH = Block.box(0, 0, 2, 14, 2, 16);
@@ -33,12 +33,7 @@ public class GiantLilyPadBlock extends HorizontalDirectionalBlock {
     protected static final VoxelShape WEST = Block.box(2, 0, 2, 16, 2, 16);
 
     public GiantLilyPadBlock(Properties properties) {
-        super(properties);
-    }
-
-    @Override
-    protected MapCodec<? extends HorizontalDirectionalBlock> codec() {
-        return CODEC;
+        super(properties.bounceRestitution(1));
     }
 
     @Override
@@ -48,7 +43,7 @@ public class GiantLilyPadBlock extends HorizontalDirectionalBlock {
 
     @Override
     public void fallOn(final Level level, final BlockState state, final BlockPos pos, final Entity entity, final double fallDistance) {
-        if(entity.getType() != EntityType.FROG) {
+        if(entity.getType() != EntityTypes.FROG) {
             if (entity.isSuppressingBounce()) {
                 super.fallOn(level, state, pos, entity, fallDistance);
             } else {
@@ -57,33 +52,8 @@ public class GiantLilyPadBlock extends HorizontalDirectionalBlock {
         }
     }
 
-    @Override
-    public void updateEntityMovementAfterFallOn(final BlockGetter level, final Entity entity) {
-        Vec3 vec3 = entity.getDeltaMovement();
-        if (vec3.y < -0.7D) {
-            if(entity.getType() != EntityType.FROG) {
-                if (entity.isSuppressingBounce()) {
-                    super.updateEntityMovementAfterFallOn(level, entity);
-                } else {
-                    this.bounceUp(entity);
-                }
-            }
-        }
-        else{
-            entity.setDeltaMovement(entity.getDeltaMovement().multiply(1, 0, 1));
-            entity.setDeltaMovement(entity.getDeltaMovement().multiply(1, 0, 1));
-        }
-    }
-
-    private void bounceUp(Entity entity) {
-        if(entity.getType() != EntityType.FROG) {
-            Vec3 vec3 = entity.getDeltaMovement();
-            if (vec3.y < 0) {
-                double d0 = entity instanceof LivingEntity ? 1 : 0.8D;
-                entity.setDeltaMovement(vec3.x, -vec3.y * d0, vec3.z);
-            }
-        }
-    }
+    // EntityBounceMixin preserves the minimum fall speed and frog exemption when
+    // Minecraft's collision restitution handles the bounce.
 
     public VoxelShape getShape(BlockState state, BlockGetter block, BlockPos pos, CollisionContext context) {
         if(state== this.defaultBlockState().setValue(FACING, Direction.NORTH)){

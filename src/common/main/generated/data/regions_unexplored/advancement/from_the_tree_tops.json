@@ -3,7 +3,7 @@
   "criteria": {
     "kapok_vines": {
       "conditions": {
-        "block": "regions_unexplored:kapok_vines_plant"
+        "blocks": "regions_unexplored:kapok_vines_plant"
       },
       "trigger": "minecraft:enter_block"
     }

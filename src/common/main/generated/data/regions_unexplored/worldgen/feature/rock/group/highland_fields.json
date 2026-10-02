@@ -1,0 +1,26 @@
+{
+  "type": "minecraft:weighted_random_selector",
+  "features": [
+    {
+      "data": {
+        "feature": "regions_unexplored:rock/cobblestone",
+        "placement": []
+      },
+      "weight": 1
+    },
+    {
+      "data": {
+        "feature": "regions_unexplored:rock/stone_large",
+        "placement": []
+      },
+      "weight": 2
+    },
+    {
+      "data": {
+        "feature": "regions_unexplored:rock/mossy_stone_large",
+        "placement": []
+      },
+      "weight": 3
+    }
+  ]
+}

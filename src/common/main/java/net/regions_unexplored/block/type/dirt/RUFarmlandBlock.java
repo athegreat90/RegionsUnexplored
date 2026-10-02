@@ -31,7 +31,7 @@ public class RUFarmlandBlock extends FarmlandBlock {
     private final ResourceKey<Block> baseBlock;
     
     public RUFarmlandBlock(ResourceKey<Block> baseBlock, Properties properties) {
-        super(properties);
+        super(Blocks.DIRT, properties);
         this.baseBlock = baseBlock;
         this.registerDefaultState(this.stateDefinition.any().setValue(MOISTURE, 0));
     }
@@ -72,7 +72,7 @@ public class RUFarmlandBlock extends FarmlandBlock {
             && entity instanceof LivingEntity
             && (entity instanceof Player || serverLevel.getGameRules().get(GameRules.MOB_GRIEFING))
             && entity.getBbWidth() * entity.getBbWidth() * entity.getBbHeight() > 0.512F) {
-            turnToDirt(entity, state, level, pos);
+            turnToDirt(this.getBaseBlock(level), entity, state, level, pos);
         }
         
         super.fallOn(level, state, pos, entity, fallDistance);

@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "regions_unexplored:red_painted_stairs"
+        "recipes": "regions_unexplored:red_painted_stairs"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

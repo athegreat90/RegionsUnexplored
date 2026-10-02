@@ -9,7 +9,8 @@ import net.minecraft.core.particles.ParticleType;
 import net.minecraft.util.ParticleUtils;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.LeavesBlock;
+import net.minecraft.world.level.block.FallingParticlesLeavesBlock;
+import net.minecraft.world.level.block.sounds.AmbientLeavesBlockSoundPlayer;
 import net.minecraft.world.level.block.state.BlockState;
 import net.regions_unexplored.block.BlockFactory;
 import net.regions_unexplored.registry.RUParticleTypes;
@@ -17,23 +18,18 @@ import net.regions_unexplored.registry.RUParticleTypes;
 import java.util.function.BiFunction;
 import java.util.function.Supplier;
 
-public class RUTintedParticlesLeavesBlock extends LeavesBlock {
+public class RUTintedParticlesLeavesBlock extends FallingParticlesLeavesBlock {
     public static final float DEFAULT_PARTICLE_CHANCE = 0.025f;
 
     private final Supplier<ParticleType<ColorParticleOption>> particle;
     private final TintGetter tintGetter;
 
     public RUTintedParticlesLeavesBlock(Properties properties, Supplier<ParticleType<ColorParticleOption>> particle, TintGetter getter, float particleChance) {
-        super(particleChance, properties);
+        super(particleChance, AmbientLeavesBlockSoundPlayer.noAmbientSound(), properties);
         this.particle = particle;
         this.tintGetter = getter;
     }
     
-    @Override
-    public MapCodec<? extends LeavesBlock> codec() {
-        return null;
-    }
-
     public static BlockFactory<RUTintedParticlesLeavesBlock> small(TintGetter tint) {
         return p -> new RUTintedParticlesLeavesBlock(p, RUParticleTypes.SMALL_LEAVES, tint, DEFAULT_PARTICLE_CHANCE);
     }

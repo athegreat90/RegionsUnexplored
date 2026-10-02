@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:multiface_growth",
+  "block": "regions_unexplored:white_magnolia_flowers",
+  "can_be_placed_on": [
+    "minecraft:stone",
+    "regions_unexplored:stone_grass_block",
+    "minecraft:jungle_log",
+    "regions_unexplored:palm_log"
+  ],
+  "can_place_on_ceiling": true,
+  "can_place_on_wall": true,
+  "search_range": 20
+}

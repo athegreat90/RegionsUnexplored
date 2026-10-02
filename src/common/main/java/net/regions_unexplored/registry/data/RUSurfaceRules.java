@@ -1,22 +1,22 @@
 package net.regions_unexplored.registry.data;
 
-import dev.worldgen.lithostitched.api.registry.LithostitchedRegistries;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.world.level.levelgen.SurfaceRules.RuleSource;
+import net.minecraft.world.level.levelgen.material.rule.MaterialRule;
 import net.regions_unexplored.RegionsUnexplored;
 
 public interface RUSurfaceRules {
-    ResourceKey<RuleSource> OVERWORLD = key("overworld");
-    
-    ResourceKey<RuleSource> CAVES = key("overworld/caves");
-    ResourceKey<RuleSource> SWAMP = key("overworld/swamp");
-    ResourceKey<RuleSource> SURFACE = key("overworld/surface");
-    ResourceKey<RuleSource> SURFACE_AND_UNDER_SURFACE = key("overworld/surface_and_under_surface");
-    ResourceKey<RuleSource> UNDER_SURFACE = key("overworld/under_surface");
-    
-    ResourceKey<RuleSource> NETHER = key("nether");
+    ResourceKey<MaterialRule> OVERWORLD = key("overworld");
 
-    static ResourceKey<RuleSource> key(String name) {
-        return RegionsUnexplored.key(LithostitchedRegistries.SURFACE_RULE, name);
+    ResourceKey<MaterialRule> CAVES = key("overworld/caves");
+    ResourceKey<MaterialRule> SWAMP = key("overworld/swamp");
+    ResourceKey<MaterialRule> SURFACE = key("overworld/surface");
+    ResourceKey<MaterialRule> SURFACE_AND_UNDER_SURFACE = key("overworld/surface_and_under_surface");
+    ResourceKey<MaterialRule> UNDER_SURFACE = key("overworld/under_surface");
+
+    ResourceKey<MaterialRule> NETHER = key("nether");
+
+    static ResourceKey<MaterialRule> key(String name) {
+        return RegionsUnexplored.key(Registries.MATERIAL_RULE, name);
     }
 }

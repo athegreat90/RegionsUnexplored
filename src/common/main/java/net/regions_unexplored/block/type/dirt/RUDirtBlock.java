@@ -1,19 +1,18 @@
 package net.regions_unexplored.block.type.dirt;
 
-import net.minecraft.advancements.CriteriaTriggers;
+import net.minecraft.advancements.triggers.CriteriaTriggers;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.HoeItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.item.ShovelItem;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
@@ -46,17 +45,17 @@ public class RUDirtBlock extends Block {
             return InteractionResult.PASS;
         }
         
-        if (stack.getItem() instanceof ShovelItem && this.pathBlock.isPresent()) {
+        if (stack.is(ItemTags.SHOVELS) && this.pathBlock.isPresent()) {
             if (!level.isClientSide()) {
-                updateBlock(this.pathBlock, SoundEvents.SHOVEL_FLATTEN, stack, level, pos, player, hand);
+                updateBlock(this.pathBlock, SoundEvents.SHOVEL_FLATTEN.value(), stack, level, pos, player, hand);
                 return InteractionResult.SUCCESS_SERVER;
             }
             return InteractionResult.SUCCESS;
         }
         
-        if (stack.getItem() instanceof HoeItem && this.farmlandBlock.isPresent()) {
+        if (stack.is(ItemTags.HOES) && this.farmlandBlock.isPresent()) {
             if (!level.isClientSide()) {
-                updateBlock(this.farmlandBlock, SoundEvents.HOE_TILL, stack, level, pos, player, hand);
+                updateBlock(this.farmlandBlock, SoundEvents.HOE_TILL.value(), stack, level, pos, player, hand);
                 return InteractionResult.SUCCESS_SERVER;
             }
             return InteractionResult.SUCCESS;

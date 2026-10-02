@@ -1,0 +1,25 @@
+{
+  "type": "regions_unexplored:small_eucalyptus_tree",
+  "branch_provider": {
+    "id": "regions_unexplored:eucalyptus_branch",
+    "properties": {
+      "facing": "north"
+    }
+  },
+  "foliage_provider": {
+    "id": "regions_unexplored:eucalyptus_leaves",
+    "properties": {
+      "distance": "7",
+      "persistent": "false",
+      "waterlogged": "false"
+    }
+  },
+  "minimum_size": 13,
+  "size_variation": 8,
+  "trunk_provider": {
+    "id": "regions_unexplored:eucalyptus_log",
+    "properties": {
+      "axis": "y"
+    }
+  }
+}

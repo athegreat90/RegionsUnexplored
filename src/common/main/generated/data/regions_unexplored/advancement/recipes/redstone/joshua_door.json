@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "regions_unexplored:joshua_door"
+        "recipes": "regions_unexplored:joshua_door"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

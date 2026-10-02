@@ -1,0 +1,25 @@
+{
+  "type": "regions_unexplored:blackwood_tree",
+  "branch_provider": {
+    "id": "regions_unexplored:blackwood_branch",
+    "properties": {
+      "facing": "north"
+    }
+  },
+  "foliage_provider": {
+    "id": "regions_unexplored:blackwood_leaves",
+    "properties": {
+      "distance": "7",
+      "persistent": "false",
+      "waterlogged": "false"
+    }
+  },
+  "minimum_size": 19,
+  "size_variation": 5,
+  "trunk_provider": {
+    "id": "regions_unexplored:blackwood_log",
+    "properties": {
+      "axis": "y"
+    }
+  }
+}

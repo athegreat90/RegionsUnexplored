@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "regions_unexplored:cypress_button"
+        "recipes": "regions_unexplored:cypress_button"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

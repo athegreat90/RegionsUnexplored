@@ -1,6 +1,5 @@
 {
   "type": "minecraft:crafting_shaped",
-  "category": "misc",
   "group": "bioshrooms",
   "key": {
     "#": "regions_unexplored:pink_bioshroom"

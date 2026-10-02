@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "regions_unexplored:chalk_pillar"
+        "recipes": "regions_unexplored:chalk_pillar"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

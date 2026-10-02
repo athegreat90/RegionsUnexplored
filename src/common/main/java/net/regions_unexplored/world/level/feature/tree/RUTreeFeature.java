@@ -1,5 +1,6 @@
 package net.regions_unexplored.world.level.feature.tree;
 
+import net.minecraft.core.Holder;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.util.ExtraCodecs;
@@ -33,9 +34,9 @@ public abstract class RUTreeFeature implements Feature {
 
     protected static <F extends RUTreeFeature> MapCodec<F> treeCodec(TreeFeatureFactory<F> factory) {
         return RecordCodecBuilder.mapCodec(i -> i.group(
-            BlockStateProvider.CODEC.fieldOf("trunk_provider").forGetter(f -> f.trunkProvider),
-            BlockStateProvider.CODEC.fieldOf("foliage_provider").forGetter(f -> f.foliageProvider),
-            BlockStateProvider.CODEC.fieldOf("branch_provider").forGetter(f -> f.branchProvider),
+            BlockStateProvider.CODEC.xmap(Holder::value, Holder::direct).fieldOf("trunk_provider").forGetter(f -> f.trunkProvider),
+            BlockStateProvider.CODEC.xmap(Holder::value, Holder::direct).fieldOf("foliage_provider").forGetter(f -> f.foliageProvider),
+            BlockStateProvider.CODEC.xmap(Holder::value, Holder::direct).fieldOf("branch_provider").forGetter(f -> f.branchProvider),
             TreeDecorator.CODEC.listOf().optionalFieldOf("decorators", List.of()).forGetter(f -> f.decorators),
             ExtraCodecs.POSITIVE_INT.fieldOf("minimum_size").forGetter(f -> f.minimumSize),
             ExtraCodecs.NON_NEGATIVE_INT.fieldOf("size_variation").forGetter(f -> f.sizeVariation)

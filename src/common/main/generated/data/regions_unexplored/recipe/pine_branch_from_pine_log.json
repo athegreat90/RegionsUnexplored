@@ -1,6 +1,5 @@
 {
   "type": "minecraft:crafting_shaped",
-  "category": "misc",
   "group": "branches",
   "key": {
     "#": "regions_unexplored:pine_log",

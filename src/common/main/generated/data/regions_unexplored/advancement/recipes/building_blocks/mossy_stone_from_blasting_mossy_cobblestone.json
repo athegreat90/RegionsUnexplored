@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "regions_unexplored:mossy_stone_from_blasting_mossy_cobblestone"
+        "recipes": "regions_unexplored:mossy_stone_from_blasting_mossy_cobblestone"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

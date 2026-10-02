@@ -6,5 +6,6 @@
     "type": "regions_unexplored:config",
     "key": "vanilla_changes/snowy_frozen_grass"
   },
+  "priority": 1000,
   "step": "vegetal_decoration"
 }

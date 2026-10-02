@@ -3,7 +3,7 @@
   "criteria": {
     "has_the_recipe": {
       "conditions": {
-        "recipe": "regions_unexplored:yellow_bioshroom_door"
+        "recipes": "regions_unexplored:yellow_bioshroom_door"
       },
       "trigger": "minecraft:recipe_unlocked"
     },

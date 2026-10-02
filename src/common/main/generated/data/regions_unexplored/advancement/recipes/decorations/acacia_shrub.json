@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "regions_unexplored:acacia_shrub"
+        "recipes": "regions_unexplored:acacia_shrub"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

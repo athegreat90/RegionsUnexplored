@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "regions_unexplored:iridescent_ring"
+        "recipes": "regions_unexplored:iridescent_ring"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

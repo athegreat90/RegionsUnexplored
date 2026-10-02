@@ -1,0 +1,26 @@
+{
+  "type": "minecraft:weighted_random_selector",
+  "features": [
+    {
+      "data": {
+        "feature": "regions_unexplored:special/blue_magnolia",
+        "placement": []
+      },
+      "weight": 1
+    },
+    {
+      "data": {
+        "feature": "regions_unexplored:special/pink_magnolia",
+        "placement": []
+      },
+      "weight": 1
+    },
+    {
+      "data": {
+        "feature": "regions_unexplored:special/white_magnolia",
+        "placement": []
+      },
+      "weight": 1
+    }
+  ]
+}

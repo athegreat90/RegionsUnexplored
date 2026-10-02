@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "regions_unexplored:cypress_trapdoor"
+        "recipes": "regions_unexplored:cypress_trapdoor"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

@@ -16,7 +16,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.levelgen.Heightmap.Types;
 import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
-import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
+import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.placement.*;
 import net.regions_unexplored.RegionsUnexplored;
 import net.regions_unexplored.registry.RUBlocks;
@@ -110,7 +110,7 @@ public class RuTreePlacements {
     }
 
     public static void bootstrap(BootstrapContext<PlacedFeature> context) {
-        HolderGetter<ConfiguredFeature<?, ?>> getter = context.lookup(Registries.CONFIGURED_FEATURE);
+        HolderGetter<Feature> getter = context.lookup(Registries.FEATURE);
 
         //---------------------FEATURES---------------------//
         var acaciaShrub = getter.getOrThrow(RUConfiguredFeatures.TREE_ACACIA_SHRUB);
@@ -200,7 +200,7 @@ public class RuTreePlacements {
         register(context, RuTreePlacements.TREE_GROUP_OLD_GROWTH_FOREST, placementTree(10, Blocks.OAK_SAPLING));
         register(context, RuTreePlacements.TREE_GROUP_ARID_MOUNTAINS, placementTree(1, Blocks.GRASS_BLOCK));
         register(context, RuTreePlacements.TREE_GROUP_GRASSLAND, placementTree(1, Blocks.OAK_SAPLING));
-        register(context, RuTreePlacements.TREE_GROUP_GRASSY_BEACH, placementTree(0.2f, RUBlocks.PALM_NATURAL_SET).add(LithostitchedPlacementModifiers.condition(LithostitchedPlacementConditions.sampleNoiseRouter(NoiseRouterTarget.TEMPERATURE, new InclusiveRange<>(0.2, 0.55)))));
+        register(context, RuTreePlacements.TREE_GROUP_GRASSY_BEACH, placementTree(0.2f, RUBlocks.PALM_NATURAL_SET).add(LithostitchedPlacementModifiers.condition(LithostitchedPlacementConditions.sampleNoiseRouter(NoiseRouterTarget.TEMPERATURE, new InclusiveRange<>(0.2f, 0.55f)))));
         
         register(context, RuTreePlacements.TREE_GROUP_CHALK_CLIFFS, placementTree(1, Blocks.OAK_SAPLING));
         register(context, RuTreePlacements.TREE_GROUP_TROPICAL_RIVER, placement(1, Types.OCEAN_FLOOR).notSubmerged().filter(RUBlocks.PALM_NATURAL_SET.getSapling()));
@@ -248,10 +248,10 @@ public class RuTreePlacements {
             BlockPredicateFilter.forPredicate(BlockPredicate.allOf(
                 saplingWouldSurvive(RUBlocks.REDWOOD_NATURAL_SET),
                 BlockPredicate.not(BlockPredicate.anyOf(
-                    BlockPredicate.matchesBlocks(Vec3i.ZERO.above().north(), RUBlocks.REDWOOD_WOOD_SET.getLog()),
-                    BlockPredicate.matchesBlocks(Vec3i.ZERO.above().south(), RUBlocks.REDWOOD_WOOD_SET.getLog()),
-                    BlockPredicate.matchesBlocks(Vec3i.ZERO.above().east(), RUBlocks.REDWOOD_WOOD_SET.getLog()),
-                    BlockPredicate.matchesBlocks(Vec3i.ZERO.above().west(), RUBlocks.REDWOOD_WOOD_SET.getLog())
+                    BlockPredicate.matchesBlocks(Vec3i.ZERO.above().north(), List.of(RUBlocks.REDWOOD_WOOD_SET.getLog())),
+                    BlockPredicate.matchesBlocks(Vec3i.ZERO.above().south(), List.of(RUBlocks.REDWOOD_WOOD_SET.getLog())),
+                    BlockPredicate.matchesBlocks(Vec3i.ZERO.above().east(), List.of(RUBlocks.REDWOOD_WOOD_SET.getLog())),
+                    BlockPredicate.matchesBlocks(Vec3i.ZERO.above().west(), List.of(RUBlocks.REDWOOD_WOOD_SET.getLog()))
                 ))
             )),
             BiomeFilter.biome()
@@ -330,6 +330,6 @@ public class RuTreePlacements {
     }
 
     private static BlockPredicate saplingWouldSurvive(NaturalSet set) {
-        return BlockPredicate.wouldSurvive(set.getSapling().defaultBlockState(), Vec3i.ZERO);
+        return BlockPredicate.wouldSurvive(set.getSapling());
     }
 }

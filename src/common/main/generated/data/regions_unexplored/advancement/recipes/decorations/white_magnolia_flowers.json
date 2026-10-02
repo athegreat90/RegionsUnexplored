@@ -3,7 +3,7 @@
   "criteria": {
     "has_the_recipe": {
       "conditions": {
-        "recipe": "regions_unexplored:white_magnolia_flowers"
+        "recipes": "regions_unexplored:white_magnolia_flowers"
       },
       "trigger": "minecraft:recipe_unlocked"
     },

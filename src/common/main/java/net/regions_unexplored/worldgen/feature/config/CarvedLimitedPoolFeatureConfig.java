@@ -1,5 +1,6 @@
 package net.regions_unexplored.worldgen.feature.config;
 
+import net.minecraft.core.Holder;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.util.valueproviders.IntProvider;
@@ -13,7 +14,7 @@ public record CarvedLimitedPoolFeatureConfig(int depth, IntProvider slopeDepth, 
         IntProviders.codec(0, 16).fieldOf("slope_depth").forGetter(placer -> placer.slopeDepth),
         BlockPredicate.CODEC.fieldOf("pool_allowed").forGetter(placer -> placer.pool),
         BlockPredicate.CODEC.fieldOf("wall_allowed").forGetter(placer -> placer.wall),
-        BlockStateProvider.CODEC.fieldOf("slope").forGetter(CarvedLimitedPoolFeatureConfig::slope),
-        BlockStateProvider.CODEC.fieldOf("slopeTop").forGetter(CarvedLimitedPoolFeatureConfig::slopeTop)
+        BlockStateProvider.CODEC.xmap(Holder::value, Holder::direct).fieldOf("slope").forGetter(CarvedLimitedPoolFeatureConfig::slope),
+        BlockStateProvider.CODEC.xmap(Holder::value, Holder::direct).fieldOf("slopeTop").forGetter(CarvedLimitedPoolFeatureConfig::slopeTop)
     ).apply(builder, CarvedLimitedPoolFeatureConfig::new));
 }

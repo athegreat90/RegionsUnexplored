@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "regions_unexplored:wisteria_branch_from_wisteria_log"
+        "recipes": "regions_unexplored:wisteria_branch_from_wisteria_log"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

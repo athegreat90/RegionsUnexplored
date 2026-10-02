@@ -12,10 +12,14 @@ public class RUBiomeUtils {
     public static final int NORMAL_WATER_FOG_COLOR = 329011;
     public static final int OVERWORLD_FOG_COLOR = 12638463;
     
-    public static int calculateSkyColor(float temperature) {
+    public static org.joml.Vector3fc calculateSkyColor(float temperature) {
         float temp = temperature / 3.0F;
         temp = Mth.clamp(temp, -1.0F, 1.0F);
-        return Mth.hsvToRgb(0.62222224F - temp * 0.05F, 0.5F + temp * 0.1F, 1.0F);
+        return rgb(Mth.hsvToRgb(0.62222224F - temp * 0.05F, 0.5F + temp * 0.1F, 1.0F));
+    }
+
+    public static org.joml.Vector3fc rgb(int color) {
+        return new org.joml.Vector3f((color >> 16 & 255) / 255.0f, (color >> 8 & 255) / 255.0f, (color & 255) / 255.0f);
     }
     
     public static BiomeSpecialEffects.Builder effectBuilder() {

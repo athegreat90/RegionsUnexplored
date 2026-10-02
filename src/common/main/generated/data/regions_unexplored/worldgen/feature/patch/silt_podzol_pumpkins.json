@@ -1,0 +1,96 @@
+{
+  "type": "lithostitched:placed",
+  "feature": {
+    "feature": {
+      "type": "minecraft:simple_block",
+      "to_place": {
+        "type": "minecraft:weighted",
+        "entries": [
+          {
+            "data": "minecraft:pumpkin",
+            "weight": 96
+          },
+          {
+            "data": "minecraft:carved_pumpkin",
+            "weight": 1
+          },
+          {
+            "data": {
+              "id": "minecraft:carved_pumpkin",
+              "properties": {
+                "facing": "south"
+              }
+            },
+            "weight": 1
+          },
+          {
+            "data": {
+              "id": "minecraft:carved_pumpkin",
+              "properties": {
+                "facing": "east"
+              }
+            },
+            "weight": 1
+          },
+          {
+            "data": {
+              "id": "minecraft:carved_pumpkin",
+              "properties": {
+                "facing": "west"
+              }
+            },
+            "weight": 1
+          }
+        ]
+      }
+    },
+    "placement": [
+      {
+        "type": "minecraft:count",
+        "count": 16
+      },
+      {
+        "type": "minecraft:offset",
+        "x": {
+          "type": "minecraft:trapezoid",
+          "max": 7,
+          "min": -7,
+          "plateau": 0
+        },
+        "y": {
+          "type": "minecraft:trapezoid",
+          "max": 3,
+          "min": -3,
+          "plateau": 0
+        },
+        "z": {
+          "type": "minecraft:trapezoid",
+          "max": 7,
+          "min": -7,
+          "plateau": 0
+        }
+      },
+      {
+        "type": "minecraft:block_predicate_filter",
+        "predicate": {
+          "type": "minecraft:all_of",
+          "predicates": [
+            {
+              "type": "minecraft:matching_block_tag",
+              "tag": "minecraft:air"
+            },
+            {
+              "type": "minecraft:matching_blocks",
+              "blocks": "regions_unexplored:silt_podzol",
+              "offset": [
+                0,
+                -1,
+                0
+              ]
+            }
+          ]
+        }
+      }
+    ]
+  }
+}

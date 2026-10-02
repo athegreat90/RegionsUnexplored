@@ -15,18 +15,12 @@ import net.regions_unexplored.block.RUBlockUtils;
 import net.regions_unexplored.registry.RUBlocks;
 
 public class RUPlantBlock extends VegetationBlock {
-    public static final MapCodec<? extends RUPlantBlock> CODEC = simpleCodec(RUPlantBlock::new);
     protected static final VoxelShape SHAPE = RUBlockUtils.column(12, 0, 13);
 
     public RUPlantBlock(Properties properties) {
         super(properties);
     }
 
-    @Override
-    protected MapCodec<? extends VegetationBlock> codec() {
-        return CODEC;
-    }
-    
     @Override
     public VoxelShape getShape(BlockState state, BlockGetter getter, BlockPos pos, CollisionContext context) {
         return SHAPE;

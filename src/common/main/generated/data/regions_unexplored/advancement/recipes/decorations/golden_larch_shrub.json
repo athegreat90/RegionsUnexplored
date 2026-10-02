@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "regions_unexplored:golden_larch_shrub"
+        "recipes": "regions_unexplored:golden_larch_shrub"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

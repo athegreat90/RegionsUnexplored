@@ -1,0 +1,27 @@
+{
+  "type": "regions_unexplored:stripped_pine_tree",
+  "branch_provider": {
+    "id": "regions_unexplored:pine_branch",
+    "properties": {
+      "facing": "north"
+    }
+  },
+  "foliage_provider": {
+    "id": "regions_unexplored:pine_leaves",
+    "properties": {
+      "distance": "7",
+      "persistent": "false",
+      "waterlogged": "false"
+    }
+  },
+  "minimum_size": 14,
+  "size_variation": 5,
+  "trunk_provider": {
+    "id": "regions_unexplored:pine_log",
+    "properties": {
+      "axis": "y",
+      "is_stripped": "false",
+      "transition_block": "false"
+    }
+  }
+}

@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "regions_unexplored:alpha_planks"
+        "recipes": "regions_unexplored:alpha_planks"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

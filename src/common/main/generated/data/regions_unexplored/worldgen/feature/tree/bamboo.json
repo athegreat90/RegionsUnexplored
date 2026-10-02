@@ -1,0 +1,39 @@
+{
+  "type": "regions_unexplored:bamboo_tree",
+  "branch_provider": {
+    "id": "regions_unexplored:oak_branch",
+    "properties": {
+      "facing": "north"
+    }
+  },
+  "foliage_provider": {
+    "id": "regions_unexplored:bamboo_leaves",
+    "properties": {
+      "distance": "7",
+      "persistent": "false",
+      "waterlogged": "false"
+    }
+  },
+  "minimum_size": 12,
+  "size_variation": 8,
+  "trunk_provider": {
+    "type": "minecraft:weighted",
+    "entries": [
+      {
+        "data": "regions_unexplored:bamboo_log",
+        "weight": 1
+      },
+      {
+        "data": {
+          "id": "regions_unexplored:bamboo_log",
+          "properties": {
+            "axis": "y",
+            "leaves": "true",
+            "waterlogged": "false"
+          }
+        },
+        "weight": 2
+      }
+    ]
+  }
+}

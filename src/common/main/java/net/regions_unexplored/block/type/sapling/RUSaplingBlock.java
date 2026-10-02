@@ -1,6 +1,7 @@
 package net.regions_unexplored.block.type.sapling;
 
 import com.mojang.serialization.MapCodec;
+import net.minecraft.world.level.block.BonemealSource;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
@@ -20,10 +21,6 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import net.regions_unexplored.block.RUBlockUtils;
 
 public class RUSaplingBlock extends VegetationBlock implements BonemealableBlock {
-    public static final MapCodec<RUSaplingBlock> CODEC = RecordCodecBuilder.mapCodec(i -> i.group(
-        RUTreeGrower.CODEC.fieldOf("tree").forGetter(b -> b.treeGrower), 
-        propertiesCodec()
-    ).apply(i, RUSaplingBlock::new));
     
     protected final RUTreeGrower treeGrower;
     public static final IntegerProperty STAGE = BlockStateProperties.STAGE;
@@ -56,22 +53,17 @@ public class RUSaplingBlock extends VegetationBlock implements BonemealableBlock
     }
 
     @Override
-    protected MapCodec<? extends VegetationBlock> codec() {
-        return CODEC;
-    }
-
-    @Override
-    public boolean isValidBonemealTarget(LevelReader level, BlockPos pos, BlockState state) {
+    public boolean isValidBonemealTarget(LevelReader level, BlockPos pos, BlockState state, BonemealSource source) {
         return true;
     }
 
     @Override
-    public boolean isBonemealSuccess(Level level, RandomSource random, BlockPos pos, BlockState state) {
+    public boolean isBonemealSuccess(Level level, RandomSource random, BlockPos pos, BlockState state, BonemealSource source) {
         return level.getRandom().nextFloat() < 0.45;
     }
 
     @Override
-    public void performBonemeal(ServerLevel level, RandomSource random, BlockPos pos, BlockState state) {
+    public void performBonemeal(ServerLevel level, RandomSource random, BlockPos pos, BlockState state, BonemealSource source) {
         this.advanceTree(level, pos, state, random);
     }
 

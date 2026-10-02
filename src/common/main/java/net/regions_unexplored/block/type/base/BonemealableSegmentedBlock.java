@@ -1,6 +1,7 @@
 package net.regions_unexplored.block.type.base;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.block.BonemealSource;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
@@ -22,17 +23,17 @@ public class BonemealableSegmentedBlock extends SegmentedBlock implements Boneme
    }
    
    @Override
-   public boolean isValidBonemealTarget(final LevelReader level, final BlockPos pos, final BlockState state) {
+   public boolean isValidBonemealTarget(final LevelReader level, final BlockPos pos, final BlockState state, BonemealSource source) {
       return true;
    }
    
    @Override
-   public boolean isBonemealSuccess(final Level level, final RandomSource random, final BlockPos pos, final BlockState state) {
+   public boolean isBonemealSuccess(final Level level, final RandomSource random, final BlockPos pos, final BlockState state, BonemealSource source) {
       return true;
    }
    
    @Override
-   public void performBonemeal(final ServerLevel level, final RandomSource random, final BlockPos pos, final BlockState state) {
+   public void performBonemeal(final ServerLevel level, final RandomSource random, final BlockPos pos, final BlockState state, BonemealSource source) {
       int currentAmount = state.getValue(AMOUNT);
       if (currentAmount < 4) {
          level.setBlock(pos, state.setValue(AMOUNT, currentAmount + 1), 2);

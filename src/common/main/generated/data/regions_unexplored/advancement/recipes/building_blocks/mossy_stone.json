@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "regions_unexplored:mossy_stone"
+        "recipes": "regions_unexplored:mossy_stone"
       },
       "trigger": "minecraft:recipe_unlocked"
     },

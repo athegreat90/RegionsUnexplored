@@ -7,10 +7,11 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.attribute.BackgroundMusic;
 import net.minecraft.world.attribute.EnvironmentAttributes;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.EntityTypes;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.level.biome.*;
 import net.minecraft.world.level.levelgen.GenerationStep;
-import net.minecraft.world.level.levelgen.carver.ConfiguredWorldCarver;
+import net.minecraft.world.level.levelgen.carver.WorldCarver;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 import net.regions_unexplored.datagen.provider.registry.configured_feature.RUShrubFeatures;
 import net.regions_unexplored.datagen.provider.registry.placed_feature.RuMiscOverworldPlacements;
@@ -25,11 +26,11 @@ public class ForestBiomes {
         MobSpawnSettings.Builder spawnBuilder = new MobSpawnSettings.Builder();
         BiomeDefaultFeatures.farmAnimals(spawnBuilder);
         BiomeDefaultFeatures.commonSpawns(spawnBuilder);
-        if(hasWolfSpawns)spawnBuilder.addSpawn(MobCategory.CREATURE, 5, new MobSpawnSettings.SpawnerData(EntityType.WOLF, 4, 4));
+        if(hasWolfSpawns)spawnBuilder.addSpawn(EntityTypes.WOLF, 5, 4, 4);
         return spawnBuilder;
     }
 
-    private static BiomeGenerationSettings.Builder baseForestGeneration(HolderGetter<PlacedFeature> featureGetter, HolderGetter<ConfiguredWorldCarver<?>> carverGetter, boolean addDefaultFlowers) {
+    private static BiomeGenerationSettings.Builder baseForestGeneration(HolderGetter<PlacedFeature> featureGetter, HolderGetter<WorldCarver> carverGetter, boolean addDefaultFlowers) {
         BiomeGenerationSettings.Builder builder = new BiomeGenerationSettings.Builder(featureGetter, carverGetter);
         globalOverworldGeneration(builder);
         if(addDefaultFlowers){
@@ -42,7 +43,7 @@ public class ForestBiomes {
         return builder;
     }
 
-    public static Biome autumnalMapleForest(HolderGetter<PlacedFeature> featureGetter, HolderGetter<ConfiguredWorldCarver<?>> carverGetter) {
+    public static Biome autumnalMapleForest(HolderGetter<PlacedFeature> featureGetter, HolderGetter<WorldCarver> carverGetter) {
         BiomeSpecialEffects.Builder effectBuilder = effectBuilder()
             .foliageColorOverride(0x96b73a)
             .grassColorOverride(0xccb243);
@@ -68,7 +69,7 @@ public class ForestBiomes {
             .build();
     }
 
-    public static Biome bambooForest(HolderGetter<PlacedFeature> featureGetter, HolderGetter<ConfiguredWorldCarver<?>> carverGetter) {
+    public static Biome bambooForest(HolderGetter<PlacedFeature> featureGetter, HolderGetter<WorldCarver> carverGetter) {
         BiomeSpecialEffects.Builder effectBuilder = new BiomeSpecialEffects.Builder()
             .waterColor(NORMAL_WATER_COLOR)
             .foliageColorOverride(11140963)
@@ -87,11 +88,11 @@ public class ForestBiomes {
 
         //add mob spawns
         MobSpawnSettings.Builder spawnBuilder = baseForestSpawning(false);
-        spawnBuilder.addSpawn(MobCategory.CREATURE, 80, new MobSpawnSettings.SpawnerData(EntityType.PANDA, 1, 2));
+        spawnBuilder.addSpawn(EntityTypes.PANDA, 80, 1, 2);
 
         return biomeBuilder(0.875f, 0.8f, true)
-            .setAttribute(EnvironmentAttributes.SKY_COLOR, 0xa2c1b5)
-            .setAttribute(EnvironmentAttributes.FOG_COLOR, 0xb1ccb5)
+            .setAttribute(EnvironmentAttributes.SKY_COLOR, rgb(0xa2c1b5))
+            .setAttribute(EnvironmentAttributes.FOG_COLOR, rgb(0xb1ccb5))
             .setAttribute(EnvironmentAttributes.BACKGROUND_MUSIC, new BackgroundMusic(SoundEvents.MUSIC_BIOME_FOREST))
             .specialEffects(effectBuilder.build())
             .mobSpawnSettings(spawnBuilder.build())
@@ -99,7 +100,7 @@ public class ForestBiomes {
             .build();
     }
 
-    public static Biome magnoliaHighlands(HolderGetter<PlacedFeature> featureGetter, HolderGetter<ConfiguredWorldCarver<?>> carverGetter) {
+    public static Biome magnoliaHighlands(HolderGetter<PlacedFeature> featureGetter, HolderGetter<WorldCarver> carverGetter) {
         BiomeSpecialEffects.Builder effectBuilder = new BiomeSpecialEffects.Builder()
             .waterColor(NORMAL_WATER_COLOR)
             .foliageColorOverride(8437033)
@@ -117,7 +118,7 @@ public class ForestBiomes {
 
         //add mob spawns
         MobSpawnSettings.Builder spawnBuilder = baseForestSpawning(false);
-        spawnBuilder.addSpawn(MobCategory.CREATURE, 8, new MobSpawnSettings.SpawnerData(EntityType.FOX, 2, 4));
+        spawnBuilder.addSpawn(EntityTypes.FOX, 8, 2, 4);
 
         return biomeBuilder(0.95f, 0.8f, true)
             .setAttribute(EnvironmentAttributes.BACKGROUND_MUSIC, new BackgroundMusic(SoundEvents.MUSIC_BIOME_FOREST))
@@ -127,7 +128,7 @@ public class ForestBiomes {
             .build();
     }
 
-    public static Biome oldGrowthForest(HolderGetter<PlacedFeature> featureGetter, HolderGetter<ConfiguredWorldCarver<?>> carverGetter) {
+    public static Biome oldGrowthForest(HolderGetter<PlacedFeature> featureGetter, HolderGetter<WorldCarver> carverGetter) {
         BiomeSpecialEffects.Builder effectBuilder = new BiomeSpecialEffects.Builder()
             .waterColor(NORMAL_WATER_COLOR);
 
@@ -154,7 +155,7 @@ public class ForestBiomes {
             .build();
     }
 
-    public static Biome mapleForest(HolderGetter<PlacedFeature> featureGetter, HolderGetter<ConfiguredWorldCarver<?>> carverGetter) {
+    public static Biome mapleForest(HolderGetter<PlacedFeature> featureGetter, HolderGetter<WorldCarver> carverGetter) {
         BiomeSpecialEffects.Builder effectBuilder = new BiomeSpecialEffects.Builder()
             .waterColor(NORMAL_WATER_COLOR)
             .foliageColorOverride(6462505)
@@ -173,7 +174,7 @@ public class ForestBiomes {
 
         //add mob spawns
         MobSpawnSettings.Builder spawnBuilder = baseForestSpawning(true);
-        spawnBuilder.addSpawn(MobCategory.CREATURE, 5, new MobSpawnSettings.SpawnerData(EntityType.WOLF, 4, 4));
+        spawnBuilder.addSpawn(EntityTypes.WOLF, 5, 4, 4);
 
         return biomeBuilder(0.6f, 0.5f, true)
             .setAttribute(EnvironmentAttributes.BACKGROUND_MUSIC, new BackgroundMusic(SoundEvents.MUSIC_BIOME_FOREST))
@@ -183,7 +184,7 @@ public class ForestBiomes {
             .build();
     }
 
-    public static Biome wisteriaGrove(HolderGetter<PlacedFeature> featureGetter, HolderGetter<ConfiguredWorldCarver<?>> carverGetter) {
+    public static Biome wisteriaGrove(HolderGetter<PlacedFeature> featureGetter, HolderGetter<WorldCarver> carverGetter) {
         BiomeSpecialEffects.Builder effectBuilder = new BiomeSpecialEffects.Builder()
             .waterColor(0x54a179)
             .foliageColorOverride(0xadaaff)
@@ -202,7 +203,7 @@ public class ForestBiomes {
         
         //add mob spawns
         MobSpawnSettings.Builder spawnBuilder = baseForestSpawning(false);
-        spawnBuilder.addSpawn(MobCategory.CREATURE, 10, new MobSpawnSettings.SpawnerData(EntityType.CHICKEN, 4, 4));
+        spawnBuilder.addSpawn(EntityTypes.CHICKEN, 10, 4, 4);
 
         return biomeBuilder(1.1f, 0.85f, true)
             .setAttribute(EnvironmentAttributes.BACKGROUND_MUSIC, new BackgroundMusic(SoundEvents.MUSIC_BIOME_CHERRY_GROVE))
@@ -212,7 +213,7 @@ public class ForestBiomes {
             .build();
     }
 
-    public static Biome orchard(HolderGetter<PlacedFeature> featureGetter, HolderGetter<ConfiguredWorldCarver<?>> carverGetter) {
+    public static Biome orchard(HolderGetter<PlacedFeature> featureGetter, HolderGetter<WorldCarver> carverGetter) {
         BiomeSpecialEffects.Builder effectBuilder = new BiomeSpecialEffects.Builder()
             .waterColor(NORMAL_WATER_COLOR)
             .foliageColorOverride(10669160)
@@ -231,7 +232,7 @@ public class ForestBiomes {
 
         //add mob spawns
         MobSpawnSettings.Builder spawnBuilder = baseForestSpawning(false);
-        spawnBuilder.addSpawn(MobCategory.CREATURE, 8, new MobSpawnSettings.SpawnerData(EntityType.RABBIT, 4, 4));
+        spawnBuilder.addSpawn(EntityTypes.RABBIT, 8, 4, 4);
 
         return biomeBuilder(0.7f, 0.4f, true)
             .setAttribute(EnvironmentAttributes.BACKGROUND_MUSIC, new BackgroundMusic(SoundEvents.MUSIC_BIOME_FLOWER_FOREST))
@@ -241,7 +242,7 @@ public class ForestBiomes {
             .build();
     }
 
-    public static Biome silverBirchForest(HolderGetter<PlacedFeature> featureGetter, HolderGetter<ConfiguredWorldCarver<?>> carverGetter) {
+    public static Biome silverBirchForest(HolderGetter<PlacedFeature> featureGetter, HolderGetter<WorldCarver> carverGetter) {
         BiomeSpecialEffects.Builder effectBuilder = new BiomeSpecialEffects.Builder()
             .waterColor(NORMAL_WATER_COLOR)
             .foliageColorOverride(8960834)
@@ -261,7 +262,7 @@ public class ForestBiomes {
 
         //add mob spawns
         MobSpawnSettings.Builder spawnBuilder = baseForestSpawning(true);
-        spawnBuilder.addSpawn(MobCategory.CREATURE, 5, new MobSpawnSettings.SpawnerData(EntityType.WOLF, 4, 4));
+        spawnBuilder.addSpawn(EntityTypes.WOLF, 5, 4, 4);
 
         return biomeBuilder(0.5f, 0.6f, true)
             .setAttribute(EnvironmentAttributes.BACKGROUND_MUSIC, new BackgroundMusic(SoundEvents.MUSIC_BIOME_FOREST))
@@ -271,7 +272,7 @@ public class ForestBiomes {
             .build();
     }
 
-    public static Biome windsweptMapleForest(HolderGetter<PlacedFeature> featureGetter, HolderGetter<ConfiguredWorldCarver<?>> carverGetter) {
+    public static Biome windsweptMapleForest(HolderGetter<PlacedFeature> featureGetter, HolderGetter<WorldCarver> carverGetter) {
         BiomeSpecialEffects.Builder effectBuilder = new BiomeSpecialEffects.Builder()
             .waterColor(NORMAL_WATER_COLOR)
             .foliageColorOverride(0x6ba44f)
@@ -291,8 +292,8 @@ public class ForestBiomes {
 
         //add mob spawns
         MobSpawnSettings.Builder spawnBuilder = baseForestSpawning(false);
-        spawnBuilder.addSpawn(MobCategory.CREATURE, 5, new MobSpawnSettings.SpawnerData(EntityType.WOLF, 4, 4));
-        spawnBuilder.addSpawn(MobCategory.CREATURE, 15, new MobSpawnSettings.SpawnerData(EntityType.RABBIT, 3, 4));
+        spawnBuilder.addSpawn(EntityTypes.WOLF, 5, 4, 4);
+        spawnBuilder.addSpawn(EntityTypes.RABBIT, 15, 3, 4);
 
         return biomeBuilder(0.725f, 0.6f, true)
             .setAttribute(EnvironmentAttributes.BACKGROUND_MUSIC, new BackgroundMusic(SoundEvents.MUSIC_BIOME_FOREST))
@@ -302,7 +303,7 @@ public class ForestBiomes {
             .build();
     }
 
-    public static Biome willowForest(HolderGetter<PlacedFeature> featureGetter, HolderGetter<ConfiguredWorldCarver<?>> carverGetter) {
+    public static Biome willowForest(HolderGetter<PlacedFeature> featureGetter, HolderGetter<WorldCarver> carverGetter) {
         BiomeSpecialEffects.Builder effectBuilder = new BiomeSpecialEffects.Builder()
             .waterColor(NORMAL_WATER_COLOR)
             .foliageColorOverride(0x76af60)
@@ -319,7 +320,7 @@ public class ForestBiomes {
         builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, RuVegetationPlacements.PATCH_SHORT_GRASS_SPARSE);
         //add mob spawns
         MobSpawnSettings.Builder spawnBuilder = baseForestSpawning(true);
-        spawnBuilder.addSpawn(MobCategory.CREATURE, 10, new MobSpawnSettings.SpawnerData(EntityType.FOX, 3, 4));
+        spawnBuilder.addSpawn(EntityTypes.FOX, 10, 3, 4);
 
         return biomeBuilder(0.6f, 0.5f, true)
             .setAttribute(EnvironmentAttributes.BACKGROUND_MUSIC, new BackgroundMusic(SoundEvents.MUSIC_BIOME_FOREST))

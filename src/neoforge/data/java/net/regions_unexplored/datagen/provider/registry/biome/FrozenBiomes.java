@@ -7,10 +7,11 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.attribute.BackgroundMusic;
 import net.minecraft.world.attribute.EnvironmentAttributes;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.EntityTypes;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.level.biome.*;
 import net.minecraft.world.level.levelgen.GenerationStep;
-import net.minecraft.world.level.levelgen.carver.ConfiguredWorldCarver;
+import net.minecraft.world.level.levelgen.carver.WorldCarver;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 import net.regions_unexplored.datagen.provider.registry.configured_feature.RUShrubFeatures;
 import net.regions_unexplored.datagen.provider.registry.util.RUBiomeUtils;
@@ -25,19 +26,19 @@ public class FrozenBiomes {
     private static MobSpawnSettings.Builder baseFrozenSpawning(boolean hasPolarBearSpawns, boolean hasWolfSpawns) {
         MobSpawnSettings.Builder spawnBuilder = new MobSpawnSettings.Builder();
         if (hasWolfSpawns) {
-	        spawnBuilder.addSpawn(MobCategory.CREATURE, 8, new MobSpawnSettings.SpawnerData(EntityType.WOLF, 4, 4));
+	        spawnBuilder.addSpawn(EntityTypes.WOLF, 8, 4, 4);
         }
-        spawnBuilder.addSpawn(MobCategory.CREATURE, 10, new MobSpawnSettings.SpawnerData(EntityType.RABBIT, 2, 3));
+        spawnBuilder.addSpawn(EntityTypes.RABBIT, 10, 2, 3);
         if (hasPolarBearSpawns) {
-	        spawnBuilder.addSpawn(MobCategory.CREATURE, 1, new MobSpawnSettings.SpawnerData(EntityType.POLAR_BEAR, 1, 2));
+	        spawnBuilder.addSpawn(EntityTypes.POLAR_BEAR, 1, 1, 2);
         }
         BiomeDefaultFeatures.caveSpawns(spawnBuilder);
         BiomeDefaultFeatures.monsters(spawnBuilder, 95, 5, 0, 20, false);
-        spawnBuilder.addSpawn(MobCategory.MONSTER, 80, new MobSpawnSettings.SpawnerData(EntityType.STRAY, 4, 4));
+        spawnBuilder.addSpawn(EntityTypes.STRAY, 80, 4, 4);
         return spawnBuilder;
     }
 
-    private static BiomeGenerationSettings.Builder baseFrozenGeneration(HolderGetter<PlacedFeature> featureGetter, HolderGetter<ConfiguredWorldCarver<?>> carverGetter) {
+    private static BiomeGenerationSettings.Builder baseFrozenGeneration(HolderGetter<PlacedFeature> featureGetter, HolderGetter<WorldCarver> carverGetter) {
         BiomeGenerationSettings.Builder builder = new BiomeGenerationSettings.Builder(featureGetter, carverGetter);
         RUBiomeUtils.globalOverworldGeneration(builder);
         BiomeDefaultFeatures.addDefaultOres(builder);
@@ -46,7 +47,7 @@ public class FrozenBiomes {
         BiomeDefaultFeatures.addDefaultExtraVegetation(builder, true);
         return builder;
     }
-    private static BiomeGenerationSettings.Builder baseFrozenTaigaGeneration(HolderGetter<PlacedFeature> featureGetter, HolderGetter<ConfiguredWorldCarver<?>> carverGetter) {
+    private static BiomeGenerationSettings.Builder baseFrozenTaigaGeneration(HolderGetter<PlacedFeature> featureGetter, HolderGetter<WorldCarver> carverGetter) {
         BiomeGenerationSettings.Builder builder = new BiomeGenerationSettings.Builder(featureGetter, carverGetter);
         RUBiomeUtils.globalOverworldGeneration(builder);
         BiomeDefaultFeatures.addFerns(builder);
@@ -57,7 +58,7 @@ public class FrozenBiomes {
         return builder;
     }
 
-    public static Biome coldBorealTaiga(HolderGetter<PlacedFeature> featureGetter, HolderGetter<ConfiguredWorldCarver<?>> carverGetter) {
+    public static Biome coldBorealTaiga(HolderGetter<PlacedFeature> featureGetter, HolderGetter<WorldCarver> carverGetter) {
         BiomeSpecialEffects.Builder effectBuilder = effectBuilder()
             .foliageColorOverride(0x689858)
             .grassColorOverride(0x68ad64);
@@ -84,7 +85,7 @@ public class FrozenBiomes {
             .build();
     }
 
-    public static Biome coldDeciduousForest(HolderGetter<PlacedFeature> featureGetter, HolderGetter<ConfiguredWorldCarver<?>> carverGetter) {
+    public static Biome coldDeciduousForest(HolderGetter<PlacedFeature> featureGetter, HolderGetter<WorldCarver> carverGetter) {
         BiomeSpecialEffects.Builder effectBuilder = effectBuilder()
             .foliageColorOverride(0x55ab84)
             .grassColorOverride(0x66b9a4);
@@ -111,7 +112,7 @@ public class FrozenBiomes {
             .build();
     }
 
-    public static Biome frozenPineTaiga(HolderGetter<PlacedFeature> featureGetter, HolderGetter<ConfiguredWorldCarver<?>> carverGetter) {
+    public static Biome frozenPineTaiga(HolderGetter<PlacedFeature> featureGetter, HolderGetter<WorldCarver> carverGetter) {
         BiomeSpecialEffects.Builder effectBuilder = effectBuilder()
             .foliageColorOverride(0x689858)
             .grassColorOverride(0x68ad64);
@@ -138,7 +139,7 @@ public class FrozenBiomes {
             .build();
     }
     
-    public static Biome tundra(HolderGetter<PlacedFeature> featureGetter, HolderGetter<ConfiguredWorldCarver<?>> carverGetter) {
+    public static Biome tundra(HolderGetter<PlacedFeature> featureGetter, HolderGetter<WorldCarver> carverGetter) {
         BiomeSpecialEffects.Builder effectBuilder = effectBuilder()
             .foliageColorOverride(0xb08850)
             .grassColorOverride(0xbc6a52);
@@ -166,7 +167,7 @@ public class FrozenBiomes {
             .build();
     }
 
-    public static Biome icyHeights(HolderGetter<PlacedFeature> featureGetter, HolderGetter<ConfiguredWorldCarver<?>> carverGetter) {
+    public static Biome icyHeights(HolderGetter<PlacedFeature> featureGetter, HolderGetter<WorldCarver> carverGetter) {
         BiomeSpecialEffects.Builder effectBuilder = effectBuilder()
             .foliageColorOverride(0x68ba6f)
             .grassColorOverride(0x75c48b);
@@ -192,7 +193,7 @@ public class FrozenBiomes {
             .build();
     }
 
-    public static Biome spires(HolderGetter<PlacedFeature> featureGetter, HolderGetter<ConfiguredWorldCarver<?>> carverGetter) {
+    public static Biome spires(HolderGetter<PlacedFeature> featureGetter, HolderGetter<WorldCarver> carverGetter) {
         BiomeSpecialEffects.Builder effectBuilder = effectBuilder()
             .foliageColorOverride(0x56aa62)
             .grassColorOverride(0x56aa70);

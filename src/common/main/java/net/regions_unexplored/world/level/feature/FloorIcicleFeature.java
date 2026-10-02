@@ -5,7 +5,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.WorldGenLevel;
-import net.minecraft.world.level.block.state.properties.DripstoneThickness;
+import net.minecraft.world.level.block.state.properties.SpeleothemThickness;
 import net.minecraft.world.level.chunk.ChunkGenerator;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.regions_unexplored.block.type.base.SpeleothemBlock;
@@ -32,21 +32,21 @@ public class FloorIcicleFeature implements Feature {
         }
         for(int i=0; i<size; i++){
             if(i==0){
-                level.setBlock(placePos, RUBlocks.ICICLE.get().defaultBlockState().setValue(SpeleothemBlock.TIP_DIRECTION, Direction.UP).setValue(SpeleothemBlock.THICKNESS, DripstoneThickness.TIP), 2);
+                level.setBlock(placePos, RUBlocks.ICICLE.get().defaultBlockState().setValue(SpeleothemBlock.TIP_DIRECTION, Direction.UP).setValue(SpeleothemBlock.THICKNESS, SpeleothemThickness.TIP), 2);
             }
             else if(i==1){
-                level.setBlock(placePos.below(), RUBlocks.ICICLE.get().defaultBlockState().setValue(SpeleothemBlock.TIP_DIRECTION, Direction.UP).setValue(SpeleothemBlock.THICKNESS, DripstoneThickness.FRUSTUM), 2);
-                level.setBlock(placePos, RUBlocks.ICICLE.get().defaultBlockState().setValue(SpeleothemBlock.TIP_DIRECTION, Direction.UP).setValue(SpeleothemBlock.THICKNESS, DripstoneThickness.TIP), 2);
+                level.setBlock(placePos.below(), RUBlocks.ICICLE.get().defaultBlockState().setValue(SpeleothemBlock.TIP_DIRECTION, Direction.UP).setValue(SpeleothemBlock.THICKNESS, SpeleothemThickness.FRUSTUM), 2);
+                level.setBlock(placePos, RUBlocks.ICICLE.get().defaultBlockState().setValue(SpeleothemBlock.TIP_DIRECTION, Direction.UP).setValue(SpeleothemBlock.THICKNESS, SpeleothemThickness.TIP), 2);
             }
             else if(i==2){
-                level.setBlock(placePos.below(2), RUBlocks.ICICLE.get().defaultBlockState().setValue(SpeleothemBlock.TIP_DIRECTION, Direction.UP).setValue(SpeleothemBlock.THICKNESS, DripstoneThickness.BASE), 2);
-                level.setBlock(placePos.below(), RUBlocks.ICICLE.get().defaultBlockState().setValue(SpeleothemBlock.TIP_DIRECTION, Direction.UP).setValue(SpeleothemBlock.THICKNESS, DripstoneThickness.FRUSTUM), 2);
-                level.setBlock(placePos, RUBlocks.ICICLE.get().defaultBlockState().setValue(SpeleothemBlock.TIP_DIRECTION, Direction.UP).setValue(SpeleothemBlock.THICKNESS, DripstoneThickness.TIP), 2);
+                level.setBlock(placePos.below(2), RUBlocks.ICICLE.get().defaultBlockState().setValue(SpeleothemBlock.TIP_DIRECTION, Direction.UP).setValue(SpeleothemBlock.THICKNESS, SpeleothemThickness.BASE), 2);
+                level.setBlock(placePos.below(), RUBlocks.ICICLE.get().defaultBlockState().setValue(SpeleothemBlock.TIP_DIRECTION, Direction.UP).setValue(SpeleothemBlock.THICKNESS, SpeleothemThickness.FRUSTUM), 2);
+                level.setBlock(placePos, RUBlocks.ICICLE.get().defaultBlockState().setValue(SpeleothemBlock.TIP_DIRECTION, Direction.UP).setValue(SpeleothemBlock.THICKNESS, SpeleothemThickness.TIP), 2);
             }
             else {
-                level.setBlock(placePos.below(2), RUBlocks.ICICLE.get().defaultBlockState().setValue(SpeleothemBlock.TIP_DIRECTION, Direction.UP).setValue(SpeleothemBlock.THICKNESS, DripstoneThickness.MIDDLE), 2);
-                level.setBlock(placePos.below(), RUBlocks.ICICLE.get().defaultBlockState().setValue(SpeleothemBlock.TIP_DIRECTION, Direction.UP).setValue(SpeleothemBlock.THICKNESS, DripstoneThickness.FRUSTUM), 2);
-                level.setBlock(placePos, RUBlocks.ICICLE.get().defaultBlockState().setValue(SpeleothemBlock.TIP_DIRECTION, Direction.UP).setValue(SpeleothemBlock.THICKNESS, DripstoneThickness.TIP), 2);
+                level.setBlock(placePos.below(2), RUBlocks.ICICLE.get().defaultBlockState().setValue(SpeleothemBlock.TIP_DIRECTION, Direction.UP).setValue(SpeleothemBlock.THICKNESS, SpeleothemThickness.MIDDLE), 2);
+                level.setBlock(placePos.below(), RUBlocks.ICICLE.get().defaultBlockState().setValue(SpeleothemBlock.TIP_DIRECTION, Direction.UP).setValue(SpeleothemBlock.THICKNESS, SpeleothemThickness.FRUSTUM), 2);
+                level.setBlock(placePos, RUBlocks.ICICLE.get().defaultBlockState().setValue(SpeleothemBlock.TIP_DIRECTION, Direction.UP).setValue(SpeleothemBlock.THICKNESS, SpeleothemThickness.TIP), 2);
             }
             placePos.move(Direction.UP);
         }

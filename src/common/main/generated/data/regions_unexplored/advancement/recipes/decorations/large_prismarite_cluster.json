@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "regions_unexplored:large_prismarite_cluster"
+        "recipes": "regions_unexplored:large_prismarite_cluster"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

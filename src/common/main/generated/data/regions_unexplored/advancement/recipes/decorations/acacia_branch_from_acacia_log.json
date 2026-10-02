@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "regions_unexplored:acacia_branch_from_acacia_log"
+        "recipes": "regions_unexplored:acacia_branch_from_acacia_log"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

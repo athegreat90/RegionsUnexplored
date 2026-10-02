@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "regions_unexplored:cypress_stairs"
+        "recipes": "regions_unexplored:cypress_stairs"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

@@ -1,8 +1,9 @@
 package net.regions_unexplored.worldgen.feature.config;
 
+import net.minecraft.core.Holder;
+import net.minecraft.core.HolderSet;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import dev.worldgen.lithostitched.api.worldgen.stateprovider.LithostitchedStateProviders;
 import net.minecraft.core.Direction;
 import net.minecraft.util.valueproviders.IntProvider;
 import net.minecraft.util.valueproviders.IntProviders;
@@ -10,6 +11,7 @@ import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
+import net.minecraft.world.level.levelgen.feature.stateproviders.RandomBlockProvider;
 import net.minecraft.world.level.levelgen.feature.treedecorators.TreeDecorator;
 import net.regions_unexplored.worldgen.treedecorator.AttachedToLogsDecorator;
 
@@ -25,14 +27,14 @@ public record FallenTreeConfig(BlockStateProvider trunkProvider, IntProvider log
 		),
 		new AttachedToLogsDecorator(
 			0.05f,
-			LithostitchedStateProviders.randomBlock(Blocks.BROWN_MUSHROOM, Blocks.RED_MUSHROOM),
+			new RandomBlockProvider(HolderSet.direct(Blocks.BROWN_MUSHROOM.builtInRegistryHolder(), Blocks.RED_MUSHROOM.builtInRegistryHolder())),
 			List.of(Direction.UP),
 			false
 		)
 	);
 	
 	public static final Codec<FallenTreeConfig> CODEC = RecordCodecBuilder.create(i -> i.group(
-		BlockStateProvider.CODEC.fieldOf("trunk_provider").forGetter(FallenTreeConfig::trunkProvider),
+		BlockStateProvider.CODEC.xmap(Holder::value, Holder::direct).fieldOf("trunk_provider").forGetter(FallenTreeConfig::trunkProvider),
 		IntProviders.codec(0, 16).fieldOf("log_length").forGetter(FallenTreeConfig::logLength),
 		TreeDecorator.CODEC.listOf().fieldOf("stump_decorators").forGetter(FallenTreeConfig::stumpDecorators),
 		TreeDecorator.CODEC.listOf().fieldOf("log_decorators").forGetter(FallenTreeConfig::logDecorators)

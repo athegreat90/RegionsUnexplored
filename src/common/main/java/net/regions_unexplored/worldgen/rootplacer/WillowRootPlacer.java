@@ -1,5 +1,6 @@
 package net.regions_unexplored.worldgen.rootplacer;
 
+import net.minecraft.core.Holder;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
@@ -17,7 +18,7 @@ import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.levelgen.feature.configurations.TreeConfiguration;
+import net.minecraft.world.level.levelgen.feature.TreeFeature;
 import net.minecraft.world.level.levelgen.feature.rootplacers.AboveRootPlacement;
 import net.minecraft.world.level.levelgen.feature.rootplacers.RootPlacer;
 import net.minecraft.world.level.levelgen.feature.rootplacers.RootPlacerType;
@@ -41,18 +42,18 @@ public class WillowRootPlacer extends RootPlacer {
 	private final IntProvider height;
 	private final float chance;
 	
-	public WillowRootPlacer(IntProvider height, float chance, BlockStateProvider rootProvider, Optional<AboveRootPlacement> aboveRootPlacement) {
+	public WillowRootPlacer(IntProvider height, float chance, Holder<BlockStateProvider> rootProvider, Optional<AboveRootPlacement> aboveRootPlacement) {
 		super(ConstantInt.ZERO, rootProvider, aboveRootPlacement);
 		this.height = height;
 		this.chance = chance;
 	}
-	
+
 	public static Optional<RootPlacer> create(WoodSet set, float chance) {
 		return create(set.getLog(), chance);
 	}
-	
+
 	public static Optional<RootPlacer> create(Block block, float chance) {
-		return Optional.of(new WillowRootPlacer(UniformInt.of(2, 3), chance, BlockStateProvider.simple(block), Optional.empty()));
+		return Optional.of(new WillowRootPlacer(UniformInt.of(2, 3), chance, Holder.direct(BlockStateProvider.of(block)), Optional.empty()));
 	}
 	
 	@Override
@@ -67,7 +68,7 @@ public class WillowRootPlacer extends RootPlacer {
 		final RandomSource random,
 		final BlockPos origin,
 		final BlockPos trunkOrigin,
-		final TreeConfiguration config
+		final TreeFeature config
 	) {
 		if (random.forkPositional().at(trunkOrigin).nextFloat() > this.chance) return true;
 		

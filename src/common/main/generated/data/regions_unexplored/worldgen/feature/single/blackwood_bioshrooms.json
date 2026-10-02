@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:simple_block",
+  "to_place": {
+    "type": "minecraft:weighted",
+    "entries": [
+      {
+        "data": "regions_unexplored:blue_bioshroom",
+        "weight": 3
+      },
+      {
+        "data": "regions_unexplored:pink_bioshroom",
+        "weight": 3
+      },
+      {
+        "data": "regions_unexplored:tall_blue_bioshroom",
+        "weight": 1
+      },
+      {
+        "data": "regions_unexplored:tall_pink_bioshroom",
+        "weight": 1
+      }
+    ]
+  }
+}

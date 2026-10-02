@@ -42,6 +42,7 @@ public class SalmonBerryBushBlock extends SweetBerryBushBlock {
             Block.dropFromBlockInteractLootTable(
                 serverLevel,
                 RULootTables.HARVEST_SALMONBERRY_BUSH,
+                pos,
                 state,
                 level.getBlockEntity(pos),
                 null,

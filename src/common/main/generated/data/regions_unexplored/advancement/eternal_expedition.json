@@ -3,65 +3,57 @@
   "criteria": {
     "blackstone_basin": {
       "conditions": {
-        "player": [
-          {
-            "condition": "minecraft:entity_properties",
-            "entity": "this",
-            "predicate": {
-              "location": {
-                "biomes": "regions_unexplored:blackstone_basin"
-              }
+        "player": {
+          "type": "minecraft:entity_properties",
+          "entity": "this",
+          "predicate": {
+            "minecraft:location": {
+              "biomes": "regions_unexplored:blackstone_basin"
             }
           }
-        ]
+        }
       },
       "trigger": "minecraft:location"
     },
     "glistering_meadow": {
       "conditions": {
-        "player": [
-          {
-            "condition": "minecraft:entity_properties",
-            "entity": "this",
-            "predicate": {
-              "location": {
-                "biomes": "regions_unexplored:glistering_meadow"
-              }
+        "player": {
+          "type": "minecraft:entity_properties",
+          "entity": "this",
+          "predicate": {
+            "minecraft:location": {
+              "biomes": "regions_unexplored:glistering_meadow"
             }
           }
-        ]
+        }
       },
       "trigger": "minecraft:location"
     },
     "infernal_holt": {
       "conditions": {
-        "player": [
-          {
-            "condition": "minecraft:entity_properties",
-            "entity": "this",
-            "predicate": {
-              "location": {
-                "biomes": "regions_unexplored:infernal_holt"
-              }
+        "player": {
+          "type": "minecraft:entity_properties",
+          "entity": "this",
+          "predicate": {
+            "minecraft:location": {
+              "biomes": "regions_unexplored:infernal_holt"
             }
           }
-        ]
+        }
       },
       "trigger": "minecraft:location"
     },
     "mycotoxic_undergrowth": {
       "conditions": {
-        "player": [
-          {
-            "condition": "minecraft:entity_properties",
-            "entity": "this",
-            "predicate": {
-              "location": {
-                "biomes": "regions_unexplored:mycotoxic_undergrowth"
-              }
+        "player": {
+          "type": "minecraft:entity_properties",
+          "entity": "this",
+          "predicate": {
+            "minecraft:location": {
+              "biomes": "regions_unexplored:mycotoxic_undergrowth"
             }
           }
-        ]
+        }
       },
       "trigger": "minecraft:location"
     }

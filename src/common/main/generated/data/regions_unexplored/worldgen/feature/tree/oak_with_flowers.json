@@ -1,0 +1,30 @@
+{
+  "type": "regions_unexplored:aspen_tree",
+  "branch_provider": {
+    "id": "regions_unexplored:oak_branch",
+    "properties": {
+      "facing": "north"
+    }
+  },
+  "foliage_provider": {
+    "type": "minecraft:weighted",
+    "entries": [
+      {
+        "data": "minecraft:oak_leaves",
+        "weight": 3
+      },
+      {
+        "data": "regions_unexplored:flowering_leaves",
+        "weight": 1
+      }
+    ]
+  },
+  "minimum_size": 5,
+  "size_variation": 5,
+  "trunk_provider": {
+    "id": "minecraft:oak_log",
+    "properties": {
+      "axis": "y"
+    }
+  }
+}

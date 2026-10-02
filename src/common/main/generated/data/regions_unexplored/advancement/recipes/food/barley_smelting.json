@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "regions_unexplored:barley_smelting"
+        "recipes": "regions_unexplored:barley_smelting"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

@@ -13,10 +13,6 @@ import net.regions_unexplored.block.RUBlockUtils;
 import net.regions_unexplored.registry.tag.RUBlockTags;
 
 public class NetherPlantBlock extends VegetationBlock {
-    public static final MapCodec<? extends NetherPlantBlock> CODEC = RecordCodecBuilder.mapCodec(i -> i.group(
-        Codec.floatRange(0, 16).fieldOf("height").forGetter(b -> b.height),
-        propertiesCodec()
-    ).apply(i, NetherPlantBlock::new));
     private final float height;
     private final VoxelShape shape;
 
@@ -24,11 +20,6 @@ public class NetherPlantBlock extends VegetationBlock {
         super(properties);
         this.height = height;
         this.shape = RUBlockUtils.column(12, 0, height);
-    }
-
-    @Override
-    protected MapCodec<? extends VegetationBlock> codec() {
-        return CODEC;
     }
 
     public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {

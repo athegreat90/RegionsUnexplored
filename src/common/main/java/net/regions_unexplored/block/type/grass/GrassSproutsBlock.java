@@ -1,6 +1,7 @@
 package net.regions_unexplored.block.type.grass;
 
 import com.mojang.serialization.MapCodec;
+import net.minecraft.world.level.block.BonemealSource;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
@@ -17,7 +18,6 @@ import net.regions_unexplored.block.RUBlockUtils;
 import net.regions_unexplored.registry.tag.*;
 
 public class GrassSproutsBlock extends VegetationBlock implements BonemealableBlock {
-    public static final MapCodec<? extends GrassSproutsBlock> CODEC = simpleCodec(GrassSproutsBlock::new);
     protected static final VoxelShape SHAPE = RUBlockUtils.column(12, 0, 5);
 
     public GrassSproutsBlock(Properties properties) {
@@ -25,27 +25,22 @@ public class GrassSproutsBlock extends VegetationBlock implements BonemealableBl
     }
 
     @Override
-    protected MapCodec<? extends VegetationBlock> codec() {
-        return CODEC;
-    }
-    
-    @Override
     public VoxelShape getShape(BlockState state, BlockGetter getter, BlockPos pos, CollisionContext context) {
         return SHAPE;
     }
     
     @Override
-    public boolean isValidBonemealTarget(LevelReader level, BlockPos pos, BlockState state) {
+    public boolean isValidBonemealTarget(LevelReader level, BlockPos pos, BlockState state, BonemealSource source) {
         return Blocks.SHORT_GRASS.defaultBlockState().canSurvive(level, pos);
     }
     
     @Override
-    public boolean isBonemealSuccess(Level level, RandomSource random, BlockPos pos, BlockState state) {
+    public boolean isBonemealSuccess(Level level, RandomSource random, BlockPos pos, BlockState state, BonemealSource source) {
         return true;
     }
 
     @Override
-    public void performBonemeal(ServerLevel level, RandomSource random, BlockPos pos, BlockState state) {
+    public void performBonemeal(ServerLevel level, RandomSource random, BlockPos pos, BlockState state, BonemealSource source) {
         level.setBlock(pos, Blocks.SHORT_GRASS.defaultBlockState(), 2);
     }
 

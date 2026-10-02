@@ -9,7 +9,7 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.levelgen.VerticalAnchor;
 import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
-import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
+import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.placement.*;
 import net.regions_unexplored.datagen.provider.registry.configured_feature.RuAquaticFeatures;
 
@@ -29,8 +29,8 @@ public class RuAquaticPlacements {
     public static final ResourceKey<PlacedFeature> SPECIAL_MAGNOLIAS = key("special/magnolias");
 
     public static void bootstrap(BootstrapContext<PlacedFeature> context) {
-        HolderGetter<ConfiguredFeature<?, ?>> getter = context.lookup(Registries.CONFIGURED_FEATURE);
-        final Holder<ConfiguredFeature<?, ?>> patchCattail = getter.getOrThrow(RuAquaticFeatures.PATCH_CATTAIL);
+        HolderGetter<Feature> getter = context.lookup(Registries.FEATURE);
+        final Holder<Feature> patchCattail = getter.getOrThrow(RuAquaticFeatures.PATCH_CATTAIL);
 
 
         register(context, RuAquaticPlacements.PATCH_CATTAIL_DENSE, patchCattail, placement().count(noiseCount(-3, 2, 3)).atHeight(VerticalAnchor.absolute(62)));

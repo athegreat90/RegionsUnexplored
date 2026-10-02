@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "regions_unexplored:ashen_dirt_from_dirt"
+        "recipes": "regions_unexplored:ashen_dirt_from_dirt"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

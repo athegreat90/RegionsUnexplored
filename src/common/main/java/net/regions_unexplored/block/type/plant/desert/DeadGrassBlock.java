@@ -13,10 +13,6 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import net.regions_unexplored.block.RUBlockUtils;
 
 public class DeadGrassBlock extends VegetationBlock {
-    public static final MapCodec<DeadGrassBlock> CODEC = RecordCodecBuilder.mapCodec(i -> i.group(
-        Codec.floatRange(0, 16).fieldOf("height").forGetter(b -> b.height),
-        propertiesCodec()
-    ).apply(i, DeadGrassBlock::new));
     
     protected final float height;
     protected final VoxelShape shape;
@@ -25,11 +21,6 @@ public class DeadGrassBlock extends VegetationBlock {
         super(properties);
         this.height = height;
         this.shape = RUBlockUtils.column(12, 0, height);
-    }
-
-    @Override
-    protected MapCodec<? extends VegetationBlock> codec() {
-        return CODEC;
     }
 
     public VoxelShape getShape(BlockState state, BlockGetter getter, BlockPos pos, CollisionContext context) {

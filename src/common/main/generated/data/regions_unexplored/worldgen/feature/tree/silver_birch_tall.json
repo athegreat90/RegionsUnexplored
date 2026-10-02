@@ -1,0 +1,38 @@
+{
+  "type": "regions_unexplored:aspen_tree",
+  "branch_provider": {
+    "id": "regions_unexplored:silver_birch_branch",
+    "properties": {
+      "facing": "north"
+    }
+  },
+  "decorators": [
+    {
+      "type": "regions_unexplored:place_on_ground",
+      "block_state_provider": {
+        "type": "regions_unexplored:randomized_ground_cover",
+        "block": "regions_unexplored:silver_birch_leaf_litter"
+      },
+      "height": 1,
+      "radius": 3,
+      "tries": 48
+    }
+  ],
+  "foliage_provider": {
+    "id": "regions_unexplored:silver_birch_leaves",
+    "properties": {
+      "distance": "7",
+      "persistent": "false",
+      "waterlogged": "false"
+    }
+  },
+  "minimum_size": 5,
+  "size_variation": 5,
+  "trunk_provider": {
+    "id": "regions_unexplored:silver_birch_log",
+    "properties": {
+      "axis": "y",
+      "is_base": "false"
+    }
+  }
+}

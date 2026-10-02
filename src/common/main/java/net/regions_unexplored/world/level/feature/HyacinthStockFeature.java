@@ -1,5 +1,6 @@
 package net.regions_unexplored.world.level.feature;
 
+import net.minecraft.core.Holder;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
@@ -23,7 +24,7 @@ import java.util.Random;
 
 public class HyacinthStockFeature implements Feature {
     public static final MapCodec<HyacinthStockFeature> CODEC = RecordCodecBuilder.mapCodec(i -> i.group(
-        BlockStateProvider.CODEC.fieldOf("stock_provider").forGetter(f -> f.stockProvider),
+        BlockStateProvider.CODEC.xmap(Holder::value, Holder::direct).fieldOf("stock_provider").forGetter(f -> f.stockProvider),
         Codec.INT.fieldOf("minimum_size").forGetter(f -> f.minimumSize),
         Codec.INT.fieldOf("size_variation").forGetter(f -> f.sizeVariation)
     ).apply(i, HyacinthStockFeature::new));

@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "regions_unexplored:chalk_bricks_from_chalk_pillar_stonecutting"
+        "recipes": "regions_unexplored:chalk_bricks_from_chalk_pillar_stonecutting"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

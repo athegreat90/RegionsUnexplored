@@ -18,7 +18,7 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.levelgen.Heightmap.Types;
 import net.minecraft.world.level.levelgen.VerticalAnchor;
 import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
-import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
+import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.placement.*;
 import net.regions_unexplored.datagen.provider.registry.configured_feature.RuAquaticFeatures;
 import net.regions_unexplored.datagen.provider.registry.util.RUFeatureUtils;
@@ -129,7 +129,7 @@ public class RuVegetationPlacements {
 
 
     public static void bootstrap(BootstrapContext<PlacedFeature> context) {
-        HolderGetter<ConfiguredFeature<?, ?>> getter = context.lookup(Registries.CONFIGURED_FEATURE);
+        HolderGetter<Feature> getter = context.lookup(Registries.FEATURE);
         
         var patchElephantEar = getter.getOrThrow(RuVegetationFeatures.PATCH_ELEPHANT_EAR);
         var patchFern = getter.getOrThrow(RuVegetationFeatures.PATCH_FERN);
@@ -147,7 +147,7 @@ public class RuVegetationPlacements {
             .notSubmerged()
             .add(SurfaceRelativeThresholdFilter.of(Types.OCEAN_FLOOR, Integer.MIN_VALUE, -16))
             .filter(BlockPredicate.allOf(
-                BlockPredicate.wouldSurvive(RUBlocks.BLUE_BIOSHROOM.get().defaultBlockState(), Vec3i.ZERO),
+                BlockPredicate.wouldSurvive(RUBlocks.BLUE_BIOSHROOM.get()),
                 BlockPredicate.ONLY_IN_AIR_PREDICATE
             ))
         );
@@ -267,10 +267,10 @@ public class RuVegetationPlacements {
         //OTHER
         register(context, RuVegetationPlacements.PATCH_CACTUS_DENSE, patchCactus, placement(0.33f, Types.MOTION_BLOCKING)
             .add(CountPlacement.of(10))
-            .add(RandomOffsetPlacement.ofTriangle(7, 3))
+            .add(OffsetPlacement.ofTriangle(7, 3))
             .add(BlockPredicateFilter.forPredicate(BlockPredicate.allOf(
                 BlockPredicate.matchesTag(BlockTags.AIR),
-                BlockPredicate.wouldSurvive(Blocks.CACTUS.defaultBlockState(), Vec3i.ZERO)
+                BlockPredicate.wouldSurvive(Blocks.CACTUS)
             )))
         );
         register(context, RuVegetationPlacements.SINGLE_BARREL_CACTUS, placement().heightmap(Types.WORLD_SURFACE_WG).filter(BlockPredicate.ONLY_IN_AIR_PREDICATE));
@@ -286,8 +286,8 @@ public class RuVegetationPlacements {
         
         register(context, VANILLA_BADLANDS_SAGUAROS, getter.getOrThrow(RUConfiguredFeatures.TREE_SAGUARO_CACTUS), placement(0.02f, Types.OCEAN_FLOOR).filter(RUBlocks.SAGUARO_CACTUS_NATURAL_SET.getSapling()));
         register(context, VANILLA_BADLANDS_STEPPE_GRASS, placement(0.5f, Types.MOTION_BLOCKING));
-        register(context, VANILLA_BASALT_DELTAS_ASH_VENTS, placementNether(6).add(RUFeatureUtils.airAndBlocksBelow(Blocks.BASALT)).add(RandomOffsetPlacement.vertical(ConstantInt.of(-1))));
-        register(context, VANILLA_BEACH_PALM_TREES, getter.getOrThrow(RUConfiguredFeatures.TREE_PALM), placementTree(0.1f, RUBlocks.PALM_NATURAL_SET).add(LithostitchedPlacementModifiers.condition(LithostitchedPlacementConditions.sampleNoiseRouter(NoiseRouterTarget.TEMPERATURE, new InclusiveRange<>(0.2, 0.55)))));
+        register(context, VANILLA_BASALT_DELTAS_ASH_VENTS, placementNether(6).add(RUFeatureUtils.airAndBlocksBelow(Blocks.BASALT)).add(OffsetPlacement.vertical(ConstantInt.of(-1))));
+        register(context, VANILLA_BEACH_PALM_TREES, getter.getOrThrow(RUConfiguredFeatures.TREE_PALM), placementTree(0.1f, RUBlocks.PALM_NATURAL_SET).add(LithostitchedPlacementModifiers.condition(LithostitchedPlacementConditions.sampleNoiseRouter(NoiseRouterTarget.TEMPERATURE, new InclusiveRange<>(0.2f, 0.55f)))));
         register(context, VANILLA_BIRCH_ORANGE_CONEFLOWERS, placement(0.05f, Types.OCEAN_FLOOR_WG).notSubmerged());
         register(context, VANILLA_DESERT_SANDY_GRASS, getter.getOrThrow(RuVegetationFeatures.PATCH_SANDY_GRASS), placement(0.33f, Types.MOTION_BLOCKING));
         register(context, VANILLA_FOREST_FLOWERS, placement(0.025f, Types.MOTION_BLOCKING));

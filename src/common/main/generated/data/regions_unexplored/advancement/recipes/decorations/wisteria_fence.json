@@ -3,7 +3,7 @@
   "criteria": {
     "has_the_recipe": {
       "conditions": {
-        "recipe": "regions_unexplored:wisteria_fence"
+        "recipes": "regions_unexplored:wisteria_fence"
       },
       "trigger": "minecraft:recipe_unlocked"
     },

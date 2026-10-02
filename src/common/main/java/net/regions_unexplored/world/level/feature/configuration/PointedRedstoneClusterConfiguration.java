@@ -3,7 +3,7 @@ package net.regions_unexplored.world.level.feature.configuration;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.HolderSet;
-import net.minecraft.core.RegistryCodecs;
+import net.minecraft.core.registries.codec.RegistryCodecs;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.util.valueproviders.FloatProvider;
 import net.minecraft.util.valueproviders.FloatProviders;
@@ -16,7 +16,7 @@ public record PointedRedstoneClusterConfiguration(BlockState baseBlock, BlockSta
     public static final Codec<PointedRedstoneClusterConfiguration> CODEC = RecordCodecBuilder.create(i -> i.group(
         BlockState.CODEC.fieldOf("base_block").forGetter(PointedRedstoneClusterConfiguration::baseBlock),
         BlockState.CODEC.fieldOf("pointed_block").forGetter(PointedRedstoneClusterConfiguration::pointedBlock),
-        RegistryCodecs.homogeneousList(Registries.BLOCK).fieldOf("replaceable_blocks").forGetter(PointedRedstoneClusterConfiguration::replaceableBlocks),
+        RegistryCodecs.holderSet(Registries.BLOCK).fieldOf("replaceable_blocks").forGetter(PointedRedstoneClusterConfiguration::replaceableBlocks),
         Codec.intRange(1, 512).fieldOf("floor_to_ceiling_search_range").forGetter(PointedRedstoneClusterConfiguration::floorToCeilingSearchRange),
         IntProviders.codec(1, 128).fieldOf("height").forGetter(PointedRedstoneClusterConfiguration::height),
         IntProviders.codec(1, 128).fieldOf("radius").forGetter(PointedRedstoneClusterConfiguration::radius),

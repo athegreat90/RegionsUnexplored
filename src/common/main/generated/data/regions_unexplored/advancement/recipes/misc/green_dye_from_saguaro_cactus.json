@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "regions_unexplored:green_dye_from_saguaro_cactus"
+        "recipes": "regions_unexplored:green_dye_from_saguaro_cactus"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

@@ -28,13 +28,7 @@
       "type": "minecraft:block_predicate_filter",
       "predicate": {
         "type": "minecraft:would_survive",
-        "state": {
-          "Name": "regions_unexplored:mangrove_shrub",
-          "Properties": {
-            "half": "lower",
-            "waterlogged": "false"
-          }
-        }
+        "state": "regions_unexplored:mangrove_shrub"
       }
     },
     {

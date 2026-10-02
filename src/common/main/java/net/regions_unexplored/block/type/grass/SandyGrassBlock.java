@@ -1,6 +1,7 @@
 package net.regions_unexplored.block.type.grass;
 
 import com.mojang.serialization.MapCodec;
+import net.minecraft.world.level.block.BonemealSource;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.registries.Registries;
@@ -33,22 +34,17 @@ public class SandyGrassBlock extends VegetationBlock implements BonemealableBloc
     }
     
     @Override
-    protected MapCodec<? extends VegetationBlock> codec() {
-        return null;
-    }
-    
-    @Override
     public VoxelShape getShape(BlockState state, BlockGetter getter, BlockPos pos, CollisionContext context) {
         return SHAPE;
     }
     
     @Override
-    public boolean isValidBonemealTarget(LevelReader level, BlockPos pos, BlockState state) {
+    public boolean isValidBonemealTarget(LevelReader level, BlockPos pos, BlockState state, BonemealSource source) {
         return true;
     }
     
     @Override
-    public boolean isBonemealSuccess(Level level, RandomSource random, BlockPos pos, BlockState state) {
+    public boolean isBonemealSuccess(Level level, RandomSource random, BlockPos pos, BlockState state, BonemealSource source) {
         return true;
     }
     
@@ -58,7 +54,7 @@ public class SandyGrassBlock extends VegetationBlock implements BonemealableBloc
     }
     
     @Override
-    public void performBonemeal(ServerLevel level, RandomSource random, BlockPos pos, BlockState state) {
+    public void performBonemeal(ServerLevel level, RandomSource random, BlockPos pos, BlockState state, BonemealSource source) {
         BlockState tallGrass = level.registryAccess().lookupOrThrow(Registries.BLOCK).getValue(this.tallGrassKey).defaultBlockState();
         if (tallGrass.canSurvive(level, pos) && level.isEmptyBlock(pos.above())) {
             level.setBlock(pos, tallGrass, 2);

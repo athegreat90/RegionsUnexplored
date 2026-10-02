@@ -3,7 +3,7 @@
   "criteria": {
     "has_the_recipe": {
       "conditions": {
-        "recipe": "regions_unexplored:willow_sign"
+        "recipes": "regions_unexplored:willow_sign"
       },
       "trigger": "minecraft:recipe_unlocked"
     },

@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "regions_unexplored:pink_bioshroom_fence"
+        "recipes": "regions_unexplored:pink_bioshroom_fence"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

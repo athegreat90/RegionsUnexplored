@@ -1,17 +1,17 @@
 package net.regions_unexplored.world.level.feature.configuration;
 
+import net.minecraft.core.Holder;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfiguration;
 import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
 
-public class GiantBioshroomConfiguration implements FeatureConfiguration {
+public class GiantBioshroomConfiguration {
     public static final Codec<GiantBioshroomConfiguration> CODEC = RecordCodecBuilder.create((codec) -> {
-        return codec.group(BlockStateProvider.CODEC.fieldOf("stem_provider").forGetter((MushroomStemBlock) -> {
+        return codec.group(BlockStateProvider.CODEC.xmap(Holder::value, Holder::direct).fieldOf("stem_provider").forGetter((MushroomStemBlock) -> {
             return MushroomStemBlock.stemProvider;
-        }), BlockStateProvider.CODEC.fieldOf("cap_provider").forGetter((CapBlock) -> {
+        }), BlockStateProvider.CODEC.xmap(Holder::value, Holder::direct).fieldOf("cap_provider").forGetter((CapBlock) -> {
             return CapBlock.capProvider;
-        }), BlockStateProvider.CODEC.fieldOf("glow_block_provider").forGetter((GlowingBlock) -> {
+        }), BlockStateProvider.CODEC.xmap(Holder::value, Holder::direct).fieldOf("glow_block_provider").forGetter((GlowingBlock) -> {
             return GlowingBlock.glowBlockProvider;
         }), Codec.INT.fieldOf("minimum_size").forGetter((minimumSize) -> {
             return minimumSize.minimumSize;

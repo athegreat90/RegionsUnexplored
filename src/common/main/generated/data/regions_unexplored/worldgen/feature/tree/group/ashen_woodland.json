@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:simple_random_selector",
+  "features": [
+    {
+      "feature": "regions_unexplored:tree/ashen",
+      "placement": []
+    },
+    {
+      "feature": "regions_unexplored:tree/ashen_pine",
+      "placement": []
+    }
+  ]
+}

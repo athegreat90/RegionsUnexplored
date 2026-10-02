@@ -1,0 +1,50 @@
+{
+  "type": "minecraft:weighted_random_selector",
+  "features": [
+    {
+      "data": {
+        "feature": {
+          "type": "minecraft:simple_block",
+          "to_place": {
+            "id": "regions_unexplored:jungle_shrub",
+            "properties": {
+              "half": "lower"
+            }
+          }
+        },
+        "placement": []
+      },
+      "weight": 1
+    },
+    {
+      "data": {
+        "feature": {
+          "type": "minecraft:simple_block",
+          "to_place": {
+            "id": "regions_unexplored:palm_shrub",
+            "properties": {
+              "half": "lower"
+            }
+          }
+        },
+        "placement": []
+      },
+      "weight": 2
+    },
+    {
+      "data": {
+        "feature": {
+          "type": "minecraft:simple_block",
+          "to_place": {
+            "id": "regions_unexplored:kapok_shrub",
+            "properties": {
+              "half": "lower"
+            }
+          }
+        },
+        "placement": []
+      },
+      "weight": 2
+    }
+  ]
+}

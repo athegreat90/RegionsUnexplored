@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "regions_unexplored:cherry_branch_from_cherry_log"
+        "recipes": "regions_unexplored:cherry_branch_from_cherry_log"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

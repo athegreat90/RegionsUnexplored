@@ -1,0 +1,11 @@
+{
+  "type": "regions_unexplored:tall_hyacinth_stock",
+  "minimum_size": 1,
+  "size_variation": 14,
+  "stock_provider": {
+    "id": "regions_unexplored:tall_hyacinth_stock",
+    "properties": {
+      "tall_hyacinth_stock_shape": "base_tip"
+    }
+  }
+}

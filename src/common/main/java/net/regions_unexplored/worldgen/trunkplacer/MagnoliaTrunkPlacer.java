@@ -14,7 +14,6 @@ import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.RotatedPillarBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.feature.TreeFeature;
-import net.minecraft.world.level.levelgen.feature.configurations.TreeConfiguration;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacer.FoliageAttachment;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.TrunkPlacerType;
 
@@ -50,7 +49,7 @@ public class MagnoliaTrunkPlacer extends RUTrunkPlacer {
         final RandomSource random,
         final int treeHeight,
         final BlockPos origin,
-        final TreeConfiguration config
+        final TreeFeature config
     ) {
         placeBelowTrunkBlock(level, trunkSetter, random, origin.below(), config);
         

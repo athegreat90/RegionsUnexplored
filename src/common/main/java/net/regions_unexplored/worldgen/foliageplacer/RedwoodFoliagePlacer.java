@@ -8,7 +8,7 @@ import net.minecraft.util.valueproviders.IntProvider;
 import net.minecraft.util.valueproviders.IntProviders;
 import net.minecraft.world.level.LevelSimulatedReader;
 import net.minecraft.world.level.WorldGenLevel;
-import net.minecraft.world.level.levelgen.feature.configurations.TreeConfiguration;
+import net.minecraft.world.level.levelgen.feature.TreeFeature;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.BlobFoliagePlacer;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacer;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacerType;
@@ -39,14 +39,14 @@ public class RedwoodFoliagePlacer extends BlobFoliagePlacer {
         final WorldGenLevel level,
         final FoliageSetter foliageSetter,
         final RandomSource random,
-        final TreeConfiguration config,
+        final TreeFeature config,
         final int treeHeight,
         final FoliageAttachment foliageAttachment,
         final int foliageHeight,
         final int leafRadius,
         final int offset
     ) {
-        Context context = new Context(level, foliageSetter, random, config.foliageProvider, foliageAttachment.pos(), offset);
+        Context context = new Context(level, foliageSetter, random, config.foliageProvider().value(), foliageAttachment.pos(), offset);
         placeDiamond(context, 1, -1, false);
         placeDiamond(context, 2, 0, false);
         placeSquare(context, 1, 1, false, 0.33f);

@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "regions_unexplored:kapok_fence"
+        "recipes": "regions_unexplored:kapok_fence"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

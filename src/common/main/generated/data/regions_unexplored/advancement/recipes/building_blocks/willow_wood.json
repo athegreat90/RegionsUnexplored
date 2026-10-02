@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "regions_unexplored:willow_wood"
+        "recipes": "regions_unexplored:willow_wood"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

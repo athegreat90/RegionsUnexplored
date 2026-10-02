@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "regions_unexplored:raw_redstone_block"
+        "recipes": "regions_unexplored:raw_redstone_block"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

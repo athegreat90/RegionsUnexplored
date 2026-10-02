@@ -1,0 +1,33 @@
+{
+  "type": "minecraft:weighted_random_selector",
+  "features": [
+    {
+      "data": {
+        "feature": "regions_unexplored:tree/maple",
+        "placement": []
+      },
+      "weight": 3
+    },
+    {
+      "data": {
+        "feature": "regions_unexplored:tree/big_maple",
+        "placement": []
+      },
+      "weight": 1
+    },
+    {
+      "data": {
+        "feature": "regions_unexplored:tree/oak_with_branch",
+        "placement": []
+      },
+      "weight": 1
+    },
+    {
+      "data": {
+        "feature": "regions_unexplored:tree/birch_aspen",
+        "placement": []
+      },
+      "weight": 1
+    }
+  ]
+}

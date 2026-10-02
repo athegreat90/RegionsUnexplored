@@ -18,15 +18,9 @@ import net.regions_unexplored.registry.tag.*;
 import net.regions_unexplored.block.properties.RUBlockProperties;
 
 public class AshenGrassBlock extends VegetationBlock {
-    public static final MapCodec<? extends AshenGrassBlock> CODEC = simpleCodec(AshenGrassBlock::new);
     public static final BooleanProperty SMOULDERING = RUBlockProperties.SMOULDERING;
     protected static final VoxelShape SHAPE = RUBlockUtils.column(12, 0, 10);
     
-    @Override
-    protected MapCodec<? extends AshenGrassBlock> codec() {
-        return CODEC;
-    }
-
     public AshenGrassBlock(Properties properties) {
         super(properties);
         this.registerDefaultState(this.defaultBlockState().setValue(SMOULDERING, false));

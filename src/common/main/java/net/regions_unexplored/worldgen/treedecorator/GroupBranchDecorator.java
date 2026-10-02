@@ -5,6 +5,7 @@ import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.Holder;
 import net.minecraft.core.Vec3i;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.util.ExtraCodecs;
@@ -40,9 +41,9 @@ public class GroupBranchDecorator extends TreeDecorator {
     private final Block branchBlock;
     private final Block logBlock;
     private final int topOffset;
-    private final Optional<BlockStateProvider> leavesProvider;
+    private final Optional<Holder<BlockStateProvider>> leavesProvider;
 
-    private GroupBranchDecorator(float probability, Block branchBlock, Block logBlock, int topOffset, Optional<BlockStateProvider> leavesProvider) {
+    private GroupBranchDecorator(float probability, Block branchBlock, Block logBlock, int topOffset, Optional<Holder<BlockStateProvider>> leavesProvider) {
         this.probability = probability;
         this.branchBlock = branchBlock;
         this.logBlock = logBlock;
@@ -59,14 +60,14 @@ public class GroupBranchDecorator extends TreeDecorator {
     }
 
     public static GroupBranchDecorator create(float probability, NaturalSet naturalSet, WoodSet woodSet, int topOffset) {
-        return create(probability, naturalSet, woodSet, topOffset, BlockStateProvider.simple(naturalSet.getLeaves()));
+        return create(probability, naturalSet, woodSet, topOffset, BlockStateProvider.holderOf(naturalSet.getLeaves()));
     }
 
-    public static GroupBranchDecorator create(float probability, NaturalSet naturalSet, WoodSet woodSet, int topOffset, BlockStateProvider leavesProvider) {
+    public static GroupBranchDecorator create(float probability, NaturalSet naturalSet, WoodSet woodSet, int topOffset, Holder<BlockStateProvider> leavesProvider) {
         return create(probability, naturalSet, woodSet.getLog(), topOffset, leavesProvider);
     }
-    
-    public static GroupBranchDecorator create(float probability, NaturalSet naturalSet, Block log, int topOffset, BlockStateProvider leavesProvider) {
+
+    public static GroupBranchDecorator create(float probability, NaturalSet naturalSet, Block log, int topOffset, Holder<BlockStateProvider> leavesProvider) {
         return new GroupBranchDecorator(probability, naturalSet.getBranch(), log, topOffset, Optional.of(leavesProvider));
     }
     
@@ -106,7 +107,7 @@ public class GroupBranchDecorator extends TreeDecorator {
 
     private void placeLeaves(Context context, BlockPos pos) {
         if (context.isAir(pos)) {
-            context.setBlock(pos, this.leavesProvider.get().getState(context.level(), context.random(), pos).trySetValue(LeavesBlock.DISTANCE, 1));
+            context.setBlock(pos, this.leavesProvider.get().value().getState(context.level(), context.random(), pos).trySetValue(LeavesBlock.DISTANCE, 1));
         }
     }
 }

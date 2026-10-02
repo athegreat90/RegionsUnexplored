@@ -1,6 +1,7 @@
 package net.regions_unexplored.block.type.cave;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.block.BonemealSource;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.RandomSource;
@@ -17,17 +18,17 @@ public class PrismossBlock extends Block implements BonemealableBlock {
    }
    
    @Override
-   public boolean isValidBonemealTarget(LevelReader level, BlockPos pos, BlockState state) {
+   public boolean isValidBonemealTarget(LevelReader level, BlockPos pos, BlockState state, BonemealSource source) {
       return level.getBlockState(pos.above()).isAir();
    }
    
    @Override
-   public boolean isBonemealSuccess(Level level, RandomSource random, BlockPos pos, BlockState state) {
+   public boolean isBonemealSuccess(Level level, RandomSource random, BlockPos pos, BlockState state, BonemealSource source) {
       return true;
    }
 
    @Override
-   public void performBonemeal(ServerLevel level, RandomSource random, BlockPos pos, BlockState state) {
+   public void performBonemeal(ServerLevel level, RandomSource random, BlockPos pos, BlockState state, BonemealSource source) {
       for (BlockPos offsetPos : BlockPos.betweenClosed(pos.offset(-1, 0, -1), pos.offset(1, 0, 1))) {
          BlockState offsetState = level.getBlockState(offsetPos);
          if (random.nextBoolean() || !level.getBlockState(offsetPos.above()).isAir()) continue;

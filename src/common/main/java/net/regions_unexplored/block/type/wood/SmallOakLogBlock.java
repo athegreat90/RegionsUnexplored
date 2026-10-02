@@ -1,17 +1,16 @@
 package net.regions_unexplored.block.type.wood;
 
-import net.minecraft.advancements.CriteriaTriggers;
+import net.minecraft.advancements.triggers.CriteriaTriggers;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.AxeItem;
-import net.minecraft.world.item.HoeItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.context.BlockPlaceContext;
@@ -100,7 +99,7 @@ public class SmallOakLogBlock extends Block implements SimpleWaterloggedBlock{
         if (playerHasShieldUseIntent(player, interactionHand)) {
             return InteractionResult.PASS;
         }
-        else if (stack.getItem() instanceof AxeItem) {
+        else if (stack.is(ItemTags.AXES)) {
             BlockState newBlockState = evaluateStrippedState(level, pos, player, state);
             if (player instanceof ServerPlayer) {
                 CriteriaTriggers.ITEM_USED_ON_BLOCK.trigger((ServerPlayer)player, pos, stack);
@@ -121,7 +120,7 @@ public class SmallOakLogBlock extends Block implements SimpleWaterloggedBlock{
         boolean isWaterlogged = state.getValue(WATERLOGGED);
         Direction.Axis direction = state.getValue(AXIS);
         BlockState strippedState = RUBlocks.STRIPPED_SMALL_OAK_LOG.get().defaultBlockState().setValue(AXIS, direction).setValue(WATERLOGGED, isWaterlogged);
-        level.playSound(player, pos, SoundEvents.AXE_STRIP, SoundSource.BLOCKS, 1.0F, 1.0F);
+        level.playSound(player, pos, SoundEvents.AXE_STRIP.value(), SoundSource.BLOCKS, 1.0F, 1.0F);
         return strippedState;
     }
 

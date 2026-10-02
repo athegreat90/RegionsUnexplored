@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "regions_unexplored:cobalt_hanging_sign"
+        "recipes": "regions_unexplored:cobalt_hanging_sign"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

@@ -7,7 +7,7 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.util.valueproviders.ConstantInt;
 import net.minecraft.world.level.LevelSimulatedReader;
 import net.minecraft.world.level.WorldGenLevel;
-import net.minecraft.world.level.levelgen.feature.configurations.TreeConfiguration;
+import net.minecraft.world.level.levelgen.feature.TreeFeature;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.BlobFoliagePlacer;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacerType;
 
@@ -26,7 +26,7 @@ public class MagnoliaFoliagePlacer extends BlobFoliagePlacer {
         final WorldGenLevel level,
         final FoliageSetter foliageSetter,
         final RandomSource random,
-        final TreeConfiguration config,
+        final TreeFeature config,
         final int treeHeight,
         final FoliageAttachment foliageAttachment,
         final int foliageHeight,
@@ -34,7 +34,7 @@ public class MagnoliaFoliagePlacer extends BlobFoliagePlacer {
         final int offset
     ) {
         BlockPos origin = foliageAttachment.pos();
-        Context context = new Context(level, foliageSetter, random, config.foliageProvider, origin, offset);
+        Context context = new Context(level, foliageSetter, random, config.foliageProvider().value(), origin, offset);
         
         placeSquare(context, 3, 1, false, 0);
         placeSquare(context, 1, 2, false);

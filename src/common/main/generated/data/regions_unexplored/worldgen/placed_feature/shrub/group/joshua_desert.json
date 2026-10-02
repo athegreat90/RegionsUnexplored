@@ -27,12 +27,7 @@
       "type": "minecraft:block_predicate_filter",
       "predicate": {
         "type": "minecraft:would_survive",
-        "state": {
-          "Name": "regions_unexplored:joshua_shrub",
-          "Properties": {
-            "half": "lower"
-          }
-        }
+        "state": "regions_unexplored:joshua_shrub"
       }
     },
     {

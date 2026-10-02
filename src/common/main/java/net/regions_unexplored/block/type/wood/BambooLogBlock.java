@@ -1,6 +1,8 @@
 package net.regions_unexplored.block.type.wood;
 
-import net.minecraft.advancements.CriteriaTriggers;
+import net.minecraft.advancements.triggers.CriteriaTriggers;
+import net.minecraft.tags.ItemTags;
+import net.minecraft.world.level.block.BonemealSource;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
@@ -72,15 +74,15 @@ public class BambooLogBlock extends Block implements BonemealableBlock, SimpleWa
         return state.getValue(WATERLOGGED) ? Fluids.WATER.getSource(false) : super.getFluidState(state);
     }
 
-    public boolean isValidBonemealTarget(LevelReader level, BlockPos pos, BlockState state) {
+    public boolean isValidBonemealTarget(LevelReader level, BlockPos pos, BlockState state, BonemealSource source) {
         return !state.getValue(LEAVES);
     }
 
-    public boolean isBonemealSuccess(Level level, RandomSource random, BlockPos pos, BlockState state) {
+    public boolean isBonemealSuccess(Level level, RandomSource random, BlockPos pos, BlockState state, BonemealSource source) {
         return true;
     }
 
-    public void performBonemeal(ServerLevel level, RandomSource random, BlockPos pos, BlockState state) {
+    public void performBonemeal(ServerLevel level, RandomSource random, BlockPos pos, BlockState state, BonemealSource source) {
         level.setBlock(pos, state.setValue(LEAVES, true), 2);
     }
 
@@ -107,7 +109,7 @@ public class BambooLogBlock extends Block implements BonemealableBlock, SimpleWa
         if (playerHasShieldUseIntent(player, interactionHand)) {
             return InteractionResult.PASS;
         }
-        else if (stack.getItem() instanceof AxeItem) {
+        else if (stack.is(ItemTags.AXES)) {
             BlockState newBlockState = evaluateStrippedState(level, pos, player, state);
             if (player instanceof ServerPlayer) {
                 CriteriaTriggers.ITEM_USED_ON_BLOCK.trigger((ServerPlayer)player, pos, stack);
@@ -121,7 +123,7 @@ public class BambooLogBlock extends Block implements BonemealableBlock, SimpleWa
             }
             return InteractionResult.SUCCESS;
         }
-        else if ((stack.getItem() instanceof HoeItem) && state.getValue(LEAVES)) {
+        else if (stack.is(ItemTags.HOES) && state.getValue(LEAVES)) {
             BlockState newBlockState = evaluateTilledState(level, pos, player, state);
             if (player instanceof ServerPlayer) {
                 CriteriaTriggers.ITEM_USED_ON_BLOCK.trigger((ServerPlayer)player, pos, stack);
@@ -141,7 +143,7 @@ public class BambooLogBlock extends Block implements BonemealableBlock, SimpleWa
         boolean isWaterlogged = state.getValue(WATERLOGGED);
         Direction.Axis direction = state.getValue(AXIS);
         BlockState strippedState = RUBlocks.STRIPPED_BAMBOO_LOG.get().defaultBlockState().setValue(AXIS, direction).setValue(WATERLOGGED, Boolean.valueOf(isWaterlogged));
-        level.playSound(player, pos, SoundEvents.AXE_STRIP, SoundSource.BLOCKS, 1.0F, 1.0F);
+        level.playSound(player, pos, SoundEvents.AXE_STRIP.value(), SoundSource.BLOCKS, 1.0F, 1.0F);
         return strippedState;
     }
 
@@ -149,7 +151,7 @@ public class BambooLogBlock extends Block implements BonemealableBlock, SimpleWa
         boolean isWaterlogged = state.getValue(WATERLOGGED);
         Direction.Axis direction = state.getValue(AXIS);
         BlockState tilledState = RUBlocks.BAMBOO_LOG.get().defaultBlockState().setValue(LEAVES, false).setValue(AXIS, direction).setValue(WATERLOGGED, isWaterlogged);
-        level.playSound(player, pos, SoundEvents.HOE_TILL, SoundSource.BLOCKS, 1.0F, 1.0F);
+        level.playSound(player, pos, SoundEvents.HOE_TILL.value(), SoundSource.BLOCKS, 1.0F, 1.0F);
         return tilledState;
     }
 

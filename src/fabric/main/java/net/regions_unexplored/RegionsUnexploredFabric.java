@@ -1,6 +1,8 @@
 package net.regions_unexplored;
 
 import net.fabricmc.api.ModInitializer;
+import net.fabricmc.fabric.api.item.v1.DefaultItemComponentEvents;
+import net.regions_unexplored.item.RUItemComponents;
 import net.fabricmc.fabric.api.creativetab.v1.CreativeModeTabEvents;
 import net.fabricmc.fabric.api.event.registry.FabricRegistry;
 import net.fabricmc.fabric.api.resource.conditions.v1.ResourceConditions;
@@ -8,7 +10,6 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.regions_unexplored.block.RuBlockEntitiesFabric;
 import net.regions_unexplored.registry.RUBlocks;
-import net.regions_unexplored.block.compat.FurnaceBurnTimesFabric;
 import net.regions_unexplored.registry.RUCreativeModeTabs;
 import net.regions_unexplored.registry.RUItems;
 
@@ -16,6 +17,7 @@ public class RegionsUnexploredFabric implements ModInitializer {
     @Override
     public void onInitialize() {
         RegionsUnexplored.init();
+        DefaultItemComponentEvents.MODIFY.register(context -> RUItemComponents.modify((item, modifier) -> context.modify(item, modifier)));
         RuBlockEntitiesFabric.addBlockEntities();
         RegionsUnexploredFabric.afterRegistriesFreeze();
         ResourceConditions.register(RUConfigCondition.TYPE);
@@ -26,7 +28,6 @@ public class RegionsUnexploredFabric implements ModInitializer {
 
     public static void afterRegistriesFreeze() {
         RegionsUnexplored.afterRegistriesFreeze();
-        FurnaceBurnTimesFabric.setup();
         
         CreativeModeTabEvents.modifyOutputEvent(CreativeModeTabs.BUILDING_BLOCKS).register(entries -> {
             RUCreativeModeTabs.addToBuildingBlocks(entries::insertAfter);

@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:weighted_random_selector",
+  "features": [
+    {
+      "data": {
+        "feature": "regions_unexplored:tree/oak",
+        "placement": []
+      },
+      "weight": 2
+    },
+    {
+      "data": {
+        "feature": "regions_unexplored:tree/big_oak",
+        "placement": []
+      },
+      "weight": 1
+    }
+  ]
+}

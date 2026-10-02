@@ -19,7 +19,6 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import net.regions_unexplored.registry.tag.RUBlockTags;
 
 public class BranchBlock extends VegetationBlock {
-    public static final MapCodec<? extends BranchBlock> CODEC = simpleCodec(BranchBlock::new);
     public static final EnumProperty<Direction> FACING = BlockStateProperties.HORIZONTAL_FACING;
 
     public BranchBlock(Properties properties) {
@@ -47,11 +46,6 @@ public class BranchBlock extends VegetationBlock {
         BlockPos.MutableBlockPos blockPos = pos.mutable().move(direction);
 
         return mayPlaceOn(level.getBlockState(blockPos), level, blockPos);
-    }
-
-    @Override
-    protected MapCodec<? extends VegetationBlock> codec() {
-        return CODEC;
     }
 
     @Override

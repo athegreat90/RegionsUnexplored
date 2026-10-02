@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:weighted_random_selector",
+  "features": [
+    {
+      "data": {
+        "feature": "regions_unexplored:tree/giant_blue_bioshroom",
+        "placement": []
+      },
+      "weight": 1
+    },
+    {
+      "data": {
+        "feature": "regions_unexplored:tree/giant_green_bioshroom",
+        "placement": []
+      },
+      "weight": 1
+    }
+  ]
+}

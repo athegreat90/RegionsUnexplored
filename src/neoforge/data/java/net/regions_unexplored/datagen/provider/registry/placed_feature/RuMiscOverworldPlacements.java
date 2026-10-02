@@ -17,7 +17,7 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.levelgen.Heightmap.Types;
 import net.minecraft.world.level.levelgen.VerticalAnchor;
 import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
-import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
+import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.placement.*;
 import net.regions_unexplored.registry.RUBlocks;
 import net.regions_unexplored.datagen.provider.registry.configured_feature.RuMiscOverworldFeatures;
@@ -72,7 +72,7 @@ public class RuMiscOverworldPlacements {
     private static final BlockPredicateFilter NOT_IN_STRUCTURE = BlockPredicateFilter.forPredicate(BlockPredicate.not(LithostitchedBlockPredicates.inStructure(4)));
 
     public static void bootstrap(BootstrapContext<PlacedFeature> context) {
-        HolderGetter<ConfiguredFeature<?, ?>> getter = context.lookup(Registries.CONFIGURED_FEATURE);
+        HolderGetter<Feature> getter = context.lookup(Registries.FEATURE);
         
         var fallenOak = getter.getOrThrow(RuMiscOverworldFeatures.FALLEN_OAK);
         var fallenPine = getter.getOrThrow(RuMiscOverworldFeatures.FALLEN_PINE);
@@ -91,7 +91,7 @@ public class RuMiscOverworldPlacements {
         register(context, RuMiscOverworldPlacements.FALLEN_PINE_ON_DIRT, fallenPine, List.of(RarityFilter.onAverageOnceEvery(2), InSquarePlacement.spread(), SurfaceWaterDepthFilter.forMaxDepth(0), PlacementUtils.HEIGHTMAP_OCEAN_FLOOR, BlockPredicateFilter.forPredicate(RUPlacedFeatureBootstrap.onDirtPredicate), BiomeFilter.biome()));
         register(context, RuMiscOverworldPlacements.FALLEN_PINE_ON_SNOW, fallenSnowPine, List.of(RarityFilter.onAverageOnceEvery(2), InSquarePlacement.spread(), SurfaceWaterDepthFilter.forMaxDepth(0), PlacementUtils.HEIGHTMAP_OCEAN_FLOOR, BlockPredicateFilter.forPredicate(RUPlacedFeatureBootstrap.onSnowPredicate), BiomeFilter.biome()));
 
-        register(context, RuMiscOverworldPlacements.SPECIAL_POINTED_REDSTONE, CountPlacement.of(UniformInt.of(192, 256)), InSquarePlacement.spread(), PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT, CountPlacement.of(UniformInt.of(1, 5)), RandomOffsetPlacement.of(ClampedNormalInt.of(0.0F, 3.0F, -10, 10), ClampedNormalInt.of(0.0F, 0.6F, -2, 2)), BiomeFilter.biome());
+        register(context, RuMiscOverworldPlacements.SPECIAL_POINTED_REDSTONE, CountPlacement.of(UniformInt.of(192, 256)), InSquarePlacement.spread(), PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT, CountPlacement.of(UniformInt.of(1, 5)), OffsetPlacement.of(ClampedNormalInt.of(0.0F, 3.0F, -10, 10), ClampedNormalInt.of(0.0F, 0.6F, -2, 2)), BiomeFilter.biome());
         register(context, RuMiscOverworldPlacements.SPECIAL_LARGE_POINTED_REDSTONE, CountPlacement.of(UniformInt.of(10, 48)), InSquarePlacement.spread(), PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT, BiomeFilter.biome());
         register(context, RuMiscOverworldPlacements.SPECIAL_POINTED_REDSTONE_CLUSTER, CountPlacement.of(UniformInt.of(78, 126)), InSquarePlacement.spread(), PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT, BiomeFilter.biome());
         register(context, RuMiscOverworldPlacements.SPECIAL_ORE_REDSTONE_LARGE, commonOrePlacement(16, HeightRangePlacement.triangle(VerticalAnchor.bottom(), VerticalAnchor.absolute(112))));
@@ -99,7 +99,7 @@ public class RuMiscOverworldPlacements {
         register(context, RuMiscOverworldPlacements.PATCH_PRISMARITE_CLUSTER, placementCave(75, Direction.DOWN).notInStructure());
         register(context, RuMiscOverworldPlacements.SPECIAL_HANGING_PRISMARITE_CLUSTER, CountPlacement.of(100), InSquarePlacement.spread(), PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT, BiomeFilter.biome());
 
-        register(context, RuMiscOverworldPlacements.SPECIAL_CALCITE_POOL, CountPlacement.of(70), InSquarePlacement.spread(), PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT, EnvironmentScanPlacement.scanningFor(Direction.DOWN, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_PREDICATE, 12), RandomOffsetPlacement.vertical(ConstantInt.of(1)), BiomeFilter.biome());
+        register(context, RuMiscOverworldPlacements.SPECIAL_CALCITE_POOL, CountPlacement.of(70), InSquarePlacement.spread(), PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT, EnvironmentScanPlacement.scanningFor(Direction.DOWN, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_PREDICATE, 12), OffsetPlacement.vertical(ConstantInt.of(1)), BiomeFilter.biome());
 
         register(context, RuMiscOverworldPlacements.SPECIAL_LAVA_FALL, placement().count(100)
             .add(PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT)
@@ -110,9 +110,9 @@ public class RuMiscOverworldPlacements {
         
         register(context, RuMiscOverworldPlacements.SPECIAL_BASALT_BLOB, CountOnEveryLayerPlacement.of(4), BiomeFilter.biome());
 
-        register(context, RuMiscOverworldPlacements.SPECIAL_MOSS_PATCH_WITH_WATER_DENSE, mossPatchWithWater, CountPlacement.of(1), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP_TOP_SOLID, EnvironmentScanPlacement.scanningFor(Direction.DOWN, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_PREDICATE, 12), RandomOffsetPlacement.vertical(ConstantInt.of(1)), BlockPredicateFilter.forPredicate(BlockPredicate.not(BlockPredicate.matchesBlocks(Blocks.MUD))), BiomeFilter.biome());
-        register(context, RuMiscOverworldPlacements.SPECIAL_MOSS_PATCH_WITH_WATER, mossPatchWithWater, RarityFilter.onAverageOnceEvery(2), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP_TOP_SOLID, EnvironmentScanPlacement.scanningFor(Direction.DOWN, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_PREDICATE, 12), RandomOffsetPlacement.vertical(ConstantInt.of(1)), BiomeFilter.biome());
-        register(context, RuMiscOverworldPlacements.SPECIAL_MOSS_PATCH_WITH_WATER_SPARSE, mossPatchWithWater, RarityFilter.onAverageOnceEvery(4), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP_TOP_SOLID, EnvironmentScanPlacement.scanningFor(Direction.DOWN, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_PREDICATE, 12), RandomOffsetPlacement.vertical(ConstantInt.of(1)), BiomeFilter.biome());
+        register(context, RuMiscOverworldPlacements.SPECIAL_MOSS_PATCH_WITH_WATER_DENSE, mossPatchWithWater, CountPlacement.of(1), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP_TOP_SOLID, EnvironmentScanPlacement.scanningFor(Direction.DOWN, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_PREDICATE, 12), OffsetPlacement.vertical(ConstantInt.of(1)), BlockPredicateFilter.forPredicate(BlockPredicate.not(BlockPredicate.matchesBlocks(Blocks.MUD))), BiomeFilter.biome());
+        register(context, RuMiscOverworldPlacements.SPECIAL_MOSS_PATCH_WITH_WATER, mossPatchWithWater, RarityFilter.onAverageOnceEvery(2), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP_TOP_SOLID, EnvironmentScanPlacement.scanningFor(Direction.DOWN, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_PREDICATE, 12), OffsetPlacement.vertical(ConstantInt.of(1)), BiomeFilter.biome());
+        register(context, RuMiscOverworldPlacements.SPECIAL_MOSS_PATCH_WITH_WATER_SPARSE, mossPatchWithWater, RarityFilter.onAverageOnceEvery(4), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP_TOP_SOLID, EnvironmentScanPlacement.scanningFor(Direction.DOWN, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_PREDICATE, 12), OffsetPlacement.vertical(ConstantInt.of(1)), BiomeFilter.biome());
         register(context, RuMiscOverworldPlacements.SPECIAL_MARSH, CountPlacement.of(10), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BlockPredicateFilter.forPredicate(BlockPredicate.not(BlockPredicate.matchesBlocks(Blocks.MUD))), BiomeFilter.biome());
         register(context, RuMiscOverworldPlacements.SPECIAL_CARVED_LIMITED_POOL, BiomeFilter.biome());
         register(context, RuMiscOverworldPlacements.SPECIAL_WATER_EDGE, CountPlacement.of(10), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,  BiomeFilter.biome());
@@ -145,7 +145,7 @@ public class RuMiscOverworldPlacements {
             .add(PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT)
             .add(EnvironmentScanPlacement.scanningFor(direction, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_PREDICATE, 12));
         if (offset) {
-            builder.add(RandomOffsetPlacement.vertical(ConstantInt.of(-direction.getStepY())));
+            builder.add(OffsetPlacement.vertical(ConstantInt.of(-direction.getStepY())));
         }
         return builder.add(NOT_IN_STRUCTURE);
     }

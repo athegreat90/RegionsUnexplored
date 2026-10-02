@@ -1,13 +1,15 @@
 package net.regions_unexplored.block.type.leaves;
 
-import dev.worldgen.lithostitched.api.util.WeightedList;
 import dev.worldgen.lithostitched.api.worldgen.stateprovider.LithostitchedStateProviders;
+import net.minecraft.world.level.block.BonemealSource;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Holder;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
+import net.minecraft.util.random.WeightedList;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -100,6 +102,7 @@ public class AppleLeavesBlock extends RUTintedParticlesLeavesBlock implements Bo
                 Block.dropFromBlockInteractLootTable(
                     serverLevel,
                     RULootTables.HARVEST_APPLE_OAK_LEAVES,
+                    pos,
                     state,
                     level.getBlockEntity(pos),
                     null,
@@ -129,23 +132,23 @@ public class AppleLeavesBlock extends RUTintedParticlesLeavesBlock implements Bo
     }
 
     @Override
-    public boolean isValidBonemealTarget(LevelReader levelReader, BlockPos blockPos, BlockState blockState) {
+    public boolean isValidBonemealTarget(LevelReader levelReader, BlockPos blockPos, BlockState blockState, BonemealSource source) {
         return blockState.getValue(AGE) < 4;
     }
 
-    public boolean isBonemealSuccess(Level level, RandomSource random, BlockPos pos, BlockState state) {
+    public boolean isBonemealSuccess(Level level, RandomSource random, BlockPos pos, BlockState state, BonemealSource source) {
         return true;
     }
 
-    public void performBonemeal(ServerLevel level, RandomSource random, BlockPos pos, BlockState state) {
+    public void performBonemeal(ServerLevel level, RandomSource random, BlockPos pos, BlockState state, BonemealSource source) {
         int i = Math.min(4, state.getValue(AGE) + 1);
         level.setBlock(pos, state.setValue(AGE, Integer.valueOf(i)), 2);
     }
 
     public static BlockStateProvider createStateProvider(int normalWeight) {
-        return LithostitchedStateProviders.weighted(WeightedList.<BlockStateProvider>builder()
-            .add(of(Blocks.OAK_LEAVES), normalWeight)
-            .add(new RandomizedIntStateProvider(of(RUBlocks.APPLE_OAK_NATURAL_SET.getLeaves()), AppleLeavesBlock.AGE, UniformInt.of(2, 4)), 1)
+        return LithostitchedStateProviders.weighted(WeightedList.<Holder<BlockStateProvider>>builder()
+            .add(Holder.direct(of(Blocks.OAK_LEAVES)), normalWeight)
+            .add(Holder.direct(new RandomizedIntStateProvider(of(RUBlocks.APPLE_OAK_NATURAL_SET.getLeaves()), AppleLeavesBlock.AGE, UniformInt.of(2, 4))), 1)
         .build());
     }
 }

@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "regions_unexplored:stripped_maple_wood"
+        "recipes": "regions_unexplored:stripped_maple_wood"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

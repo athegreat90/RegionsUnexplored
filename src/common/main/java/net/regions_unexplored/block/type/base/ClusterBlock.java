@@ -29,22 +29,12 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import javax.annotation.Nullable;
 
 public class ClusterBlock extends Block implements SimpleWaterloggedBlock {
-	public static final MapCodec<ClusterBlock> CODEC = RecordCodecBuilder.mapCodec(i -> i.group(
-		Codec.FLOAT.fieldOf("height").forGetter(b -> b.height),
-		Codec.FLOAT.fieldOf("aabb_offset").forGetter(b -> b.aabbOffset),
-		propertiesCodec()
-	).apply(i, ClusterBlock::new));
 	
 	public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
 	public static final EnumProperty<Direction> FACING = BlockStateProperties.FACING;
 	private final float height;
 	private final float aabbOffset;
 	private final Map<Direction, VoxelShape> shapes;
-	
-	@Override
-	public MapCodec<ClusterBlock> codec() {
-		return CODEC;
-	}
 	
 	public ClusterBlock(final float height, final float aabbOffset, final Properties props) {
 		super(props);

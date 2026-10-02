@@ -1,0 +1,25 @@
+{
+  "type": "regions_unexplored:palm_tree",
+  "branch_provider": {
+    "id": "regions_unexplored:palm_beard",
+    "properties": {
+      "facing": "north"
+    }
+  },
+  "foliage_provider": {
+    "id": "regions_unexplored:palm_leaves",
+    "properties": {
+      "distance": "7",
+      "persistent": "false",
+      "waterlogged": "false"
+    }
+  },
+  "minimum_size": 8,
+  "size_variation": 5,
+  "trunk_provider": {
+    "id": "regions_unexplored:palm_log",
+    "properties": {
+      "axis": "y"
+    }
+  }
+}

@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "regions_unexplored:blue_snowbelle"
+        "recipes": "regions_unexplored:blue_snowbelle"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

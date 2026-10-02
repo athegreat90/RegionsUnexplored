@@ -22,6 +22,8 @@ version = "0.7.0+beta2-26.3"
 
 // Required dependencies
 val lithostitchedVersion = "2.0.4"
+val apollibFabricVersion = "1.2.4"
+val apollibNeoforgeVersion = "1.2.5"
 
 // Optional dependencies
 // wikiful has no published build past 26.2 yet; usages below are commented out until 26.3 is available.
@@ -56,6 +58,7 @@ cloche {
             implementation("com.electronwill.night-config:core:3.8.3")
             implementation("com.electronwill.night-config:toml:3.8.3")
             modCompileOnlyApi("maven.modrinth:lithostitched:$lithostitchedVersion-neoforge-26.3")
+            modCompileOnlyApi("maven.modrinth:apollib:$apollibNeoforgeVersion-neoforge-26.3")
         }
 
         data()
@@ -86,10 +89,14 @@ cloche {
             // world-preview-prime has no published build past 26.1.2 yet.
             // modRuntimeOnly("maven.modrinth:world-preview-prime:2.0.0-fabric-26.1")
             modImplementation("maven.modrinth:lithostitched:$lithostitchedVersion-fabric-26.3")
+            // Lithostitched jar-in-jars apollib, but the dev runtime classpath doesn't extract
+            // nested jars, so it needs declaring explicitly or VillagerTypeMixin throws
+            // NoClassDefFoundError on dev.worldgen.apollib.config.ApollibCopyable at startup.
+            modImplementation("maven.modrinth:apollib:$apollibFabricVersion-fabric-26.3")
             // wikiful has no published build past 26.2 yet.
             // modImplementation("maven.modrinth:wikiful:$wikifulVersion-fabric-26.1")
 
-            modImplementation("com.terraformersmc:modmenu:18.0.0")
+            modImplementation("com.terraformersmc:modmenu:21.0.0")
         }
 
         datagenDirectory = file("src/common/main/generated")
@@ -125,6 +132,7 @@ cloche {
             // world-preview-prime has no published build past 26.1.2 yet.
             // modRuntimeOnly("maven.modrinth:world-preview-prime:2.0.0-neoforge-26.1")
             modApi("maven.modrinth:lithostitched:$lithostitchedVersion-neoforge-26.3")
+            modApi("maven.modrinth:apollib:$apollibNeoforgeVersion-neoforge-26.3")
             // wikiful has no published build past 26.2 yet.
             // modApi("maven.modrinth:wikiful:$wikifulVersion-neoforge-26.1")
         }
@@ -145,4 +153,23 @@ cloche {
             clientData()
         }
     }
+}
+
+tasks.withType<JavaCompile>().configureEach {
+    options.compilerArgs.addAll(listOf("-Xmaxerrs", "10000"))
+}
+
+val generateData = tasks.named("runNeoforgeClientData") {
+    doLast {
+        // The old provider cache cannot remove files from renamed registries.
+        // Only prune these after the replacement registries were generated.
+        val data = file("src/common/main/generated/data/regions_unexplored")
+        check(data.resolve("worldgen/feature").isDirectory)
+        check(data.resolve("worldgen/material_rule").isDirectory)
+        delete(data.resolve("worldgen/configured_feature"), data.resolve("lithostitched/surface_rule"))
+    }
+}
+
+tasks.withType<Jar>().configureEach {
+    mustRunAfter(generateData)
 }

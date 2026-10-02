@@ -1,0 +1,25 @@
+{
+  "type": "regions_unexplored:small_joshua_tree",
+  "branch_provider": {
+    "id": "regions_unexplored:joshua_beard",
+    "properties": {
+      "facing": "north"
+    }
+  },
+  "foliage_provider": {
+    "id": "regions_unexplored:joshua_leaves",
+    "properties": {
+      "half": "lower",
+      "natural": "false",
+      "waterlogged": "false"
+    }
+  },
+  "minimum_size": 1,
+  "size_variation": 1,
+  "trunk_provider": {
+    "id": "regions_unexplored:joshua_log",
+    "properties": {
+      "axis": "y"
+    }
+  }
+}

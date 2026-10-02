@@ -1,0 +1,14 @@
+{
+  "type": "regions_unexplored:spire",
+  "branch_provider": {
+    "id": "minecraft:blue_ice"
+  },
+  "foliage_provider": {
+    "id": "minecraft:ice"
+  },
+  "minimum_size": 14,
+  "size_variation": 9,
+  "trunk_provider": {
+    "id": "minecraft:packed_ice"
+  }
+}

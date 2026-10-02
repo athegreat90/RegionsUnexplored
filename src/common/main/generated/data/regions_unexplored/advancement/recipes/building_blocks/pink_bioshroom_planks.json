@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "regions_unexplored:pink_bioshroom_planks"
+        "recipes": "regions_unexplored:pink_bioshroom_planks"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

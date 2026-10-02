@@ -1,5 +1,13 @@
 package net.regions_unexplored.datagen.provider.registry.configured_feature;
 
+import net.regions_unexplored.world.level.feature.*;
+import net.regions_unexplored.world.level.feature.bioshroom.*;
+import net.regions_unexplored.world.level.feature.tree.*;
+import net.regions_unexplored.world.level.feature.tree.nether.*;
+import net.regions_unexplored.worldgen.feature.CarvedLimitedPoolFeature;
+import net.regions_unexplored.worldgen.feature.RUFallenTreeFeature;
+import net.regions_unexplored.worldgen.feature.RURockFeature;
+
 import dev.worldgen.lithostitched.api.worldgen.feature.LithostitchedFeatures;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderSet;
@@ -12,9 +20,8 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.MultifaceBlock;
 import net.minecraft.world.level.block.MultifaceSpreadeableBlock;
 import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
-import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.feature.Feature;
-import net.minecraft.world.level.levelgen.feature.configurations.*;
+import net.minecraft.world.level.levelgen.feature.MultifaceGrowthFeature;
 import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
 import net.minecraft.world.level.levelgen.placement.BlockPredicateFilter;
 import net.regions_unexplored.registry.RUBlocks;
@@ -28,27 +35,27 @@ import static net.regions_unexplored.datagen.provider.registry.placed_feature.Ru
 import static net.regions_unexplored.datagen.provider.registry.util.RUFeatureUtils.*;
 
 public class RuAquaticFeatures {
-    public static final ResourceKey<ConfiguredFeature<?, ?>> PATCH_CATTAIL = RUConfiguredFeatures.patch("cattail");
+    public static final ResourceKey<Feature> PATCH_CATTAIL = RUConfiguredFeatures.patch("cattail");
 
-    public static final ResourceKey<ConfiguredFeature<?, ?>> SPECIAL_BLUE_MAGNOLIA = RUConfiguredFeatures.key("special/blue_magnolia");
-    public static final ResourceKey<ConfiguredFeature<?, ?>> SPECIAL_PINK_MAGNOLIA = RUConfiguredFeatures.key("special/pink_magnolia");
-    public static final ResourceKey<ConfiguredFeature<?, ?>> SPECIAL_WHITE_MAGNOLIA = RUConfiguredFeatures.key("special/white_magnolia");
+    public static final ResourceKey<Feature> SPECIAL_BLUE_MAGNOLIA = RUConfiguredFeatures.key("special/blue_magnolia");
+    public static final ResourceKey<Feature> SPECIAL_PINK_MAGNOLIA = RUConfiguredFeatures.key("special/pink_magnolia");
+    public static final ResourceKey<Feature> SPECIAL_WHITE_MAGNOLIA = RUConfiguredFeatures.key("special/white_magnolia");
     
-    public static void bootstrap(BootstrapContext<ConfiguredFeature<?, ?>> context) {
-        register(context, PATCH_CATTAIL, LithostitchedFeatures.PLACED, randomPatch(24, 6, 0, PlacementUtils.inlinePlaced(Holder.direct(block(RUBlocks.CATTAIL.get())), BlockPredicateFilter.forPredicate(BlockPredicate.ONLY_IN_AIR_OR_WATER_PREDICATE))));
+    public static void bootstrap(BootstrapContext<Feature> context) {
+        register(context, PATCH_CATTAIL, randomPatch(24, 6, 0, PlacementUtils.inlinePlaced(Holder.direct(block(RUBlocks.CATTAIL.get())), BlockPredicateFilter.forPredicate(BlockPredicate.ONLY_IN_AIR_OR_WATER_PREDICATE))));
         
-        registerPlaced(context, SPECIAL_TALL_HYACINTH_STOCK, RUFeatureTypes.TALL_HYACINTH_STOCK.get(), new HyacinthStockConfiguration(BlockStateProvider.simple(RUBlocks.TALL_HYACINTH_STOCK.get().defaultBlockState()), 1, 14));
-        registerPlaced(context, SPECIAL_HYACINTH_PLANTS, RUFeatureTypes.HYACINTH_PLANTS.get(), new ProbabilityFeatureConfiguration(0.1F));
+        registerPlaced(context, SPECIAL_TALL_HYACINTH_STOCK, new HyacinthStockFeature(BlockStateProvider.of(RUBlocks.TALL_HYACINTH_STOCK.get().defaultBlockState()), 1, 14));
+        registerPlaced(context, SPECIAL_HYACINTH_PLANTS, new HyacinthPlantsFeature(0.1F));
         HolderSet<Block> canPlaceOn = HolderSet.direct(Block::builtInRegistryHolder, Blocks.STONE, Blocks.PRISMARINE, Blocks.PRISMARINE_BRICKS);
-        registerPlaced(context, SPECIAL_HYACINTH_FLOWERS, Feature.MULTIFACE_GROWTH, growth(RUBlocks.HYACINTH_FLOWERS.get(), canPlaceOn));
-        registerPlaced(context, SPECIAL_HYACINTH_ROCKS, RUFeatureTypes.OCEAN_ROCK.get(), new SeaRockConfiguration(Blocks.STONE.defaultBlockState(), RUBlocks.MOSSY_STONE.get().defaultBlockState()));
+        registerPlaced(context, SPECIAL_HYACINTH_FLOWERS, growth(RUBlocks.HYACINTH_FLOWERS.get(), canPlaceOn));
+        registerPlaced(context, SPECIAL_HYACINTH_ROCKS, new SeaRockFeature(Blocks.STONE.defaultBlockState(), RUBlocks.MOSSY_STONE.get().defaultBlockState()));
         //ROCKY_REEF
-        registerPlaced(context, SPECIAL_ROCKY_REEF_ROCKS, RUFeatureTypes.ROCK_PILLAR.get(), FeatureConfiguration.NONE);
+        registerPlaced(context, SPECIAL_ROCKY_REEF_ROCKS, new RockPillarFeature());
         
         canPlaceOn = HolderSet.direct(Block::builtInRegistryHolder, Blocks.STONE, RUBlocks.STONE_GRASS_BLOCK.get(), Blocks.JUNGLE_LOG, RUBlocks.PALM_WOOD_SET.getLog());
-        var blueMagnolia = register(context, SPECIAL_BLUE_MAGNOLIA, Feature.MULTIFACE_GROWTH, growth(RUBlocks.BLUE_MAGNOLIA_FLOWERS.get(), canPlaceOn));
-        var pinkMagnolia = register(context, SPECIAL_PINK_MAGNOLIA, Feature.MULTIFACE_GROWTH, growth(RUBlocks.PINK_MAGNOLIA_FLOWERS.get(), canPlaceOn));
-        var whiteMagnolia = register(context, SPECIAL_WHITE_MAGNOLIA, Feature.MULTIFACE_GROWTH, growth(RUBlocks.WHITE_MAGNOLIA_FLOWERS.get(), canPlaceOn));
+        var blueMagnolia = register(context, SPECIAL_BLUE_MAGNOLIA, growth(RUBlocks.BLUE_MAGNOLIA_FLOWERS.get(), canPlaceOn));
+        var pinkMagnolia = register(context, SPECIAL_PINK_MAGNOLIA, growth(RUBlocks.PINK_MAGNOLIA_FLOWERS.get(), canPlaceOn));
+        var whiteMagnolia = register(context, SPECIAL_WHITE_MAGNOLIA, growth(RUBlocks.WHITE_MAGNOLIA_FLOWERS.get(), canPlaceOn));
         registerSelector(context, SPECIAL_MAGNOLIAS, builder -> builder
             .add(direct(blueMagnolia))
             .add(direct(pinkMagnolia))
@@ -56,7 +63,7 @@ public class RuAquaticFeatures {
         );
     }
     
-    private static MultifaceGrowthConfiguration growth(MultifaceSpreadeableBlock block, HolderSet<Block> canPlaceOn) {
-        return new MultifaceGrowthConfiguration(block, 20, false, true, true, 0.5f, canPlaceOn);
+    private static MultifaceGrowthFeature growth(MultifaceSpreadeableBlock block, HolderSet<Block> canPlaceOn) {
+        return new MultifaceGrowthFeature(block, 20, false, true, true, 0.5f, canPlaceOn);
     }
 }

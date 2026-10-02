@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "regions_unexplored:deepslate_prismoss"
+        "recipes": "regions_unexplored:deepslate_prismoss"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

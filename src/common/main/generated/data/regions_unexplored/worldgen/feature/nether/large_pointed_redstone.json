@@ -1,0 +1,36 @@
+{
+  "type": "lithostitched:large_dripstone",
+  "column_radius": {
+    "type": "minecraft:uniform",
+    "max_inclusive": 6,
+    "min_inclusive": 1
+  },
+  "floor_to_ceiling_search_range": 30,
+  "height_scale": {
+    "type": "minecraft:uniform",
+    "max_exclusive": 2.0,
+    "min_inclusive": 0.4
+  },
+  "max_column_radius_to_cave_height_ratio": 0.33,
+  "min_bluntness_for_wind": 0.6,
+  "min_radius_for_wind": 4,
+  "replaceable_blocks": "#minecraft:base_stone_overworld",
+  "stalactite_bluntness": {
+    "type": "minecraft:uniform",
+    "max_exclusive": 0.9,
+    "min_inclusive": 0.3
+  },
+  "stalagmite_bluntness": {
+    "type": "minecraft:uniform",
+    "max_exclusive": 1.0,
+    "min_inclusive": 0.4
+  },
+  "state_provider": {
+    "id": "regions_unexplored:raw_redstone_block"
+  },
+  "wind_speed": {
+    "type": "minecraft:uniform",
+    "max_exclusive": 0.3,
+    "min_inclusive": 0.0
+  }
+}

@@ -12,6 +12,7 @@ import net.regions_unexplored.world.level.feature.tree.*;
 import net.regions_unexplored.world.level.feature.tree.nether.*;
 import net.regions_unexplored.worldgen.feature.CarvedLimitedPoolFeature;
 import net.regions_unexplored.worldgen.feature.RUFallenTreeFeature;
+import net.regions_unexplored.worldgen.feature.RUNetherForestVegetationFeature;
 import net.regions_unexplored.worldgen.feature.RURockFeature;
 
 public interface RUFeatureTypes {
@@ -71,6 +72,7 @@ public interface RUFeatureTypes {
     Supplier<MapCodec<RURockFeature>> ROCK = register("rock", RURockFeature.CODEC);
     Supplier<MapCodec<RUFallenTreeFeature>> FALLEN_TREE = register("fallen_tree", RUFallenTreeFeature.CODEC);
     Supplier<MapCodec<CarvedLimitedPoolFeature>> CARVED_LIMITED_POOL = register("carved_limited_pool", CarvedLimitedPoolFeature.CODEC);
+    Supplier<MapCodec<RUNetherForestVegetationFeature>> NETHER_FOREST_VEGETATION = register("nether_forest_vegetation", RUNetherForestVegetationFeature.CODEC);
 
     private static <F extends Feature> Supplier<MapCodec<F>> register(String name, MapCodec<F> codec) {
         return Registrar.register(BuiltInRegistries.FEATURE_TYPE, name, () -> codec);

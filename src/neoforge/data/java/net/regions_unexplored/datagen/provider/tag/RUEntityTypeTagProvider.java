@@ -16,7 +16,7 @@ public class RUEntityTypeTagProvider extends EntityTypeTagsProvider {
 
     @Override
     public void addTags(HolderLookup.Provider provider) {
-        this.tag(EntityTypeTags.NO_ANGER_FROM_WIND_CHARGE).add(RUEntityTypes.ASHEN.get());
-        this.tag(EntityTypeTags.ZOMBIES).add(RUEntityTypes.ASHEN.get());
+        this.tag(EntityTypeTags.NO_ANGER_FROM_WIND_CHARGE).add(RUEntityTypes.ASHEN.get().builtInRegistryHolder().key());
+        this.tag(EntityTypeTags.ZOMBIES).add(RUEntityTypes.ASHEN.get().builtInRegistryHolder().key());
     }
 }

@@ -1,5 +1,6 @@
 package net.regions_unexplored.worldgen.feature.config;
 
+import net.minecraft.core.Holder;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.util.valueproviders.*;
@@ -8,7 +9,7 @@ import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvi
 
 public record RockFeatureConfig(BlockStateProvider stateProvider, IntProvider blobCount, IntProvider blobOffsetXZ) {
     public static final Codec<RockFeatureConfig> CODEC = RecordCodecBuilder.create(i -> i.group(
-        BlockStateProvider.CODEC.fieldOf("state_provider").forGetter(RockFeatureConfig::stateProvider),
+        BlockStateProvider.CODEC.xmap(Holder::value, Holder::direct).fieldOf("state_provider").forGetter(RockFeatureConfig::stateProvider),
         IntProviders.POSITIVE_CODEC.fieldOf("blob_count").forGetter(RockFeatureConfig::blobCount),
         IntProviders.CODEC.fieldOf("blob_offset_xz").forGetter(RockFeatureConfig::blobOffsetXZ)
     ).apply(i, RockFeatureConfig::new));

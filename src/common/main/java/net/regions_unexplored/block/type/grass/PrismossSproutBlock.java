@@ -12,18 +12,12 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import net.regions_unexplored.block.RUBlockUtils;
 
 public class PrismossSproutBlock extends VegetationBlock {
-    public static final MapCodec<? extends PrismossSproutBlock> CODEC = simpleCodec(PrismossSproutBlock::new);
     protected static final VoxelShape SHAPE = RUBlockUtils.column(10, 0, 6);
 
     public PrismossSproutBlock(Properties properties) {
         super(properties);
     }
 
-    @Override
-    protected MapCodec<? extends VegetationBlock> codec() {
-        return null;
-    }
-    
     @Override
     public VoxelShape getShape(BlockState state, BlockGetter getter, BlockPos pos, CollisionContext context) {
         return SHAPE.move(state.getOffset(pos));

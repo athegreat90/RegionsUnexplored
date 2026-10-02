@@ -6,5 +6,6 @@
     "type": "regions_unexplored:config",
     "key": "vanilla_changes/mangrove_flowering_lilies"
   },
+  "priority": 1000,
   "step": "vegetal_decoration"
 }

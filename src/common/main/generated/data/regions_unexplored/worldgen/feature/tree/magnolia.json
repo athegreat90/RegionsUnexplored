@@ -1,0 +1,25 @@
+{
+  "type": "regions_unexplored:sakura_tree",
+  "branch_provider": {
+    "id": "regions_unexplored:magnolia_branch",
+    "properties": {
+      "facing": "north"
+    }
+  },
+  "foliage_provider": {
+    "id": "regions_unexplored:magnolia_leaves",
+    "properties": {
+      "distance": "7",
+      "persistent": "false",
+      "waterlogged": "false"
+    }
+  },
+  "minimum_size": 1,
+  "size_variation": 4,
+  "trunk_provider": {
+    "id": "regions_unexplored:magnolia_log",
+    "properties": {
+      "axis": "y"
+    }
+  }
+}

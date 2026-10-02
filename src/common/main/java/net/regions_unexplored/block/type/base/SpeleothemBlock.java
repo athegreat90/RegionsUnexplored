@@ -27,7 +27,7 @@ import net.minecraft.world.level.block.state.StateDefinition.Builder;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
-import net.minecraft.world.level.block.state.properties.DripstoneThickness;
+import net.minecraft.world.level.block.state.properties.SpeleothemThickness;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.level.pathfinder.PathComputationType;
@@ -41,7 +41,7 @@ import org.jetbrains.annotations.Nullable;
 
 public class SpeleothemBlock extends Block implements SimpleWaterloggedBlock, Fallable {
 	public static final EnumProperty<Direction> TIP_DIRECTION = BlockStateProperties.VERTICAL_DIRECTION;
-	public static final EnumProperty<DripstoneThickness> THICKNESS = BlockStateProperties.DRIPSTONE_THICKNESS;
+	public static final EnumProperty<SpeleothemThickness> THICKNESS = BlockStateProperties.SPELEOTHEM_THICKNESS;
 	public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
 	
 	private static final VoxelShape SHAPE_TIP_MERGE = RUBlockUtils.column(6.0, 0.0, 16.0);
@@ -60,7 +60,7 @@ public class SpeleothemBlock extends Block implements SimpleWaterloggedBlock, Fa
 		this.blockToGrowOn = blockToGrowOn;
 		this.registerDefaultState(this.stateDefinition.any()
 			.setValue(TIP_DIRECTION, Direction.UP)
-			.setValue(THICKNESS, DripstoneThickness.TIP)
+			.setValue(THICKNESS, SpeleothemThickness.TIP)
 			.setValue(WATERLOGGED, false)
 		);
 	}
@@ -105,8 +105,8 @@ public class SpeleothemBlock extends Block implements SimpleWaterloggedBlock, Fa
 				
 				return state;
 			} else {
-				boolean mergeOpposingTips = state.getValue(THICKNESS) == DripstoneThickness.TIP_MERGE;
-				DripstoneThickness newThickness = this.calculateDripstoneThickness(level, pos, tipDirection, mergeOpposingTips);
+				boolean mergeOpposingTips = state.getValue(THICKNESS) == SpeleothemThickness.TIP_MERGE;
+				SpeleothemThickness newThickness = this.calculateSpeleothemThickness(level, pos, tipDirection, mergeOpposingTips);
 				return state.setValue(THICKNESS, newThickness);
 			}
 		}
@@ -123,7 +123,7 @@ public class SpeleothemBlock extends Block implements SimpleWaterloggedBlock, Fa
 			return null;
 		} else {
 			boolean mergeOpposingTips = !context.isSecondaryUseActive();
-			DripstoneThickness thickness = this.calculateDripstoneThickness(level, pos, tipDirection, mergeOpposingTips);
+			SpeleothemThickness thickness = this.calculateSpeleothemThickness(level, pos, tipDirection, mergeOpposingTips);
 			return this.defaultBlockState()
 				.setValue(TIP_DIRECTION, tipDirection)
 				.setValue(THICKNESS, thickness)
@@ -147,24 +147,24 @@ public class SpeleothemBlock extends Block implements SimpleWaterloggedBlock, Fa
 		return tipDirection;
 	}
 	
-	private DripstoneThickness calculateDripstoneThickness(
+	private SpeleothemThickness calculateSpeleothemThickness(
 		final LevelReader level, final BlockPos pos, final Direction tipDirection, final boolean mergeOpposingTips
 	) {
 		Direction baseDirection = tipDirection.getOpposite();
 		BlockState inFrontState = level.getBlockState(pos.relative(tipDirection));
 		if (isSpeleothemWithDirection(inFrontState, baseDirection) && inFrontState.is(this)) {
-			return !mergeOpposingTips && inFrontState.getValue(THICKNESS) != DripstoneThickness.TIP_MERGE
-				? DripstoneThickness.TIP
-				: DripstoneThickness.TIP_MERGE;
+			return !mergeOpposingTips && inFrontState.getValue(THICKNESS) != SpeleothemThickness.TIP_MERGE
+				? SpeleothemThickness.TIP
+				: SpeleothemThickness.TIP_MERGE;
 		} else if (!isSpeleothemWithDirection(inFrontState, tipDirection)) {
-			return DripstoneThickness.TIP;
+			return SpeleothemThickness.TIP;
 		} else {
-			DripstoneThickness inFrontThickness = inFrontState.getValue(THICKNESS);
-			if (inFrontThickness != DripstoneThickness.TIP && inFrontThickness != DripstoneThickness.TIP_MERGE) {
+			SpeleothemThickness inFrontThickness = inFrontState.getValue(THICKNESS);
+			if (inFrontThickness != SpeleothemThickness.TIP && inFrontThickness != SpeleothemThickness.TIP_MERGE) {
 				BlockState behindState = level.getBlockState(pos.relative(baseDirection));
-				return !isSpeleothemWithDirection(behindState, tipDirection) ? DripstoneThickness.BASE : DripstoneThickness.MIDDLE;
+				return !isSpeleothemWithDirection(behindState, tipDirection) ? SpeleothemThickness.BASE : SpeleothemThickness.MIDDLE;
 			} else {
-				return DripstoneThickness.FRUSTUM;
+				return SpeleothemThickness.FRUSTUM;
 			}
 		}
 	}
@@ -185,7 +185,7 @@ public class SpeleothemBlock extends Block implements SimpleWaterloggedBlock, Fa
 			BlockPos blockPos = blockHit.getBlockPos();
 			if (level instanceof ServerLevel serverLevel
 				&& projectile.mayInteract(serverLevel, blockPos)
-				&& projectile.mayBreak(serverLevel)
+				&& projectile.mayBreak(serverLevel, blockPos)
 				&& projectile instanceof ThrownTrident
 				&& projectile.getDeltaMovement().length() > 0.6) {
 				level.destroyBlock(blockPos, true);
@@ -236,8 +236,8 @@ public class SpeleothemBlock extends Block implements SimpleWaterloggedBlock, Fa
 		if (!state.is(BackportedBlockTags.SPELEOTHEMS)) {
 			return false;
 		} else {
-			DripstoneThickness thickness = state.getValue(THICKNESS);
-			return thickness == DripstoneThickness.TIP || includeMergedTip && thickness == DripstoneThickness.TIP_MERGE;
+			SpeleothemThickness thickness = state.getValue(THICKNESS);
+			return thickness == SpeleothemThickness.TIP || includeMergedTip && thickness == SpeleothemThickness.TIP_MERGE;
 		}
 	}
 	
@@ -387,11 +387,11 @@ public class SpeleothemBlock extends Block implements SimpleWaterloggedBlock, Fa
 		if (this.isUnmergedTipWithDirection(existingStateAtTargetPos, growToDirection.getOpposite())) {
 			this.createMergedTips(existingStateAtTargetPos, level, targetPos);
 		} else if (existingStateAtTargetPos.isAir() || existingStateAtTargetPos.is(Blocks.WATER)) {
-			this.createSpeleothem(level, targetPos, growToDirection, DripstoneThickness.TIP);
+			this.createSpeleothem(level, targetPos, growToDirection, SpeleothemThickness.TIP);
 		}
 	}
 	
-	private void createSpeleothem(final LevelAccessor level, final BlockPos pos, final Direction direction, final DripstoneThickness thickness) {
+	private void createSpeleothem(final LevelAccessor level, final BlockPos pos, final Direction direction, final SpeleothemThickness thickness) {
 		BlockState state = this.defaultBlockState()
 			.setValue(TIP_DIRECTION, direction)
 			.setValue(THICKNESS, thickness)
@@ -410,8 +410,8 @@ public class SpeleothemBlock extends Block implements SimpleWaterloggedBlock, Fa
 			stalagmitePos = tipPos.below();
 		}
 		
-		this.createSpeleothem(level, stalactitePos, Direction.DOWN, DripstoneThickness.TIP_MERGE);
-		this.createSpeleothem(level, stalagmitePos, Direction.UP, DripstoneThickness.TIP_MERGE);
+		this.createSpeleothem(level, stalactitePos, Direction.DOWN, SpeleothemThickness.TIP_MERGE);
+		this.createSpeleothem(level, stalagmitePos, Direction.UP, SpeleothemThickness.TIP_MERGE);
 	}
 	
 	private void growStalagmiteBelow(final ServerLevel level, final BlockPos posAboveStalagmite) {
@@ -445,7 +445,7 @@ public class SpeleothemBlock extends Block implements SimpleWaterloggedBlock, Fa
 	}
 	
 	protected static boolean isFreeHangingStalactite(final BlockState state) {
-		return isStalactite(state) && state.getValue(THICKNESS) == DripstoneThickness.TIP && !(Boolean)state.getValue(WATERLOGGED);
+		return isStalactite(state) && state.getValue(THICKNESS) == SpeleothemThickness.TIP && !(Boolean)state.getValue(WATERLOGGED);
 	}
 	
 	protected int getMaxGrowthLength() {

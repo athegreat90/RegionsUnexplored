@@ -6,6 +6,7 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.EntityTypes;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockBehaviour;
@@ -15,6 +16,7 @@ import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
 import net.minecraft.world.level.block.state.properties.WoodType;
 import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.level.material.PushReaction;
+import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.shapes.*;
 import net.regions_unexplored.RegionsUnexplored;
 import net.regions_unexplored.module.platform.Registrar;
@@ -149,7 +151,7 @@ public class RUBlockUtils {
     }
 
     public static Block leaves(BlockBehaviour.Properties properties, MapColor colour, boolean fireproof, BlockFactory<?> factory) {
-        properties.mapColor(colour).strength(0.2F).randomTicks().sound(SoundType.GRASS).noOcclusion().isValidSpawn(RUBlockUtils::ocelotOrParrot).isSuffocating(RUBlockUtils::never).isViewBlocking(RUBlockUtils::never).pushReaction(PushReaction.DESTROY).isRedstoneConductor(RUBlockUtils::never);
+        properties.mapColor(colour).strength(0.2F).randomTicks().sound(SoundType.GRASS).noOcclusion().isValidSpawn(RUBlockUtils::ocelotOrParrot).isSuffocating(RUBlockUtils::never).isViewBlocking(RUBlockUtils::never).pushReaction(PushReaction.POPPED).isRedstoneConductor(RUBlockUtils::never);
         if (!fireproof) properties.ignitedByLava();
         return factory.apply(properties);
     }
@@ -163,21 +165,29 @@ public class RUBlockUtils {
     public static Boolean always(BlockState state, BlockGetter getter, BlockPos pos, EntityType<?> type) {
         return true;
     }
-    
+
     public static boolean always(BlockState state, BlockGetter getter, BlockPos pos) {
         return true;
     }
-    
+
+    public static boolean always(BlockState state, BlockGetter getter, BlockPos pos, AABB box) {
+        return true;
+    }
+
     public static Boolean never(BlockState state, BlockGetter getter, BlockPos pos, EntityType<?> type) {
         return false;
     }
-    
+
     public static boolean never(BlockState state, BlockGetter getter, BlockPos pos) {
+        return false;
+    }
+
+    public static boolean never(BlockState state, BlockGetter getter, BlockPos pos, AABB box) {
         return false;
     }
     
     public static Boolean ocelotOrParrot(BlockState state, BlockGetter getter, BlockPos pos, EntityType<?> type) {
-        return (type == EntityType.OCELOT || type == EntityType.PARROT);
+        return (type == EntityTypes.OCELOT || type == EntityTypes.PARROT);
     }
     
     // Shape builders

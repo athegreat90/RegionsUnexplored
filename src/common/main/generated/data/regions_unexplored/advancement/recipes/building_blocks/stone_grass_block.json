@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "regions_unexplored:stone_grass_block"
+        "recipes": "regions_unexplored:stone_grass_block"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

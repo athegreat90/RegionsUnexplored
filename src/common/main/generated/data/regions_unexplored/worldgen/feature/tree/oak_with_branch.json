@@ -1,0 +1,67 @@
+{
+  "type": "minecraft:tree",
+  "below_trunk_provider": {
+    "type": "minecraft:rule_based",
+    "fallback": {
+      "id": "minecraft:dirt"
+    },
+    "rules": [
+      {
+        "if_true": {
+          "type": "minecraft:matching_block_tag",
+          "tag": "regions_unexplored:peat/substrate"
+        },
+        "then": {
+          "type": "regions_unexplored:key_hack",
+          "block": "regions_unexplored:peat_dirt"
+        }
+      },
+      {
+        "if_true": {
+          "type": "minecraft:matching_block_tag",
+          "tag": "regions_unexplored:silt/substrate"
+        },
+        "then": {
+          "type": "regions_unexplored:key_hack",
+          "block": "regions_unexplored:silt_dirt"
+        }
+      }
+    ]
+  },
+  "decorators": [
+    {
+      "type": "regions_unexplored:group_branch",
+      "branch_block": "regions_unexplored:oak_branch",
+      "log_block": "minecraft:oak_log",
+      "probability": 1.0,
+      "top_offset": 3
+    }
+  ],
+  "foliage_placer": {
+    "type": "regions_unexplored:maple"
+  },
+  "foliage_provider": {
+    "id": "minecraft:oak_leaves",
+    "properties": {
+      "distance": "7",
+      "persistent": "false",
+      "waterlogged": "false"
+    }
+  },
+  "ignore_vines": false,
+  "minimum_size": {
+    "type": "minecraft:two_layers_feature_size"
+  },
+  "trunk_placer": {
+    "type": "minecraft:straight_trunk_placer",
+    "base_height": 7,
+    "height_rand_a": 2,
+    "height_rand_b": 2
+  },
+  "trunk_provider": {
+    "id": "minecraft:oak_log",
+    "properties": {
+      "axis": "y"
+    }
+  }
+}

@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "regions_unexplored:green_bioshroom_sign"
+        "recipes": "regions_unexplored:green_bioshroom_sign"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

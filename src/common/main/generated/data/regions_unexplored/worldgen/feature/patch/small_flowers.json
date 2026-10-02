@@ -1,0 +1,93 @@
+{
+  "type": "lithostitched:placed",
+  "feature": {
+    "feature": {
+      "type": "lithostitched:placed",
+      "feature": {
+        "feature": {
+          "type": "minecraft:simple_block",
+          "to_place": {
+            "type": "minecraft:noise",
+            "noise": {
+              "base_amplitude": 0.955388882960065,
+              "base_octave": 0
+            },
+            "scale": 0.075,
+            "seed": 2345,
+            "states": [
+              "regions_unexplored:mallow",
+              "regions_unexplored:yellow_lupine",
+              "minecraft:pink_tulip",
+              "regions_unexplored:poppy_bush",
+              "minecraft:oxeye_daisy",
+              "regions_unexplored:red_lupine",
+              "minecraft:cornflower",
+              "regions_unexplored:pink_lupine",
+              "regions_unexplored:tsubaki",
+              "minecraft:orange_tulip",
+              "regions_unexplored:waratah",
+              "minecraft:white_tulip",
+              "regions_unexplored:hyssop",
+              "minecraft:allium",
+              "regions_unexplored:blue_lupine",
+              "regions_unexplored:bleeding_heart",
+              "regions_unexplored:salmon_poppy_bush",
+              "regions_unexplored:white_trillium",
+              "minecraft:blue_orchid",
+              "regions_unexplored:fireweed",
+              "regions_unexplored:daisy",
+              "regions_unexplored:purple_lupine",
+              "minecraft:red_tulip",
+              "regions_unexplored:felicia_daisy",
+              "minecraft:poppy",
+              "minecraft:lily_of_the_valley"
+            ]
+          }
+        },
+        "placement": [
+          {
+            "type": "minecraft:block_predicate_filter",
+            "predicate": {
+              "type": "minecraft:matching_block_tag",
+              "tag": "minecraft:air"
+            }
+          }
+        ]
+      }
+    },
+    "placement": [
+      {
+        "type": "minecraft:count",
+        "count": 96
+      },
+      {
+        "type": "minecraft:offset",
+        "x": {
+          "type": "minecraft:trapezoid",
+          "max": 6,
+          "min": -6,
+          "plateau": 0
+        },
+        "y": {
+          "type": "minecraft:trapezoid",
+          "max": 2,
+          "min": -2,
+          "plateau": 0
+        },
+        "z": {
+          "type": "minecraft:trapezoid",
+          "max": 6,
+          "min": -6,
+          "plateau": 0
+        }
+      },
+      {
+        "type": "minecraft:block_predicate_filter",
+        "predicate": {
+          "type": "minecraft:matching_block_tag",
+          "tag": "minecraft:air"
+        }
+      }
+    ]
+  }
+}

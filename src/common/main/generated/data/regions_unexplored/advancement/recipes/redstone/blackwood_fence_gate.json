@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "regions_unexplored:blackwood_fence_gate"
+        "recipes": "regions_unexplored:blackwood_fence_gate"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

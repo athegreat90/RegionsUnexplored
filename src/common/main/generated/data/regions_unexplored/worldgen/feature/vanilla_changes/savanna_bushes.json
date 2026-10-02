@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:weighted_random_selector",
+  "features": [
+    {
+      "data": {
+        "feature": "regions_unexplored:tree/acacia_shrub",
+        "placement": []
+      },
+      "weight": 2
+    },
+    {
+      "data": {
+        "feature": "regions_unexplored:tree/oak_shrub_small",
+        "placement": []
+      },
+      "weight": 1
+    }
+  ]
+}

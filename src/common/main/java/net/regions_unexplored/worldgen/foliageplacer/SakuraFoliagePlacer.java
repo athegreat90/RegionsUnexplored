@@ -12,7 +12,6 @@ import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.levelgen.feature.TreeFeature;
-import net.minecraft.world.level.levelgen.feature.configurations.TreeConfiguration;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacer;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacerType;
 import net.minecraft.world.level.material.Fluids;
@@ -42,7 +41,7 @@ public class SakuraFoliagePlacer extends FoliagePlacer {
         final WorldGenLevel level,
         final FoliageSetter foliageSetter,
         final RandomSource random,
-        final TreeConfiguration config,
+        final TreeFeature config,
         final int treeHeight,
         final FoliageAttachment foliageAttachment,
         final int foliageHeight,
@@ -57,21 +56,21 @@ public class SakuraFoliagePlacer extends FoliagePlacer {
         }
     }
 
-    public boolean placeLeavesBlobLeft(WorldGenLevel level, FoliageSetter setter, RandomSource random, TreeConfiguration treeConfiguration, BlockPos pos) {
+    public boolean placeLeavesBlobLeft(WorldGenLevel level, FoliageSetter setter, RandomSource random, TreeFeature treeConfiguration, BlockPos pos) {
         placeLeavesTopLeft(level, setter, random, treeConfiguration, pos);
         placeLeavesMiddle(level, setter, random, treeConfiguration, pos.above());
         placeLeavesTopLeft(level, setter, random, treeConfiguration, pos.above().above());
         return true;
     }
 
-    public boolean placeLeavesBlobRight(WorldGenLevel level, FoliageSetter setter, RandomSource random, TreeConfiguration treeConfiguration, BlockPos pos) {
+    public boolean placeLeavesBlobRight(WorldGenLevel level, FoliageSetter setter, RandomSource random, TreeFeature treeConfiguration, BlockPos pos) {
         placeLeavesTopRight(level, setter, random, treeConfiguration, pos);
         placeLeavesMiddle(level, setter, random, treeConfiguration, pos.above());
         placeLeavesTopRight(level, setter, random, treeConfiguration, pos.above().above());
         return true;
     }
 
-    public void placeLeavesMiddle(WorldGenLevel level, FoliageSetter setter, RandomSource random, TreeConfiguration treeConfiguration, BlockPos pos) {
+    public void placeLeavesMiddle(WorldGenLevel level, FoliageSetter setter, RandomSource random, TreeFeature treeConfiguration, BlockPos pos) {
         tryPlaceLeaf(level, setter, random, treeConfiguration, pos);
 
         tryPlaceLeaf(level, setter, random, treeConfiguration, pos.north());
@@ -102,7 +101,7 @@ public class SakuraFoliagePlacer extends FoliagePlacer {
         tryPlaceLeaf(level, setter, random, treeConfiguration, pos.west().west());
     }
 
-    public void placeLeavesTopLeft(WorldGenLevel level, FoliageSetter setter, RandomSource random, TreeConfiguration treeConfiguration, BlockPos pos) {
+    public void placeLeavesTopLeft(WorldGenLevel level, FoliageSetter setter, RandomSource random, TreeFeature treeConfiguration, BlockPos pos) {
         tryPlaceLeaf(level, setter, random, treeConfiguration, pos);
         tryPlaceLeaf(level, setter, random, treeConfiguration, pos.north());
         tryPlaceLeaf(level, setter, random, treeConfiguration, pos.north().west());
@@ -114,7 +113,7 @@ public class SakuraFoliagePlacer extends FoliagePlacer {
         tryPlaceLeaf(level, setter, random, treeConfiguration, pos.west().south());
     }
 
-    public void placeLeavesTopRight(WorldGenLevel level, FoliageSetter setter, RandomSource random, TreeConfiguration treeConfiguration, BlockPos pos) {
+    public void placeLeavesTopRight(WorldGenLevel level, FoliageSetter setter, RandomSource random, TreeFeature treeConfiguration, BlockPos pos) {
         tryPlaceLeaf(level, setter, random, treeConfiguration, pos);
         tryPlaceLeaf(level, setter, random, treeConfiguration, pos.north());
         tryPlaceLeaf(level, setter, random, treeConfiguration, pos.south());
@@ -123,7 +122,7 @@ public class SakuraFoliagePlacer extends FoliagePlacer {
     }
 
 
-    public int foliageHeight(final RandomSource random, final int treeHeight, final TreeConfiguration config) {
+    public int foliageHeight(final RandomSource random, final int treeHeight, final TreeFeature config) {
         return this.height.sample(random);
     }
 
@@ -133,11 +132,11 @@ public class SakuraFoliagePlacer extends FoliagePlacer {
         return false;
     }
 
-    protected static boolean tryPlaceLeaf(WorldGenLevel level, FoliageSetter setter, RandomSource random, TreeConfiguration treeConfiguration, BlockPos pos) {
+    protected static boolean tryPlaceLeaf(WorldGenLevel level, FoliageSetter setter, RandomSource random, TreeFeature treeConfiguration, BlockPos pos) {
         if (!TreeFeature.validTreePos(level, pos)) {
             return false;
         } else {
-            BlockState blockstate = treeConfiguration.foliageProvider.getState(level, random, pos);
+            BlockState blockstate = treeConfiguration.foliageProvider().value().getState(level, random, pos);
             if (blockstate.hasProperty(BlockStateProperties.WATERLOGGED)) {
                 blockstate = blockstate.setValue(BlockStateProperties.WATERLOGGED, level.isFluidAtPosition(pos, (p_225638_) -> {
 	                return p_225638_.isSourceOfType(Fluids.WATER);

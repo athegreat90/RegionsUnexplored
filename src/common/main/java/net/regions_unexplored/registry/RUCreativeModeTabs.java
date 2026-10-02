@@ -288,7 +288,7 @@ public interface RUCreativeModeTabs {
     }
 
     static void addToColoredBlocks(BiConsumer<ItemLike, ItemLike> consumer) {
-        ItemLike anchor = Items.PINK_GLAZED_TERRACOTTA;
+        ItemLike anchor = Items.GLAZED_TERRACOTTA.pink();
         for (Block block : RUBlocks.PAINTED_PLANKS.getAll()) {
             consumer.accept(anchor, block);
             anchor = block;

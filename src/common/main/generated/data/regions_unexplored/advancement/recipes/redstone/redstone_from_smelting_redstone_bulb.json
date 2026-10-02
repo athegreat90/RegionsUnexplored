@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "regions_unexplored:redstone_from_smelting_redstone_bulb"
+        "recipes": "regions_unexplored:redstone_from_smelting_redstone_bulb"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

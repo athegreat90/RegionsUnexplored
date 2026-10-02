@@ -15,12 +15,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.regions_unexplored.block.RUBlockUtils;
 
 public class RUGrowingPlantHeadBlock extends GrowingPlantHeadBlock {
-	public static final MapCodec<? extends RUGrowingPlantHeadBlock> CODEC = RecordCodecBuilder.mapCodec(i -> i.group(
-		ResourceKey.codec(Registries.BLOCK).fieldOf("body_block").forGetter(b -> b.bodyBlock),
-		Codec.floatRange(0, 16).fieldOf("width").forGetter(b -> b.width),
-		Codec.floatRange(0, 16).fieldOf("min_y").forGetter(b -> b.minY),
-		propertiesCodec()
-	).apply(i, RUGrowingPlantHeadBlock::new));
 	
 	protected final ResourceKey<Block> bodyBlock;
 	protected final float width;
@@ -31,11 +25,6 @@ public class RUGrowingPlantHeadBlock extends GrowingPlantHeadBlock {
 		this.bodyBlock = bodyBlock;
 		this.width = width;
 		this.minY = minY;
-	}
-	
-	@Override
-	protected MapCodec<? extends RUGrowingPlantHeadBlock> codec() {
-		return CODEC;
 	}
 	
 	@Override

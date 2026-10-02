@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "regions_unexplored:redwood_planks"
+        "recipes": "regions_unexplored:redwood_planks"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

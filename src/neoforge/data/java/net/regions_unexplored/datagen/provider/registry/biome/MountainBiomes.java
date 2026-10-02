@@ -7,10 +7,11 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.attribute.BackgroundMusic;
 import net.minecraft.world.attribute.EnvironmentAttributes;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.EntityTypes;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.level.biome.*;
 import net.minecraft.world.level.levelgen.GenerationStep;
-import net.minecraft.world.level.levelgen.carver.ConfiguredWorldCarver;
+import net.minecraft.world.level.levelgen.carver.WorldCarver;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 import net.regions_unexplored.datagen.provider.registry.configured_feature.RUShrubFeatures;
 import net.regions_unexplored.datagen.provider.registry.util.RUBiomeUtils;
@@ -24,15 +25,15 @@ import static net.regions_unexplored.datagen.provider.registry.util.RUBiomeUtils
 public class MountainBiomes {
     private static MobSpawnSettings.Builder baseMountainSpawning() {
         MobSpawnSettings.Builder spawnBuilder = new MobSpawnSettings.Builder();
-        spawnBuilder.addSpawn(MobCategory.CREATURE, 5, new MobSpawnSettings.SpawnerData(EntityType.GOAT, 1, 3));
+        spawnBuilder.addSpawn(EntityTypes.GOAT, 5, 1, 3);
         BiomeDefaultFeatures.commonSpawns(spawnBuilder);
         return spawnBuilder;
     }
     
     private static MobSpawnSettings.Builder baseSlopeSpawning() {
         MobSpawnSettings.Builder spawnBuilder = new MobSpawnSettings.Builder();
-        spawnBuilder.addSpawn(MobCategory.CREATURE, 4, new MobSpawnSettings.SpawnerData(EntityType.RABBIT, 2, 3));
-        spawnBuilder.addSpawn(MobCategory.CREATURE, 5, new MobSpawnSettings.SpawnerData(EntityType.GOAT, 1, 3));
+        spawnBuilder.addSpawn(EntityTypes.RABBIT, 4, 2, 3);
+        spawnBuilder.addSpawn(EntityTypes.GOAT, 5, 1, 3);
         BiomeDefaultFeatures.commonSpawns(spawnBuilder);
         return spawnBuilder;
     }
@@ -40,13 +41,13 @@ public class MountainBiomes {
     private static MobSpawnSettings.Builder baseExtremeHillsSpawning() {
         MobSpawnSettings.Builder spawnBuilder = new MobSpawnSettings.Builder();
         BiomeDefaultFeatures.farmAnimals(spawnBuilder);
-        spawnBuilder.addSpawn(MobCategory.CREATURE, 4, new MobSpawnSettings.SpawnerData(EntityType.RABBIT, 2, 3));
-        spawnBuilder.addSpawn(MobCategory.CREATURE, 5, new MobSpawnSettings.SpawnerData(EntityType.LLAMA, 4, 6));
+        spawnBuilder.addSpawn(EntityTypes.RABBIT, 4, 2, 3);
+        spawnBuilder.addSpawn(EntityTypes.LLAMA, 5, 4, 6);
         BiomeDefaultFeatures.commonSpawns(spawnBuilder);
         return spawnBuilder;
     }
 
-    private static BiomeGenerationSettings.Builder baseMountainGeneration(HolderGetter<PlacedFeature> featureGetter, HolderGetter<ConfiguredWorldCarver<?>> carverGetter) {
+    private static BiomeGenerationSettings.Builder baseMountainGeneration(HolderGetter<PlacedFeature> featureGetter, HolderGetter<WorldCarver> carverGetter) {
         BiomeGenerationSettings.Builder builder = new BiomeGenerationSettings.Builder(featureGetter, carverGetter);
         RUBiomeUtils.globalOverworldGeneration(builder);
         BiomeDefaultFeatures.addDefaultOres(builder);
@@ -55,7 +56,7 @@ public class MountainBiomes {
         BiomeDefaultFeatures.addInfestedStone(builder);
         return builder;
     }
-    private static BiomeGenerationSettings.Builder baseSlopeGeneration(HolderGetter<PlacedFeature> featureGetter, HolderGetter<ConfiguredWorldCarver<?>> carverGetter) {
+    private static BiomeGenerationSettings.Builder baseSlopeGeneration(HolderGetter<PlacedFeature> featureGetter, HolderGetter<WorldCarver> carverGetter) {
         BiomeGenerationSettings.Builder builder = new BiomeGenerationSettings.Builder(featureGetter, carverGetter);
         RUBiomeUtils.globalOverworldGeneration(builder);
         BiomeDefaultFeatures.addPlainGrass(builder);
@@ -65,7 +66,7 @@ public class MountainBiomes {
         BiomeDefaultFeatures.addInfestedStone(builder);
         return builder;
     }
-    private static BiomeGenerationSettings.Builder baseExtremeHillsGeneration(HolderGetter<PlacedFeature> featureGetter, HolderGetter<ConfiguredWorldCarver<?>> carverGetter) {
+    private static BiomeGenerationSettings.Builder baseExtremeHillsGeneration(HolderGetter<PlacedFeature> featureGetter, HolderGetter<WorldCarver> carverGetter) {
         BiomeGenerationSettings.Builder builder = new BiomeGenerationSettings.Builder(featureGetter, carverGetter);
         RUBiomeUtils.globalOverworldGeneration(builder);
         BiomeDefaultFeatures.addDefaultOres(builder);
@@ -77,7 +78,7 @@ public class MountainBiomes {
         return builder;
     }
 
-    public static Biome aridMountains(HolderGetter<PlacedFeature> featureGetter, HolderGetter<ConfiguredWorldCarver<?>> carverGetter) {
+    public static Biome aridMountains(HolderGetter<PlacedFeature> featureGetter, HolderGetter<WorldCarver> carverGetter) {
         BiomeSpecialEffects.Builder effectBuilder = effectBuilder()
             .foliageColorOverride(0x98a53a)
             .grassColorOverride(0xbeb44a);
@@ -90,7 +91,7 @@ public class MountainBiomes {
 
         //add mob spawns
         MobSpawnSettings.Builder spawnBuilder = baseExtremeHillsSpawning();
-        spawnBuilder.addSpawn(MobCategory.CREATURE, 6, new MobSpawnSettings.SpawnerData(EntityType.ARMADILLO, 1, 2));
+        spawnBuilder.addSpawn(EntityTypes.ARMADILLO, 6, 1, 2);
 
         return biomeBuilder(2, 0, false)
             .setAttribute(EnvironmentAttributes.BACKGROUND_MUSIC, new BackgroundMusic(SoundEvents.MUSIC_BIOME_STONY_PEAKS))
@@ -100,7 +101,7 @@ public class MountainBiomes {
             .build();
     }
 
-    public static Biome highlandFields(HolderGetter<PlacedFeature> featureGetter, HolderGetter<ConfiguredWorldCarver<?>> carverGetter) {
+    public static Biome highlandFields(HolderGetter<PlacedFeature> featureGetter, HolderGetter<WorldCarver> carverGetter) {
         BiomeSpecialEffects.Builder effectBuilder = effectBuilder()
             .foliageColorOverride(0x81ba6a)
             .grassColorOverride(0x6aba6b);
@@ -126,7 +127,7 @@ public class MountainBiomes {
             .build();
     }
     
-    public static Biome pineSlopes(HolderGetter<PlacedFeature> featureGetter, HolderGetter<ConfiguredWorldCarver<?>> carverGetter) {
+    public static Biome pineSlopes(HolderGetter<PlacedFeature> featureGetter, HolderGetter<WorldCarver> carverGetter) {
         BiomeSpecialEffects.Builder effectBuilder = effectBuilder()
             .foliageColorOverride(0x758646)
             .grassColorOverride(0x84a75a);
@@ -152,7 +153,7 @@ public class MountainBiomes {
             .build();
     }
 
-    public static Biome mountains(HolderGetter<PlacedFeature> featureGetter, HolderGetter<ConfiguredWorldCarver<?>> carverGetter) {
+    public static Biome mountains(HolderGetter<PlacedFeature> featureGetter, HolderGetter<WorldCarver> carverGetter) {
         BiomeSpecialEffects.Builder effectBuilder = effectBuilder()
             .foliageColorOverride(0x758646)
             .grassColorOverride(0x84a75a);
@@ -178,7 +179,7 @@ public class MountainBiomes {
             .build();
     }
 
-    public static Biome toweringCliffs(HolderGetter<PlacedFeature> featureGetter, HolderGetter<ConfiguredWorldCarver<?>> carverGetter) {
+    public static Biome toweringCliffs(HolderGetter<PlacedFeature> featureGetter, HolderGetter<WorldCarver> carverGetter) {
         BiomeSpecialEffects.Builder effectBuilder = effectBuilder()
             .foliageColorOverride(0x8fa960)
             .grassColorOverride(0x7e9052);
@@ -195,7 +196,7 @@ public class MountainBiomes {
 
         //add mob spawns
         MobSpawnSettings.Builder spawnBuilder = baseExtremeHillsSpawning();
-        spawnBuilder.addSpawn(MobCategory.CREATURE, 5, new MobSpawnSettings.SpawnerData(EntityType.GOAT, 1, 3));
+        spawnBuilder.addSpawn(EntityTypes.GOAT, 5, 1, 3);
 
         return biomeBuilder(0.75f, 0.8f)
             .setAttribute(EnvironmentAttributes.BACKGROUND_MUSIC, new BackgroundMusic(SoundEvents.MUSIC_BIOME_STONY_PEAKS))

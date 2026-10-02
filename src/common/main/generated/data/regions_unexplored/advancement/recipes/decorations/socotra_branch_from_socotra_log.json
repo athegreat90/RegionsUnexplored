@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "regions_unexplored:socotra_branch_from_socotra_log"
+        "recipes": "regions_unexplored:socotra_branch_from_socotra_log"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

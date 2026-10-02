@@ -1,0 +1,25 @@
+{
+  "type": "regions_unexplored:giant_cypress_tree",
+  "branch_provider": {
+    "id": "regions_unexplored:cypress_branch",
+    "properties": {
+      "facing": "north"
+    }
+  },
+  "foliage_provider": {
+    "id": "regions_unexplored:cypress_leaves",
+    "properties": {
+      "distance": "7",
+      "persistent": "false",
+      "waterlogged": "false"
+    }
+  },
+  "minimum_size": 25,
+  "size_variation": 5,
+  "trunk_provider": {
+    "id": "regions_unexplored:cypress_log",
+    "properties": {
+      "axis": "y"
+    }
+  }
+}

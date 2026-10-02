@@ -9,10 +9,11 @@ import net.minecraft.world.attribute.AmbientParticle;
 import net.minecraft.world.attribute.BackgroundMusic;
 import net.minecraft.world.attribute.EnvironmentAttributes;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.EntityTypes;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.level.biome.*;
 import net.minecraft.world.level.levelgen.GenerationStep;
-import net.minecraft.world.level.levelgen.carver.ConfiguredWorldCarver;
+import net.minecraft.world.level.levelgen.carver.WorldCarver;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 import net.regions_unexplored.datagen.provider.registry.placed_feature.RuMiscOverworldPlacements;
 import net.regions_unexplored.datagen.provider.registry.placed_feature.RuTreePlacements;
@@ -33,13 +34,13 @@ public class CaveBiomes {
     }
     private static MobSpawnSettings.Builder baseLushCaveSpawning() {
         MobSpawnSettings.Builder spawnBuilder = new MobSpawnSettings.Builder();
-        spawnBuilder.addSpawn(MobCategory.AXOLOTLS, 10, new MobSpawnSettings.SpawnerData(EntityType.AXOLOTL, 4, 6));
-        spawnBuilder.addSpawn(MobCategory.WATER_AMBIENT, 25, new MobSpawnSettings.SpawnerData(EntityType.TROPICAL_FISH, 8, 8));
+        spawnBuilder.addSpawn(EntityTypes.AXOLOTL, 10, 4, 6);
+        spawnBuilder.addSpawn(EntityTypes.TROPICAL_FISH, 25, 8, 8);
         BiomeDefaultFeatures.commonSpawns(spawnBuilder);
         return spawnBuilder;
     }
 
-    private static BiomeGenerationSettings.Builder baseCaveGeneration(HolderGetter<PlacedFeature> featureGetter, HolderGetter<ConfiguredWorldCarver<?>> carverGetter) {
+    private static BiomeGenerationSettings.Builder baseCaveGeneration(HolderGetter<PlacedFeature> featureGetter, HolderGetter<WorldCarver> carverGetter) {
         BiomeGenerationSettings.Builder builder = new BiomeGenerationSettings.Builder(featureGetter, carverGetter);
         globalOverworldGeneration(builder);
         BiomeDefaultFeatures.addPlainGrass(builder);
@@ -50,7 +51,7 @@ public class CaveBiomes {
         BiomeDefaultFeatures.addDefaultExtraVegetation(builder, true);
         return builder;
     }
-    private static BiomeGenerationSettings.Builder baseLushCaveGeneration(HolderGetter<PlacedFeature> featureGetter, HolderGetter<ConfiguredWorldCarver<?>> carverGetter, boolean addClay) {
+    private static BiomeGenerationSettings.Builder baseLushCaveGeneration(HolderGetter<PlacedFeature> featureGetter, HolderGetter<WorldCarver> carverGetter, boolean addClay) {
         BiomeGenerationSettings.Builder builder = new BiomeGenerationSettings.Builder(featureGetter, carverGetter);
         globalOverworldGeneration(builder);
         BiomeDefaultFeatures.addPlainGrass(builder);
@@ -64,7 +65,7 @@ public class CaveBiomes {
         return builder;
     }
 
-    public static Biome ancientDelta(HolderGetter<PlacedFeature> featureGetter, HolderGetter<ConfiguredWorldCarver<?>> carverGetter) {
+    public static Biome ancientDelta(HolderGetter<PlacedFeature> featureGetter, HolderGetter<WorldCarver> carverGetter) {
         BiomeSpecialEffects.Builder effectBuilder = new BiomeSpecialEffects.Builder()
             .waterColor(-13369345)
             .foliageColorOverride(-10118056)
@@ -92,7 +93,7 @@ public class CaveBiomes {
             .build();
     }
 
-    public static Biome bioshroomCaves(HolderGetter<PlacedFeature> featureGetter, HolderGetter<ConfiguredWorldCarver<?>> carverGetter) {
+    public static Biome bioshroomCaves(HolderGetter<PlacedFeature> featureGetter, HolderGetter<WorldCarver> carverGetter) {
         BiomeSpecialEffects.Builder effectBuilder = new BiomeSpecialEffects.Builder()
             .waterColor(NORMAL_WATER_COLOR)
             .foliageColorOverride(-11093361)
@@ -117,7 +118,7 @@ public class CaveBiomes {
             .build();
     }
 
-    public static Biome prismachasm(HolderGetter<PlacedFeature> featureGetter, HolderGetter<ConfiguredWorldCarver<?>> carverGetter) {
+    public static Biome prismachasm(HolderGetter<PlacedFeature> featureGetter, HolderGetter<WorldCarver> carverGetter) {
         BiomeSpecialEffects.Builder effectBuilder = new BiomeSpecialEffects.Builder()
             .waterColor(NORMAL_WATER_COLOR)
             .foliageColorOverride(-16737793)
@@ -145,7 +146,7 @@ public class CaveBiomes {
                 .build();
     }
 
-    public static Biome redstoneCaves(HolderGetter<PlacedFeature> featureGetter, HolderGetter<ConfiguredWorldCarver<?>> carverGetter) {
+    public static Biome redstoneCaves(HolderGetter<PlacedFeature> featureGetter, HolderGetter<WorldCarver> carverGetter) {
         BiomeSpecialEffects.Builder effectBuilder = new BiomeSpecialEffects.Builder()
             .waterColor(NORMAL_WATER_COLOR)
             .foliageColorOverride(-6044317)
@@ -175,7 +176,7 @@ public class CaveBiomes {
                 .build();
     }
 
-    public static Biome inferno(HolderGetter<PlacedFeature> featureGetter, HolderGetter<ConfiguredWorldCarver<?>> carverGetter) {
+    public static Biome inferno(HolderGetter<PlacedFeature> featureGetter, HolderGetter<WorldCarver> carverGetter) {
         BiomeSpecialEffects.Builder effectBuilder = new BiomeSpecialEffects.Builder()
                 .waterColor(NORMAL_WATER_COLOR)
                 .foliageColorOverride(-8949914)
@@ -193,7 +194,7 @@ public class CaveBiomes {
 
         //add mob spawns
         MobSpawnSettings.Builder spawnBuilder = baseCaveSpawning()
-            .addSpawn(MobCategory.MONSTER, 100, new MobSpawnSettings.SpawnerData(RUEntityTypes.ASHEN.get(), 4, 4));
+            .addSpawn(RUEntityTypes.ASHEN.get(), 100, 4, 4);
 
         return biomeBuilder(2f, 0f, true)
             .setAttribute(EnvironmentAttributes.BACKGROUND_MUSIC, new BackgroundMusic(SoundEvents.MUSIC_BIOME_DRIPSTONE_CAVES))

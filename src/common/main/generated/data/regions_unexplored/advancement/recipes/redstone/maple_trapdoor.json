@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "regions_unexplored:maple_trapdoor"
+        "recipes": "regions_unexplored:maple_trapdoor"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

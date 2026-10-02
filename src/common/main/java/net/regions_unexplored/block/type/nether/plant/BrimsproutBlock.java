@@ -11,18 +11,12 @@ import net.regions_unexplored.block.RUBlockUtils;
 import net.regions_unexplored.registry.tag.*;
 
 public class BrimsproutBlock extends VegetationBlock {
-    public static final MapCodec<? extends BrimsproutBlock> CODEC = simpleCodec(BrimsproutBlock::new);
     protected static final VoxelShape SHAPE = RUBlockUtils.column(12, 0, 13);
 
     public BrimsproutBlock(Properties properties) {
         super(properties);
     }
 
-    @Override
-    protected MapCodec<? extends VegetationBlock> codec() {
-        return CODEC;
-    }
-    
     @Override
     public VoxelShape getShape(BlockState state, BlockGetter getter, BlockPos pos, CollisionContext context) {
         return SHAPE;

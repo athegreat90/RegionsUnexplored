@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "regions_unexplored:larch_fence"
+        "recipes": "regions_unexplored:larch_fence"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

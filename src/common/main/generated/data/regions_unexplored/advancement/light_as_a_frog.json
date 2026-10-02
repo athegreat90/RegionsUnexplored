@@ -3,7 +3,7 @@
   "criteria": {
     "lily_pad": {
       "conditions": {
-        "block": "regions_unexplored:giant_lily_pad"
+        "blocks": "regions_unexplored:giant_lily_pad"
       },
       "trigger": "minecraft:enter_block"
     }

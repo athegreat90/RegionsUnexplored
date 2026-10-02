@@ -10,15 +10,16 @@ import net.minecraft.util.Util;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.BonemealableBlock;
+import net.minecraft.world.level.block.BonemealSource;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
+import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 
 import java.util.List;
 import java.util.Optional;
 
 public class RUBlockActions {
-    public static void performBonemeal(Block $this, ServerLevel level, RandomSource random, BlockPos pos, ResourceKey<PlacedFeature> feature) {
+    public static void performBonemeal(Block $this, ServerLevel level, RandomSource random, BlockPos pos, ResourceKey<PlacedFeature> feature, BonemealSource source) {
         BlockPos above = pos.above();
         BlockState grass = Blocks.SHORT_GRASS.defaultBlockState();
         Optional<Holder.Reference<PlacedFeature>> grassFeature = level.registryAccess()
@@ -39,16 +40,16 @@ public class RUBlockActions {
             BlockState testState = level.getBlockState(testPos);
             if (testState.is(grass.getBlock()) && random.nextInt(10) == 0) {
                 BonemealableBlock bonemealableBlock = (BonemealableBlock)grass.getBlock();
-                if (bonemealableBlock.isValidBonemealTarget(level, testPos, testState)) {
-                    bonemealableBlock.performBonemeal(level, random, testPos, testState);
+                if (bonemealableBlock.isValidBonemealTarget(level, testPos, testState, source)) {
+                    bonemealableBlock.performBonemeal(level, random, testPos, testState, source);
                 }
             }
             
             if (testState.isAir() && !level.isOutsideBuildHeight(testPos)) {
                 if (random.nextInt(8) == 0) {
-                    List<ConfiguredFeature<?, ?>> features = level.getBiome(testPos).value().getGenerationSettings().getBoneMealFeatures();
+                    List<Feature> features = level.getBiome(testPos).value().getGenerationSettings().getBoneMealFeatures();
                     if (!features.isEmpty()) {
-                        ConfiguredFeature<?, ?> placementFeature = Util.getRandom(features, random);
+                        Feature placementFeature = Util.getRandom(features, random);
                         placementFeature.place(level, level.getChunkSource().getGenerator(), random, testPos);
                     }
                 } else if (grassFeature.isPresent()) {

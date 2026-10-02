@@ -1,5 +1,6 @@
 package net.regions_unexplored.world.level.feature.bioshroom;
 
+import net.minecraft.core.Holder;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
@@ -28,9 +29,9 @@ public abstract class GiantBioshroomFeature implements Feature {
 
     protected static <F extends GiantBioshroomFeature> MapCodec<F> bioshroomCodec(BioshroomFeatureFactory<F> factory) {
         return RecordCodecBuilder.mapCodec(i -> i.group(
-            BlockStateProvider.CODEC.fieldOf("stem_provider").forGetter(f -> f.stemProvider),
-            BlockStateProvider.CODEC.fieldOf("cap_provider").forGetter(f -> f.capProvider),
-            BlockStateProvider.CODEC.fieldOf("glow_block_provider").forGetter(f -> f.glowBlockProvider),
+            BlockStateProvider.CODEC.xmap(Holder::value, Holder::direct).fieldOf("stem_provider").forGetter(f -> f.stemProvider),
+            BlockStateProvider.CODEC.xmap(Holder::value, Holder::direct).fieldOf("cap_provider").forGetter(f -> f.capProvider),
+            BlockStateProvider.CODEC.xmap(Holder::value, Holder::direct).fieldOf("glow_block_provider").forGetter(f -> f.glowBlockProvider),
             Codec.INT.fieldOf("minimum_size").forGetter(f -> f.minimumSize),
             Codec.INT.fieldOf("size_variation").forGetter(f -> f.sizeVariation)
         ).apply(i, factory::create));

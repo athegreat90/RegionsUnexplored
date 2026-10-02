@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "regions_unexplored:redwood_fence"
+        "recipes": "regions_unexplored:redwood_fence"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

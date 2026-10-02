@@ -23,12 +23,7 @@
         "predicates": [
           {
             "type": "minecraft:would_survive",
-            "state": {
-              "Name": "regions_unexplored:pine_sapling",
-              "Properties": {
-                "stage": "0"
-              }
-            }
+            "state": "regions_unexplored:pine_sapling"
           },
           {
             "type": "minecraft:matching_block_tag",

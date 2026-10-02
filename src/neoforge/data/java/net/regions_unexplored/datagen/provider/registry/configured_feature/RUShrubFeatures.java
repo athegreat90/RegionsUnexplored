@@ -8,9 +8,8 @@ import net.minecraft.world.level.biome.Biomes;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
-import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.feature.Feature;
-import net.minecraft.world.level.levelgen.feature.configurations.SimpleBlockConfiguration;
+import net.minecraft.world.level.levelgen.feature.SimpleBlockFeature;
 import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 import net.regions_unexplored.block.set.NaturalSet;
@@ -87,22 +86,19 @@ public class RUShrubFeatures {
         return MAP.get(biome).placed();
     }
     
-    public static void bootstrapConfigured(BootstrapContext<ConfiguredFeature<?, ?>> context) {
+    public static void bootstrapConfigured(BootstrapContext<Feature> context) {
         for (ShrubGroup group : MAP.values()) {
             Map<NaturalSet, Integer> sets = group.sets();
             if (sets.size() == 1) {
-                registerPlaced(context, group.placed(), Feature.SIMPLE_BLOCK, config(group.getFirstSet()));
+                registerPlaced(context, group.placed(), config(group.getFirstSet()));
             } else {
                 registerSelector(context, group.placed(), builder -> {
                     group.sortedSets().forEach((entry) ->
-                        builder.add(inlinePlaced(new ConfiguredFeature<>(
-                            Feature.SIMPLE_BLOCK,
-                            config(entry.getKey())
-                        )), entry.getValue())
+                        builder.add(inlinePlaced(config(entry.getKey())), entry.getValue())
                     );
                     return builder;
                 });
-                
+
             }
         }
     }
@@ -123,8 +119,8 @@ public class RUShrubFeatures {
         }
     }
     
-    private static SimpleBlockConfiguration config(NaturalSet set) {
-        return new SimpleBlockConfiguration(BlockStateProvider.simple(set.getShrub()));
+    private static SimpleBlockFeature config(NaturalSet set) {
+        return new SimpleBlockFeature(BlockStateProvider.of(set.getShrub()));
     }
     
     private static Map.Entry<ResourceKey<Biome>, ShrubGroup> group(ResourceKey<Biome> biome, float count, NaturalSet set) {

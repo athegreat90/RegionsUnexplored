@@ -1,0 +1,37 @@
+{
+  "type": "regions_unexplored:fallen_tree",
+  "config": {
+    "log_decorators": [
+      {
+        "type": "regions_unexplored:attached_to_logs",
+        "block_provider": {
+          "id": "minecraft:snow",
+          "properties": {
+            "layers": "1"
+          }
+        },
+        "check_all_directions": true,
+        "directions": [
+          "up",
+          "north",
+          "south",
+          "east",
+          "west"
+        ],
+        "probability": 0.4
+      }
+    ],
+    "log_length": {
+      "type": "minecraft:uniform",
+      "max_inclusive": 12,
+      "min_inclusive": 7
+    },
+    "stump_decorators": [],
+    "trunk_provider": {
+      "id": "regions_unexplored:stripped_pine_log",
+      "properties": {
+        "axis": "y"
+      }
+    }
+  }
+}

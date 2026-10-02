@@ -3,7 +3,7 @@
   "criteria": {
     "dorcel": {
       "conditions": {
-        "block": "regions_unexplored:dorcel"
+        "blocks": "regions_unexplored:dorcel"
       },
       "trigger": "minecraft:enter_block"
     }

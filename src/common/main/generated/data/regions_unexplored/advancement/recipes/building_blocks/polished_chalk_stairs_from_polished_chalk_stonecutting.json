@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "regions_unexplored:polished_chalk_stairs_from_polished_chalk_stonecutting"
+        "recipes": "regions_unexplored:polished_chalk_stairs_from_polished_chalk_stonecutting"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

@@ -1,0 +1,9 @@
+{
+  "type": "regions_unexplored:basalt_blob",
+  "height": {
+    "type": "minecraft:uniform",
+    "max_inclusive": 4,
+    "min_inclusive": 1
+  },
+  "reach": 1
+}

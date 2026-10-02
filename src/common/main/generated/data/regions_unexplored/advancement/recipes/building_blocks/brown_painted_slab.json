@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "regions_unexplored:brown_painted_slab"
+        "recipes": "regions_unexplored:brown_painted_slab"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

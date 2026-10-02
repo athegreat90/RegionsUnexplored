@@ -1,0 +1,17 @@
+{
+  "type": "regions_unexplored:giant_green_bioshroom",
+  "cap_provider": {
+    "id": "regions_unexplored:green_bioshroom_block"
+  },
+  "glow_block_provider": {
+    "id": "regions_unexplored:glowing_green_bioshroom_block"
+  },
+  "minimum_size": 8,
+  "size_variation": 5,
+  "stem_provider": {
+    "id": "regions_unexplored:green_bioshroom_stem",
+    "properties": {
+      "axis": "y"
+    }
+  }
+}

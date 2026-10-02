@@ -3,7 +3,7 @@
   "criteria": {
     "has_the_recipe": {
       "conditions": {
-        "recipe": "regions_unexplored:wisteria_trapdoor"
+        "recipes": "regions_unexplored:wisteria_trapdoor"
       },
       "trigger": "minecraft:recipe_unlocked"
     },

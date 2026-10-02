@@ -14,7 +14,6 @@ import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.RotatedPillarBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.feature.TreeFeature;
-import net.minecraft.world.level.levelgen.feature.configurations.TreeConfiguration;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacer.FoliageAttachment;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.TrunkPlacerType;
 import net.regions_unexplored.registry.tag.RUBlockTags;
@@ -54,7 +53,7 @@ public class RedwoodTrunkPlacer extends RUTrunkPlacer {
         final RandomSource random,
         final int treeHeight,
         final BlockPos origin,
-        final TreeConfiguration config
+        final TreeFeature config
     ) {
         List<FoliageAttachment> attachments = new ArrayList<>();
         // Base trunk
@@ -97,7 +96,7 @@ public class RedwoodTrunkPlacer extends RUTrunkPlacer {
         }
     }
 
-    private void placeBranch(WorldGenLevel level, BiConsumer<BlockPos, BlockState> trunkSetter, RandomSource random, int length, BlockPos pos, TreeConfiguration config, List<FoliageAttachment> foliageSetter) {
+    private void placeBranch(WorldGenLevel level, BiConsumer<BlockPos, BlockState> trunkSetter, RandomSource random, int length, BlockPos pos, TreeFeature config, List<FoliageAttachment> foliageSetter) {
         Direction.Axis axis = Direction.Plane.HORIZONTAL.getRandomAxis(random);
 
         for (Direction direction : Direction.Plane.HORIZONTAL) {
@@ -112,7 +111,7 @@ public class RedwoodTrunkPlacer extends RUTrunkPlacer {
         }
     }
 
-    private void placeLogColumn(WorldGenLevel level, BiConsumer<BlockPos, BlockState> trunkSetter, RandomSource random, BlockPos pos, int columnHeight, TreeConfiguration config) {
+    private void placeLogColumn(WorldGenLevel level, BiConsumer<BlockPos, BlockState> trunkSetter, RandomSource random, BlockPos pos, int columnHeight, TreeFeature config) {
         placeBelowTrunkBlock(level, trunkSetter, random, pos.below(), config);
         
         if (columnHeight == 0) return;

@@ -19,7 +19,6 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import net.regions_unexplored.registry.tag.RUBlockTags;
 
 public class BeardBlock extends VegetationBlock {
-    public static final MapCodec<? extends BeardBlock> CODEC = simpleCodec(BeardBlock::new);
     public static final EnumProperty<Direction> FACING = BlockStateProperties.HORIZONTAL_FACING;
 
     public BeardBlock(Properties properties) {
@@ -48,11 +47,6 @@ public class BeardBlock extends VegetationBlock {
         BlockPos.MutableBlockPos blockPos = pos.mutable().move(direction);
 
         return mayPlaceOn(level.getBlockState(blockPos), level, blockPos);
-    }
-
-    @Override
-    protected MapCodec<? extends VegetationBlock> codec() {
-        return CODEC;
     }
 
     @Override

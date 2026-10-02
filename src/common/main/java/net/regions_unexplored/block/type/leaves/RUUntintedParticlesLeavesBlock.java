@@ -6,28 +6,24 @@ import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.util.ParticleUtils;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.LeavesBlock;
+import net.minecraft.world.level.block.FallingParticlesLeavesBlock;
+import net.minecraft.world.level.block.sounds.AmbientLeavesBlockSoundPlayer;
 import net.regions_unexplored.block.BlockFactory;
 
 import java.util.function.Supplier;
 
-public class RUUntintedParticlesLeavesBlock extends LeavesBlock {
+public class RUUntintedParticlesLeavesBlock extends FallingParticlesLeavesBlock {
     public static final float PARTICLE_CHANCE = 0.025f;
 
     private final Supplier<SimpleParticleType> particle;
 
     public RUUntintedParticlesLeavesBlock(Properties properties, Supplier<SimpleParticleType> particle) {
-        super(PARTICLE_CHANCE, properties);
+        super(PARTICLE_CHANCE, AmbientLeavesBlockSoundPlayer.noAmbientSound(), properties);
         this.particle = particle;
     }
 
     public static BlockFactory<RUUntintedParticlesLeavesBlock> of(Supplier<SimpleParticleType> type) {
         return p -> new RUUntintedParticlesLeavesBlock(p, type);
-    }
-    
-    @Override
-    public MapCodec<? extends LeavesBlock> codec() {
-        return null;
     }
     
     @Override

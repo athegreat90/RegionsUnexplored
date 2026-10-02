@@ -1,11 +1,11 @@
 package net.regions_unexplored.datagen.provider.loot;
 
-import net.minecraft.advancements.criterion.BlockPredicate;
-import net.minecraft.advancements.criterion.LocationPredicate;
-import net.minecraft.advancements.criterion.StatePropertiesPredicate;
+import net.minecraft.advancements.predicates.BlockPredicate;
+import net.minecraft.advancements.predicates.LocationPredicate;
+import net.minecraft.advancements.predicates.StatePropertiesPredicate;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderGetter;
-import net.minecraft.core.HolderLookup;
+import net.minecraft.core.Holder;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.loot.BlockLootSubProvider;
@@ -21,18 +21,17 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.DoublePlantBlock;
 import net.minecraft.world.level.block.SweetBerryBushBlock;
 import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
-import net.minecraft.world.level.storage.loot.IntRange;
+import net.minecraft.world.level.storage.loot.IntLimit;
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
 import net.minecraft.world.level.storage.loot.entries.LootPoolEntryContainer;
-import net.minecraft.world.level.storage.loot.entries.LootPoolSingletonContainer;
+import net.minecraft.world.level.storage.loot.entries.UniformContainerBase;
 import net.minecraft.world.level.storage.loot.functions.ApplyBonusCount;
 import net.minecraft.world.level.storage.loot.functions.LimitCount;
 import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
 import net.minecraft.world.level.storage.loot.predicates.*;
-import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
-import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
+import static net.minecraft.world.level.storage.loot.providers.number.ints.ContextIntProviders.*;
 import net.regions_unexplored.RegionsUnexplored;
 import net.regions_unexplored.block.set.NaturalSet;
 import net.regions_unexplored.registry.RUBlocks;
@@ -52,13 +51,12 @@ public class RUBlockLootProvider extends BlockLootSubProvider {
 
     private static final float[] NORMAL_LEAVES_STICK_CHANCES = new float[]{0.02F, 0.022222223F, 0.025F, 0.033333335F, 0.1F};
 
-    public RUBlockLootProvider(HolderLookup.Provider registries) {
-        super(Set.of(), FeatureFlags.REGISTRY.allFlags(), registries);
+    public RUBlockLootProvider(Context output) {
+        super(Set.of(), FeatureFlags.REGISTRY.allFlags(), output);
     }
 
     @Override
     protected void generate() {
-        HolderGetter<Block> blocks = this.registries.lookupOrThrow(Registries.BLOCK);
         
         /*-----------------CAVE_BLOCKS-----------------*/
         //PRISMA_BLOCKS
@@ -72,7 +70,7 @@ public class RUBlockLootProvider extends BlockLootSubProvider {
         //REDSTONE_BLOCKS
         dropSelf(RUBlocks.REDSTONE_SPIKE.get());
         dropSelf(RUBlocks.RAW_REDSTONE_BLOCK.get());
-        add(RUBlocks.REDSTONE_BUD.get(), (block) -> createSilkTouchDispatchTable(block, this.applyExplosionDecay(block, LootItem.lootTableItem(Items.REDSTONE).apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 2.0F))))));
+        add(RUBlocks.REDSTONE_BUD.get(), (block) -> createSilkTouchDispatchTable(block, this.applyExplosionDecay(block, LootItem.lootTableItem(Items.REDSTONE).apply(SetItemCountFunction.setCount(between(1, 2))))));
         dropSelf(RUBlocks.REDSTONE_BULB.get());
         //OTHER_CAVE_BLOCKS
         add(RUBlocks.ARGILLITE_GRASS_BLOCK.get(), (block) -> createSingleItemTableWithSilkTouch(block, RUBlocks.ARGILLITE.get()));
@@ -85,7 +83,7 @@ public class RUBlockLootProvider extends BlockLootSubProvider {
         add(RUBlocks.BLADED_GRASS.get(), this::createGrassDrops);
         add(RUBlocks.BLADED_TALL_GRASS.get(), (block) -> createDoublePlantWithSeedDrops(block, RUBlocks.BLADED_GRASS.get()));
         addNetherVinesDropTable(RUBlocks.DROPLEAF.get(), RUBlocks.DROPLEAF_PLANT.get());
-        add(RUBlocks.DUSKMELON.get(), (block) -> applyExplosionDecay(block, LootTable.lootTable().withPool(LootPool.lootPool().when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(RUBlocks.DUSKMELON.get()).setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(SalmonBerryBushBlock.AGE, 3))).add(LootItem.lootTableItem(RUItems.DUSKMELON_SLICE.get())).apply(SetItemCountFunction.setCount(UniformGenerator.between(2.0F, 3.0F))).apply(ApplyBonusCount.addUniformBonusCount(registries.holderOrThrow(Enchantments.FORTUNE)))).withPool(LootPool.lootPool().when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(RUBlocks.DUSKMELON.get()).setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(SweetBerryBushBlock.AGE, 2))).add(LootItem.lootTableItem(RUItems.DUSKMELON_SLICE.get())).apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 2.0F))).apply(ApplyBonusCount.addUniformBonusCount(registries.holderOrThrow(Enchantments.FORTUNE))))));
+        add(RUBlocks.DUSKMELON.get(), block -> createBerryDrops(block, RUItems.DUSKMELON_SLICE.get()));
         add(RUBlocks.DUSKTRAP.get(), (block) -> createSinglePropConditionTable(block, DoublePlantBlock.HALF, DoubleBlockHalf.LOWER));
         /*-----------------PLANTS-----------------*/
         //GRASS_BLOCKS
@@ -167,7 +165,7 @@ public class RUBlockLootProvider extends BlockLootSubProvider {
         dropSelf(RUBlocks.FLOWERING_LILY_PAD.get());
         add(RUBlocks.GIANT_LILY_PAD.get(), (block) -> createSingleItemTable(RUBlocks.FLOWERING_LILY_PAD.get()));
         //FOOD_PLANT_BLOCKS
-        add(RUBlocks.SALMONBERRY_BUSH.get(), (block) -> applyExplosionDecay(block, LootTable.lootTable().withPool(LootPool.lootPool().when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(RUBlocks.SALMONBERRY_BUSH.get()).setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(SalmonBerryBushBlock.AGE, 3))).add(LootItem.lootTableItem(RUItems.SALMONBERRY.get())).apply(SetItemCountFunction.setCount(UniformGenerator.between(2.0F, 3.0F))).apply(ApplyBonusCount.addUniformBonusCount(registries.holderOrThrow(Enchantments.FORTUNE)))).withPool(LootPool.lootPool().when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(RUBlocks.SALMONBERRY_BUSH.get()).setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(SweetBerryBushBlock.AGE, 2))).add(LootItem.lootTableItem(RUItems.SALMONBERRY.get())).apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 2.0F))).apply(ApplyBonusCount.addUniformBonusCount(registries.holderOrThrow(Enchantments.FORTUNE))))));
+        add(RUBlocks.SALMONBERRY_BUSH.get(), block -> createBerryDrops(block, RUItems.SALMONBERRY.get()));
 
         /*-----------------POTTED_PLANTS-----------------*/
         add(RUBlocks.POTTED_ALPHA_DANDELION.get(), createPotFlowerItemTable(RUBlocks.ALPHA_DANDELION.get()));
@@ -235,7 +233,7 @@ public class RUBlockLootProvider extends BlockLootSubProvider {
             
             // Branches
             if (set.getBranch() != null) {
-                add(set.getBranch(), block -> createShearsDispatchTable(block, this.applyExplosionCondition(block, LootItem.lootTableItem(Items.STICK))).withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(4.0F)).when(hasShears().invert())));
+                add(set.getBranch(), block -> createShearsDispatchTable(block, this.applyExplosionCondition(block, LootItem.lootTableItem(Items.STICK))).withPool(LootPool.lootPool().setRolls(exactly(4)).when(InvertedLootItemCondition.invert(hasShears()))));
             }
             
             // Shrubs
@@ -255,7 +253,7 @@ public class RUBlockLootProvider extends BlockLootSubProvider {
             if (name.equals("joshua")) {
                 add(RUBlocks.JOSHUA_NATURAL_SET.getLeaves(), (block) -> createDoublePlantWithSeedDropsNoGrass(blocks, block, RUBlocks.JOSHUA_NATURAL_SET.getLeaves(), RUBlocks.JOSHUA_NATURAL_SET.getSapling(), JOSHUA_LEAVES_SAPLING_CHANCES));
             } else if (name.equals("brimwood")) {
-                add(RUBlocks.BRIMWOOD_NATURAL_SET.getLeaves(), (block) -> createSilkTouchOrShearsDispatchTable(block, this.applyExplosionCondition(block, LootItem.lootTableItem(RUBlocks.BRIMWOOD_NATURAL_SET.getSapling())).when(BonusLevelTableCondition.bonusLevelFlatChance(registries.holderOrThrow(Enchantments.FORTUNE), NORMAL_LEAVES_SAPLING_CHANCES))).withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F)).when(hasShears().or(hasSilkTouch()).invert())));
+                add(RUBlocks.BRIMWOOD_NATURAL_SET.getLeaves(), (block) -> createSilkTouchOrShearsDispatchTable(block, this.applyExplosionCondition(block, LootItem.lootTableItem(RUBlocks.BRIMWOOD_NATURAL_SET.getSapling())).when(BonusLevelTableCondition.bonusLevelFlatChance(enchantments.getOrThrow(Enchantments.FORTUNE), NORMAL_LEAVES_SAPLING_CHANCES))).withPool(LootPool.lootPool().setRolls(exactly(1)).when(hasShearsOrSilkTouch().invert())));
             } else if (name.contains("apple") || name.contains("maple")) {
               add(set.getLeaves(), block -> createOakLeavesDrops(block, set.getSapling(), NORMAL_LEAVES_SAPLING_CHANCES));
             } else {
@@ -324,8 +322,8 @@ public class RUBlockLootProvider extends BlockLootSubProvider {
         dropSelf(RUBlocks.TALL_HYACINTH_STOCK.get());
 
         /*-----------------OTHER_BLOCKS-----------------*/
-        add(RUBlocks.ASH.get(), (block) -> createSilkTouchDispatchTable(block, this.applyExplosionCondition(Items.FLINT, LootItem.lootTableItem(block).when(BonusLevelTableCondition.bonusLevelFlatChance(registries.holderOrThrow(Enchantments.SILK_TOUCH), 1.0F)).otherwise(LootItem.lootTableItem(Items.FLINT)))));
-        add(RUBlocks.VOLCANIC_ASH.get(), (block) -> createSilkTouchDispatchTable(block, this.applyExplosionCondition(Items.FLINT, LootItem.lootTableItem(block).when(BonusLevelTableCondition.bonusLevelFlatChance(registries.holderOrThrow(Enchantments.SILK_TOUCH), 1.0F)).otherwise(LootItem.lootTableItem(Items.FLINT)))));
+        add(RUBlocks.ASH.get(), (block) -> createSilkTouchDispatchTable(block, this.applyExplosionCondition(Items.FLINT, LootItem.lootTableItem(block).when(BonusLevelTableCondition.bonusLevelFlatChance(enchantments.getOrThrow(Enchantments.SILK_TOUCH), 1.0F)).otherwise(LootItem.lootTableItem(Items.FLINT)))));
+        add(RUBlocks.VOLCANIC_ASH.get(), (block) -> createSilkTouchDispatchTable(block, this.applyExplosionCondition(Items.FLINT, LootItem.lootTableItem(block).when(BonusLevelTableCondition.bonusLevelFlatChance(enchantments.getOrThrow(Enchantments.SILK_TOUCH), 1.0F)).otherwise(LootItem.lootTableItem(Items.FLINT)))));
         dropSelf(RUBlocks.ASH_VENT.get());
 
         /*-----------------WOOD_TYPES-----------------*/
@@ -397,7 +395,7 @@ public class RUBlockLootProvider extends BlockLootSubProvider {
 
     @Override
     protected LootTable.Builder createMushroomBlockDrop(Block block, ItemLike item) {
-        return createSilkTouchDispatchTable(block, this.applyExplosionDecay(block, LootItem.lootTableItem(item).apply(SetItemCountFunction.setCount(UniformGenerator.between(0.0F, 2.0F))).apply(LimitCount.limitCount(IntRange.lowerBound(0)))));
+        return createSilkTouchDispatchTable(block, this.applyExplosionDecay(block, LootItem.lootTableItem(item).apply(SetItemCountFunction.setCount(between(0, 2))).apply(LimitCount.limitCount(IntLimit.lowerBound(0)))));
     }
     
     @Override
@@ -406,13 +404,13 @@ public class RUBlockLootProvider extends BlockLootSubProvider {
     }
 
     protected LootTable.Builder createDoublePlantWithSeedDropsNoGrass(HolderGetter<Block> registry, Block block, Block block1, ItemLike item,  float... chances) {
-        LootPoolEntryContainer.Builder<?> builder = LootItem.lootTableItem(block1).apply(SetItemCountFunction.setCount(ConstantValue.exactly(1.0F))).when(hasShears()).otherwise(this.applyExplosionCondition(block, LootItem.lootTableItem(item)).when(BonusLevelTableCondition.bonusLevelFlatChance(registries.holderOrThrow(Enchantments.FORTUNE), chances)));
-        return LootTable.lootTable().withPool(LootPool.lootPool().add(builder).when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(block).setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(DoublePlantBlock.HALF, DoubleBlockHalf.LOWER))).when(LocationCheck.checkLocation(LocationPredicate.Builder.location().setBlock(BlockPredicate.Builder.block().of(registry, block).setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(DoublePlantBlock.HALF, DoubleBlockHalf.UPPER))), new BlockPos(0, 1, 0)))).withPool(LootPool.lootPool().add(builder).when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(block).setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(DoublePlantBlock.HALF, DoubleBlockHalf.UPPER))).when(LocationCheck.checkLocation(LocationPredicate.Builder.location().setBlock(BlockPredicate.Builder.block().of(registry, block).setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(DoublePlantBlock.HALF, DoubleBlockHalf.LOWER))), new BlockPos(0, -1, 0))));
+        LootPoolEntryContainer.Builder<?> builder = LootItem.lootTableItem(block1).apply(SetItemCountFunction.setCount(exactly(1))).when(hasShears()).otherwise(this.applyExplosionCondition(block, LootItem.lootTableItem(item)).when(BonusLevelTableCondition.bonusLevelFlatChance(enchantments.getOrThrow(Enchantments.FORTUNE), chances)));
+        return doublePlantDrops(registry, block, builder);
     }
 
     protected LootTable.Builder createDoublePlantWithSeedDropsNoGrass(HolderGetter<Block> registry, Block block) {
-        LootPoolEntryContainer.Builder<?> builder = LootItem.lootTableItem(block).apply(SetItemCountFunction.setCount(ConstantValue.exactly(2.0F))).when(hasShears()).otherwise(this.applyExplosionCondition(block, LootItem.lootTableItem(Items.WHEAT_SEEDS)).when(LootItemRandomChanceCondition.randomChance(0.125F)));
-        return LootTable.lootTable().withPool(LootPool.lootPool().add(builder).when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(block).setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(DoublePlantBlock.HALF, DoubleBlockHalf.LOWER))).when(LocationCheck.checkLocation(LocationPredicate.Builder.location().setBlock(BlockPredicate.Builder.block().of(registry, block).setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(DoublePlantBlock.HALF, DoubleBlockHalf.UPPER))), new BlockPos(0, 1, 0)))).withPool(LootPool.lootPool().add(builder).when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(block).setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(DoublePlantBlock.HALF, DoubleBlockHalf.UPPER))).when(LocationCheck.checkLocation(LocationPredicate.Builder.location().setBlock(BlockPredicate.Builder.block().of(registry, block).setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(DoublePlantBlock.HALF, DoubleBlockHalf.LOWER))), new BlockPos(0, -1, 0))));
+        LootPoolEntryContainer.Builder<?> builder = LootItem.lootTableItem(block).apply(SetItemCountFunction.setCount(exactly(2))).when(hasShears()).otherwise(this.applyExplosionCondition(block, LootItem.lootTableItem(Items.WHEAT_SEEDS)).when(LootItemRandomChanceCondition.randomChance(0.125F)));
+        return doublePlantDrops(registry, block, builder);
     }
 
     @Override
@@ -422,18 +420,49 @@ public class RUBlockLootProvider extends BlockLootSubProvider {
 
     @Override
     protected LootTable.Builder createSilkTouchOrShearsDispatchTable(Block block, LootPoolEntryContainer.Builder<?> builder) {
-        return createSelfDropDispatchTable(block, hasShears().or(hasSilkTouch()), builder);
+        return createSelfDropDispatchTable(block, Holder.direct(hasShearsOrSilkTouch().build()), builder);
     }
 
     @Override
     protected LootTable.Builder createLeavesDrops(Block leaves, Block sapling, float... chances) {
-        HolderLookup.RegistryLookup<Enchantment> registrylookup = this.registries.lookupOrThrow(Registries.ENCHANTMENT);
-        return this.createSilkTouchOrShearsDispatchTable(leaves, this.applyExplosionCondition(leaves, LootItem.lootTableItem(sapling)).when(BonusLevelTableCondition.bonusLevelFlatChance(registrylookup.getOrThrow(Enchantments.FORTUNE), chances))).withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F)).when(hasShears().or(hasSilkTouch()).invert()).add(((LootPoolSingletonContainer.Builder)this.applyExplosionDecay(leaves, LootItem.lootTableItem(Items.STICK).apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 2.0F))))).when(BonusLevelTableCondition.bonusLevelFlatChance(registrylookup.getOrThrow(Enchantments.FORTUNE), NORMAL_LEAVES_STICK_CHANCES))));
+        return this.createSilkTouchOrShearsDispatchTable(leaves, this.applyExplosionCondition(leaves, LootItem.lootTableItem(sapling)).when(BonusLevelTableCondition.bonusLevelFlatChance(enchantments.getOrThrow(Enchantments.FORTUNE), chances)))
+            .withPool(LootPool.lootPool().setRolls(exactly(1)).when(hasShearsOrSilkTouch().invert())
+                .add(this.applyExplosionDecay(leaves, LootItem.lootTableItem(Items.STICK).apply(SetItemCountFunction.setCount(between(1, 2))))
+                    .when(BonusLevelTableCondition.bonusLevelFlatChance(enchantments.getOrThrow(Enchantments.FORTUNE), NORMAL_LEAVES_STICK_CHANCES))));
     }
 
     @Override
     protected LootTable.Builder createOakLeavesDrops(Block leaves, Block sapling, float... chances) {
-        HolderLookup.RegistryLookup<Enchantment> registrylookup = this.registries.lookupOrThrow(Registries.ENCHANTMENT);
-        return this.createLeavesDrops(leaves, sapling, chances).withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F)).when(hasShears().or(hasSilkTouch()).invert()).add(this.applyExplosionCondition(leaves, LootItem.lootTableItem(Items.APPLE)).when(BonusLevelTableCondition.bonusLevelFlatChance(registrylookup.getOrThrow(Enchantments.FORTUNE), new float[]{0.005F, 0.0055555557F, 0.00625F, 0.008333334F, 0.025F}))));
+        return this.createLeavesDrops(leaves, sapling, chances).withPool(LootPool.lootPool().setRolls(exactly(1)).when(hasShearsOrSilkTouch().invert()).add(this.applyExplosionCondition(leaves, LootItem.lootTableItem(Items.APPLE)).when(BonusLevelTableCondition.bonusLevelFlatChance(enchantments.getOrThrow(Enchantments.FORTUNE), new float[]{0.005F, 0.0055555557F, 0.00625F, 0.008333334F, 0.025F}))));
+    }
+
+    private AnyOfCondition.Builder hasShearsOrSilkTouch() {
+        return AnyOfCondition.anyOf().or(hasShears()).or(hasSilkTouch());
+    }
+
+    private LootTable.Builder createBerryDrops(Block block, ItemLike item) {
+        return applyExplosionDecay(block, LootTable.lootTable()
+            .withPool(LootPool.lootPool()
+                .when(MatchBlock.blockMatches(blocks, block, StatePropertiesPredicate.Builder.properties().hasProperty(SweetBerryBushBlock.AGE, 3)))
+                .add(LootItem.lootTableItem(item))
+                .apply(SetItemCountFunction.setCount(between(2, 3)))
+                .apply(ApplyBonusCount.addUniformBonusCount(enchantments.getOrThrow(Enchantments.FORTUNE))))
+            .withPool(LootPool.lootPool()
+                .when(MatchBlock.blockMatches(blocks, block, StatePropertiesPredicate.Builder.properties().hasProperty(SweetBerryBushBlock.AGE, 2)))
+                .add(LootItem.lootTableItem(item))
+                .apply(SetItemCountFunction.setCount(between(1, 2)))
+                .apply(ApplyBonusCount.addUniformBonusCount(enchantments.getOrThrow(Enchantments.FORTUNE)))));
+    }
+
+    private LootTable.Builder doublePlantDrops(HolderGetter<Block> registry, Block block, LootPoolEntryContainer.Builder<?> entry) {
+        return LootTable.lootTable()
+            .withPool(LootPool.lootPool().add(entry)
+                .when(MatchBlock.blockMatches(registry, block, StatePropertiesPredicate.Builder.properties().hasProperty(DoublePlantBlock.HALF, DoubleBlockHalf.LOWER)))
+                .when(LocationCheck.checkLocation(LocationPredicate.Builder.location().setBlock(BlockPredicate.Builder.block().of(registry, block)
+                    .setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(DoublePlantBlock.HALF, DoubleBlockHalf.UPPER))), new BlockPos(0, 1, 0))))
+            .withPool(LootPool.lootPool().add(entry)
+                .when(MatchBlock.blockMatches(registry, block, StatePropertiesPredicate.Builder.properties().hasProperty(DoublePlantBlock.HALF, DoubleBlockHalf.UPPER)))
+                .when(LocationCheck.checkLocation(LocationPredicate.Builder.location().setBlock(BlockPredicate.Builder.block().of(registry, block)
+                    .setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(DoublePlantBlock.HALF, DoubleBlockHalf.LOWER))), new BlockPos(0, -1, 0))));
     }
 }

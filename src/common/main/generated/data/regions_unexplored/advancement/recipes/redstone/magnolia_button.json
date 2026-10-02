@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "regions_unexplored:magnolia_button"
+        "recipes": "regions_unexplored:magnolia_button"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

@@ -118,7 +118,7 @@ public class DusktrapBlock extends DoublePlantBlock {
         }
         
         if (isClosed) {
-            level.scheduleTick(new BlockPos(pos), this, 5);
+            level.scheduleTick(pos, this, 5);
         }
     }
 

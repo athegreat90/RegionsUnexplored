@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "regions_unexplored:birch_branch_from_birch_log"
+        "recipes": "regions_unexplored:birch_branch_from_birch_log"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

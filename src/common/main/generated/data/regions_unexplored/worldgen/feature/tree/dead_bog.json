@@ -1,0 +1,25 @@
+{
+  "type": "regions_unexplored:dead_tree",
+  "branch_provider": {
+    "id": "regions_unexplored:dead_branch",
+    "properties": {
+      "facing": "north"
+    }
+  },
+  "foliage_provider": {
+    "id": "regions_unexplored:dead_leaves",
+    "properties": {
+      "distance": "7",
+      "persistent": "false",
+      "waterlogged": "false"
+    }
+  },
+  "minimum_size": 6,
+  "size_variation": 2,
+  "trunk_provider": {
+    "id": "regions_unexplored:dead_log",
+    "properties": {
+      "axis": "y"
+    }
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "type": "regions_unexplored:small_oak_tree",
+  "branch_provider": {
+    "id": "regions_unexplored:oak_branch",
+    "properties": {
+      "facing": "north"
+    }
+  },
+  "foliage_provider": {
+    "id": "minecraft:oak_leaves",
+    "properties": {
+      "distance": "7",
+      "persistent": "false",
+      "waterlogged": "false"
+    }
+  },
+  "minimum_size": 5,
+  "size_variation": 4,
+  "trunk_provider": {
+    "id": "regions_unexplored:small_oak_log",
+    "properties": {
+      "axis": "y",
+      "waterlogged": "false"
+    }
+  }
+}

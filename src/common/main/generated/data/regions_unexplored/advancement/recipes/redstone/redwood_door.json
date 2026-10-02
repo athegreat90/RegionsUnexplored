@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "regions_unexplored:redwood_door"
+        "recipes": "regions_unexplored:redwood_door"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

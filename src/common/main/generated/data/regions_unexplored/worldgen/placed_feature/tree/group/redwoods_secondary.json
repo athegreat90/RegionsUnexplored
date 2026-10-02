@@ -31,12 +31,7 @@
         "predicates": [
           {
             "type": "minecraft:would_survive",
-            "state": {
-              "Name": "regions_unexplored:redwood_sapling",
-              "Properties": {
-                "stage": "0"
-              }
-            }
+            "state": "regions_unexplored:redwood_sapling"
           },
           {
             "type": "minecraft:not",

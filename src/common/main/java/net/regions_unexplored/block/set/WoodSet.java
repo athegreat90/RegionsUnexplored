@@ -1,9 +1,10 @@
 package net.regions_unexplored.block.set;
 
+import net.minecraft.core.Direction;
 import net.minecraft.world.item.BoatItem;
 import net.minecraft.world.item.HangingSignItem;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.SignItem;
+import net.minecraft.world.item.StandingAndWallBlockItem;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
@@ -112,8 +113,8 @@ public class WoodSet {
         this.wallSign = RUBlockUtils.registerNoItem(name + "_wall_sign", p -> RUBlockUtils.wallSign(p, sound, this.sign.get(), woodType, fireproof));
         this.hangingSign = RUBlockUtils.registerNoItem(name + "_hanging_sign", p -> RUBlockUtils.hangingSign(p, colour, sound, woodType, fireproof));
         this.wallHangingSign = RUBlockUtils.registerNoItem(name + "_wall_hanging_sign", p -> RUBlockUtils.wallHangingSign(p, colour, sound, this.hangingSign.get(), woodType, fireproof));
-        this.itemSign = RUItemUtils.register(name + "_sign", p -> new SignItem(this.sign.get(), this.wallSign.get(), p.useBlockDescriptionPrefix().stacksTo(16)));
-        this.itemHangingSign = RUItemUtils.register(name + "_hanging_sign", p -> new HangingSignItem(this.hangingSign.get(), this.wallHangingSign.get(), p.useBlockDescriptionPrefix().stacksTo(16)));
+        this.itemSign = RUItemUtils.register(name + "_sign", p -> new StandingAndWallBlockItem(this.sign.get(), this.wallSign.get(), Direction.DOWN, p.useBlockDescriptionPrefix().stacksTo(16).signText()));
+        this.itemHangingSign = RUItemUtils.register(name + "_hanging_sign", p -> new HangingSignItem(this.hangingSign.get(), this.wallHangingSign.get(), p.useBlockDescriptionPrefix().stacksTo(16).signText()));
     }
 
     protected void addBoats(String name) {

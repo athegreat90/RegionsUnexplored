@@ -1,6 +1,5 @@
 {
   "type": "minecraft:crafting_shaped",
-  "category": "misc",
   "group": "shrubs",
   "key": {
     "#": "regions_unexplored:salmon_wisteria_sapling"

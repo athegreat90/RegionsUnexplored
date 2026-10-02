@@ -3,43 +3,41 @@
   "criteria": {
     "place_prismaglass_on_beacon": {
       "conditions": {
-        "location": [
-          {
-            "condition": "minecraft:all_of",
-            "terms": [
-              {
-                "condition": "minecraft:location_check",
-                "predicate": {
-                  "block": {
-                    "blocks": "regions_unexplored:prismaglass"
-                  }
+        "location": {
+          "type": "minecraft:all_of",
+          "terms": [
+            {
+              "type": "minecraft:location_check",
+              "predicate": {
+                "block": {
+                  "blocks": "regions_unexplored:prismaglass"
                 }
-              },
-              {
-                "condition": "minecraft:location_check",
+              }
+            },
+            {
+              "type": "minecraft:location_check",
+              "offsetY": -1,
+              "predicate": {
+                "block": {
+                  "blocks": "minecraft:beacon"
+                }
+              }
+            },
+            {
+              "type": "minecraft:inverted",
+              "term": {
+                "type": "minecraft:location_check",
                 "offsetY": -1,
                 "predicate": {
                   "block": {
-                    "blocks": "minecraft:beacon"
-                  }
-                }
-              },
-              {
-                "condition": "minecraft:inverted",
-                "term": {
-                  "condition": "minecraft:location_check",
-                  "offsetY": -1,
-                  "predicate": {
-                    "block": {
-                      "blocks": "minecraft:beacon",
-                      "nbt": "{levels:0}"
-                    }
+                    "blocks": "minecraft:beacon",
+                    "nbt": "{levels:0}"
                   }
                 }
               }
-            ]
-          }
-        ]
+            }
+          ]
+        }
       },
       "trigger": "minecraft:placed_block"
     }

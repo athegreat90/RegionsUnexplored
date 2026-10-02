@@ -3,7 +3,7 @@
   "criteria": {
     "has_the_recipe": {
       "conditions": {
-        "recipe": "regions_unexplored:wisteria_stairs"
+        "recipes": "regions_unexplored:wisteria_stairs"
       },
       "trigger": "minecraft:recipe_unlocked"
     },

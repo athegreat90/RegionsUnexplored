@@ -1,5 +1,6 @@
 package net.regions_unexplored.worldgen.treedecorator;
 
+import net.minecraft.core.Holder;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
@@ -17,7 +18,7 @@ import java.util.List;
 public class AttachedToLogsDecorator extends TreeDecorator {
     public static final MapCodec<AttachedToLogsDecorator> CODEC = RecordCodecBuilder.mapCodec(i -> i.group(
         Codec.floatRange(0.0f, 1.0f).fieldOf("probability").forGetter(AttachedToLogsDecorator::probability),
-        BlockStateProvider.CODEC.fieldOf("block_provider").forGetter(AttachedToLogsDecorator::blockProvider),
+        BlockStateProvider.CODEC.xmap(Holder::value, Holder::direct).fieldOf("block_provider").forGetter(AttachedToLogsDecorator::blockProvider),
         ExtraCodecs.nonEmptyList(Direction.CODEC.listOf()).fieldOf("directions").forGetter(AttachedToLogsDecorator::directions),
         Codec.BOOL.optionalFieldOf("check_all_directions", false).forGetter(AttachedToLogsDecorator::checkAllDirections)
     ).apply(i, AttachedToLogsDecorator::new));

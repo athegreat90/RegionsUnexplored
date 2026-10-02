@@ -9,9 +9,7 @@
       "type": "minecraft:block_predicate_filter",
       "predicate": {
         "type": "minecraft:would_survive",
-        "state": {
-          "Name": "regions_unexplored:cobalt_earlight"
-        }
+        "state": "regions_unexplored:cobalt_earlight"
       }
     },
     {
