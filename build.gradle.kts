@@ -18,12 +18,13 @@ repositories {
 }
 
 group = "net.regions_unexplored"
-version = "0.7.0+beta2"
+version = "0.7.0+beta2-26.3"
 
 // Required dependencies
-val lithostitchedVersion = "1.7.13"
+val lithostitchedVersion = "2.0.4"
 
 // Optional dependencies
+// wikiful has no published build past 26.2 yet; usages below are commented out until 26.3 is available.
 val wikifulVersion = "0.3.2"
 
 cloche {
@@ -54,7 +55,7 @@ cloche {
             implementation("de.marhali:json5-java:3.0.0")
             implementation("com.electronwill.night-config:core:3.8.3")
             implementation("com.electronwill.night-config:toml:3.8.3")
-            modCompileOnlyApi("maven.modrinth:lithostitched:$lithostitchedVersion-neoforge-26.1")
+            modCompileOnlyApi("maven.modrinth:lithostitched:$lithostitchedVersion-neoforge-26.3")
         }
 
         data()
@@ -72,19 +73,21 @@ cloche {
     fabric {
         mixins.from(file("src/fabric/main/regions_unexplored.fabric.mixins.json"))
 
-        loaderVersion = "0.19.2"
-        minecraftVersion = "26.1.2"
+        loaderVersion = "0.19.5"
+        minecraftVersion = "26.3"
 
         dependencies {
-            fabricApi("0.155.0")
+            fabricApi("0.161.0")
 
             include("de.marhali:json5-java:3.0.0")
             include("com.electronwill.night-config:core:3.8.3")
             include("com.electronwill.night-config:toml:3.8.3")
 
-            modRuntimeOnly("maven.modrinth:world-preview-prime:2.0.0-fabric-26.1")
-            modImplementation("maven.modrinth:lithostitched:$lithostitchedVersion-fabric-26.1")
-            modImplementation("maven.modrinth:wikiful:$wikifulVersion-fabric-26.1")
+            // world-preview-prime has no published build past 26.1.2 yet.
+            // modRuntimeOnly("maven.modrinth:world-preview-prime:2.0.0-fabric-26.1")
+            modImplementation("maven.modrinth:lithostitched:$lithostitchedVersion-fabric-26.3")
+            // wikiful has no published build past 26.2 yet.
+            // modImplementation("maven.modrinth:wikiful:$wikifulVersion-fabric-26.1")
 
             modImplementation("com.terraformersmc:modmenu:18.0.0")
         }
@@ -113,15 +116,17 @@ cloche {
 
     neoforge {
         mixins.from(file("src/neoforge/main/regions_unexplored.neoforge.mixins.json"))
-        loaderVersion = "26.1.2.81"
-        minecraftVersion = "26.1.2"
+        loaderVersion = "26.3.0.41-beta"
+        minecraftVersion = "26.3"
 
         dependencies {
             legacyClasspath("de.marhali:json5-java:3.0.0")
             include("de.marhali:json5-java:3.0.0")
-            modRuntimeOnly("maven.modrinth:world-preview-prime:2.0.0-neoforge-26.1")
-            modApi("maven.modrinth:lithostitched:$lithostitchedVersion-neoforge-26.1")
-            modApi("maven.modrinth:wikiful:$wikifulVersion-neoforge-26.1")
+            // world-preview-prime has no published build past 26.1.2 yet.
+            // modRuntimeOnly("maven.modrinth:world-preview-prime:2.0.0-neoforge-26.1")
+            modApi("maven.modrinth:lithostitched:$lithostitchedVersion-neoforge-26.3")
+            // wikiful has no published build past 26.2 yet.
+            // modApi("maven.modrinth:wikiful:$wikifulVersion-neoforge-26.1")
         }
 
 
