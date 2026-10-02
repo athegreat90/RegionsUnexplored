@@ -2,24 +2,30 @@ package net.regions_unexplored.world.level.feature;
 
 import com.google.common.base.Suppliers;
 import com.google.common.collect.ImmutableList;
-import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.util.RandomSource;
+import net.minecraft.util.valueproviders.IntProvider;
+import net.minecraft.util.valueproviders.IntProviders;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.chunk.ChunkGenerator;
 import net.minecraft.world.level.levelgen.feature.Feature;
-import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
-import net.minecraft.world.level.levelgen.feature.configurations.ColumnFeatureConfiguration;
 import net.regions_unexplored.registry.RUBlocks;
 import net.regions_unexplored.registry.tag.*;
 
 import java.util.function.Supplier;
 
-public class BasaltBlobFeature extends Feature<ColumnFeatureConfiguration> {
+public class BasaltBlobFeature implements Feature {
+    public static final MapCodec<BasaltBlobFeature> CODEC = RecordCodecBuilder.mapCodec(i -> i.group(
+        IntProviders.codec(0, 3).fieldOf("reach").forGetter(f -> f.reach),
+        IntProviders.codec(1, 10).fieldOf("height").forGetter(f -> f.height)
+    ).apply(i, BasaltBlobFeature::new));
     private static final Supplier<ImmutableList<Block>> CANNOT_PLACE_ON = Suppliers.memoize(() ->  ImmutableList.of(
             Blocks.COBBLESTONE,
             Blocks.COBBLESTONE_SLAB,
@@ -65,20 +71,25 @@ public class BasaltBlobFeature extends Feature<ColumnFeatureConfiguration> {
             RUBlocks.DEAD_NATURAL_SET.getLeaves())
     );
 
-    public BasaltBlobFeature(Codec<ColumnFeatureConfiguration> codec) {
-        super(codec);
+    private final IntProvider reach;
+    private final IntProvider height;
+
+    public BasaltBlobFeature(IntProvider reach, IntProvider height) {
+        this.reach = reach;
+        this.height = height;
     }
 
-    public boolean place(FeaturePlaceContext<ColumnFeatureConfiguration> context) {
-        int i = context.chunkGenerator().getSeaLevel();
-        BlockPos blockpos = context.origin();
-        WorldGenLevel worldgenlevel = context.level();
-        RandomSource randomsource = context.random();
-        ColumnFeatureConfiguration columnfeatureconfiguration = context.config();
+    @Override
+    public MapCodec<BasaltBlobFeature> codec() {
+        return CODEC;
+    }
+
+    public boolean place(WorldGenLevel worldgenlevel, ChunkGenerator chunkGenerator, RandomSource randomsource, BlockPos blockpos) {
+        int i = chunkGenerator.getSeaLevel();
         if (!canPlaceAt(worldgenlevel, i, blockpos.mutable())) {
             return false;
         } else {
-            int j = columnfeatureconfiguration.height().sample(randomsource);
+            int j = this.height.sample(randomsource);
             boolean flag = randomsource.nextFloat() < 0.9F;
             int k = Math.min(j, flag ? 5 : 8);
             int l = flag ? 50 : 15;
@@ -87,7 +98,7 @@ public class BasaltBlobFeature extends Feature<ColumnFeatureConfiguration> {
             for(BlockPos blockpos1 : BlockPos.randomBetweenClosed(randomsource, l, blockpos.getX() - k, blockpos.getY(), blockpos.getZ() - k, blockpos.getX() + k, blockpos.getY(), blockpos.getZ() + k)) {
                 int i1 = j - blockpos1.distManhattan(blockpos);
                 if (i1 >= 0) {
-                    flag1 |= this.placeColumn(worldgenlevel, i, blockpos1, i1, columnfeatureconfiguration.reach().sample(randomsource));
+                    flag1 |= this.placeColumn(worldgenlevel, i, blockpos1, i1, this.reach.sample(randomsource));
                 }
             }
 

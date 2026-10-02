@@ -1,6 +1,6 @@
 package net.regions_unexplored.world.level.feature.tree;
 
-import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.tags.BlockTags;
@@ -15,28 +15,33 @@ import net.minecraft.world.level.block.RotatedPillarBlock;
 import net.minecraft.world.level.block.entity.BeehiveBlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.levelgen.feature.Feature;
-import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
+import net.minecraft.world.level.chunk.ChunkGenerator;
 import net.regions_unexplored.registry.RUBlocks;
 import net.regions_unexplored.registry.tag.*;
+import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
+import net.minecraft.world.level.levelgen.feature.treedecorators.TreeDecorator;
 import net.regions_unexplored.world.level.feature.configuration.RUTreeConfiguration;
 
+import java.util.List;
 import java.util.Random;
 
-public class SakuraTreeFeature extends Feature<RUTreeConfiguration> {
+public class SakuraTreeFeature extends RUTreeFeature {
+    public static final MapCodec<SakuraTreeFeature> CODEC = treeCodec(SakuraTreeFeature::new);
 
-    public SakuraTreeFeature(Codec<RUTreeConfiguration> codec) {
-        super(codec);
+    public SakuraTreeFeature(BlockStateProvider trunkProvider, BlockStateProvider foliageProvider, BlockStateProvider branchProvider, List<TreeDecorator> decorators, int minimumSize, int sizeVariation) {
+        super(trunkProvider, foliageProvider, branchProvider, decorators, minimumSize, sizeVariation);
     }
 
-    public boolean place(FeaturePlaceContext<RUTreeConfiguration> context) {
-        RUTreeConfiguration treeConfiguration = context.config();
-        BlockPos pos = context.origin();
-        RandomSource randomSource = context.random();
-        WorldGenLevel level = context.level();
+    @Override
+    public MapCodec<SakuraTreeFeature> codec() {
+        return CODEC;
+    }
 
-        int limbDirection = context.random().nextInt(12);
-        int height_main = context.random().nextInt(treeConfiguration.sizeVariation()) + treeConfiguration.minimumSize();
+    public boolean place(WorldGenLevel level, ChunkGenerator generator, RandomSource randomSource, BlockPos pos) {
+        RUTreeConfiguration treeConfiguration = treeConfiguration();
+
+        int limbDirection = randomSource.nextInt(12);
+        int height_main = randomSource.nextInt(treeConfiguration.sizeVariation()) + treeConfiguration.minimumSize();
 
         int check = 0;
         BlockPos.MutableBlockPos checkPos = pos.mutable();

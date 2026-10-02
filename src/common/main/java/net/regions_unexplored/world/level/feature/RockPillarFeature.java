@@ -1,34 +1,33 @@
 package net.regions_unexplored.world.level.feature;
 
-import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.BlockGetter;
-import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelSimulatedReader;
 import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.chunk.ChunkGenerator;
 import net.minecraft.world.level.levelgen.feature.Feature;
-import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
-import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
 import net.minecraft.world.level.material.Fluids;
 import net.regions_unexplored.registry.RUBlocks;
 import net.regions_unexplored.registry.tag.*;
 
 import java.util.Random;
 
-public class RockPillarFeature extends Feature<NoneFeatureConfiguration> {
+public class RockPillarFeature implements Feature {
+    public static final MapCodec<RockPillarFeature> CODEC = MapCodec.unit(RockPillarFeature::new);
 
-    public RockPillarFeature(Codec<NoneFeatureConfiguration> codec) {
-        super(codec);
+    @Override
+    public MapCodec<RockPillarFeature> codec() {
+        return CODEC;
     }
 
-    public boolean place(FeaturePlaceContext<NoneFeatureConfiguration> context) {
-        BlockPos pos = context.origin();
-        WorldGenLevel level = context.level();
-        int var = context.random().nextInt(2)+4;
-        int size = context.random().nextInt(14)+7;
+    public boolean place(WorldGenLevel level, ChunkGenerator generator, RandomSource random, BlockPos pos) {
+        int var = random.nextInt(2)+4;
+        int size = random.nextInt(14)+7;
         int size2 = level.getSeaLevel()+size;
         if(size2< level.getSeaLevel()){
             return false;
@@ -36,12 +35,12 @@ public class RockPillarFeature extends Feature<NoneFeatureConfiguration> {
         if(level.getBlockState(pos.below()).getBlock()!= Blocks.SAND){
             return false;
         }
-        int doPlace = context.random().nextInt(3);
+        int doPlace = random.nextInt(3);
         if(doPlace == 0){
             return false;
         }
 
-        int j = context.random().nextInt(6)+2;
+        int j = random.nextInt(6)+2;
         int height = 0;
 
             BlockPos.MutableBlockPos placePos = pos.mutable();
@@ -53,10 +52,10 @@ public class RockPillarFeature extends Feature<NoneFeatureConfiguration> {
                 if (level.isOutsideBuildHeight(placePos)) {
                     return true;
                 }
-                int tryPlaceN = context.random().nextInt(5);
-                int tryPlaceS = context.random().nextInt(5);
-                int tryPlaceE = context.random().nextInt(5);
-                int tryPlaceW = context.random().nextInt(5);
+                int tryPlaceN = random.nextInt(5);
+                int tryPlaceS = random.nextInt(5);
+                int tryPlaceE = random.nextInt(5);
+                int tryPlaceW = random.nextInt(5);
                 level.setBlock(placePos1, Blocks.STONE.defaultBlockState(), 3);
                 placeBlob(level, placePos1, false, 5, 5, 5);
                 if(tryPlaceN==0){
@@ -78,10 +77,10 @@ public class RockPillarFeature extends Feature<NoneFeatureConfiguration> {
                 if (level.isOutsideBuildHeight(placePos)) {
                     return true;
                 }
-                int tryPlaceN = context.random().nextInt(5);
-                int tryPlaceS = context.random().nextInt(5);
-                int tryPlaceE = context.random().nextInt(5);
-                int tryPlaceW = context.random().nextInt(5);
+                int tryPlaceN = random.nextInt(5);
+                int tryPlaceS = random.nextInt(5);
+                int tryPlaceE = random.nextInt(5);
+                int tryPlaceW = random.nextInt(5);
                 level.setBlock(placePos, Blocks.STONE.defaultBlockState(), 3);
                 placeBlob(level, placePos, true, j, j+1, j);
                 if(tryPlaceN==0){

@@ -1,6 +1,6 @@
 package net.regions_unexplored.world.level.feature.bioshroom;
 
-import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.util.RandomSource;
@@ -9,28 +9,30 @@ import net.minecraft.world.level.LevelSimulatedReader;
 import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.levelgen.feature.Feature;
-import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
 import net.regions_unexplored.registry.RUBlocks;
 import net.regions_unexplored.registry.tag.*;
+import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
 import net.regions_unexplored.world.level.feature.configuration.GiantBioshroomConfiguration;
 
 import java.util.Random;
 
-public class GiantYellowBioshroomFeature extends Feature<GiantBioshroomConfiguration> {
+public class GiantYellowBioshroomFeature extends GiantBioshroomFeature {
+    public static final MapCodec<GiantYellowBioshroomFeature> CODEC = bioshroomCodec(GiantYellowBioshroomFeature::new);
 
-    public GiantYellowBioshroomFeature(Codec<GiantBioshroomConfiguration> codec) {
-        super(codec);
+    public GiantYellowBioshroomFeature(BlockStateProvider stemProvider, BlockStateProvider capProvider, BlockStateProvider glowBlockProvider, int minimumSize, int sizeVariation) {
+        super(stemProvider, capProvider, glowBlockProvider, minimumSize, sizeVariation);
     }
 
-    public boolean place(FeaturePlaceContext<GiantBioshroomConfiguration> context) {
-        GiantBioshroomConfiguration bioshroomConfiguration = context.config();
-        BlockPos pos = context.origin();
-        RandomSource randomSource = context.random();
-        WorldGenLevel level = context.level();
+    @Override
+    public MapCodec<GiantYellowBioshroomFeature> codec() {
+        return CODEC;
+    }
 
-        int limbDirection = context.random().nextInt(12);
-        int height_main = context.random().nextInt(bioshroomConfiguration.sizeVariation) + bioshroomConfiguration.minimumSize;
+    public boolean place(WorldGenLevel level, ChunkGenerator generator, RandomSource randomSource, BlockPos pos) {
+        GiantBioshroomConfiguration bioshroomConfiguration = bioshroomConfiguration();
+
+        int limbDirection = randomSource.nextInt(12);
+        int height_main = randomSource.nextInt(bioshroomConfiguration.sizeVariation) + bioshroomConfiguration.minimumSize;
 
         if(!level.getBlockState(pos).canBeReplaced()){
             return false;

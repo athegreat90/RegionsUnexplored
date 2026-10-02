@@ -1,5 +1,6 @@
 package net.regions_unexplored.worldgen.feature;
 
+import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.util.RandomSource;
@@ -7,8 +8,8 @@ import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.RotatedPillarBlock;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.chunk.ChunkGenerator;
 import net.minecraft.world.level.levelgen.feature.Feature;
-import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
 import net.minecraft.world.level.levelgen.feature.TreeFeature;
 import net.minecraft.world.level.levelgen.feature.treedecorators.TreeDecorator;
 import net.regions_unexplored.worldgen.feature.config.FallenTreeConfig;
@@ -19,15 +20,28 @@ import java.util.Set;
 import java.util.function.BiConsumer;
 import java.util.function.Function;
 
-public class RUFallenTreeFeature extends Feature<FallenTreeConfig> {
-	
-	public RUFallenTreeFeature() {
-		super(FallenTreeConfig.CODEC);
+public class RUFallenTreeFeature implements Feature {
+	public static final MapCodec<RUFallenTreeFeature> CODEC = FallenTreeConfig.CODEC.fieldOf("config")
+		.xmap(RUFallenTreeFeature::new, RUFallenTreeFeature::config);
+
+	private final FallenTreeConfig config;
+
+	public RUFallenTreeFeature(FallenTreeConfig config) {
+		this.config = config;
 	}
-	
+
+	public FallenTreeConfig config() {
+		return this.config;
+	}
+
 	@Override
-	public boolean place(FeaturePlaceContext<FallenTreeConfig> context) {
-		this.placeFallenTree(context.config(), context.origin(), context.level(), context.random());
+	public MapCodec<RUFallenTreeFeature> codec() {
+		return CODEC;
+	}
+
+	@Override
+	public boolean place(WorldGenLevel level, ChunkGenerator generator, RandomSource random, BlockPos origin) {
+		this.placeFallenTree(this.config, origin, level, random);
 		return true;
 	}
 	

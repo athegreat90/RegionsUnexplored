@@ -1,29 +1,29 @@
 package net.regions_unexplored.world.level.feature;
 
-import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.tags.FluidTags;
-import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.DoublePlantBlock;
 import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
+import net.minecraft.world.level.chunk.ChunkGenerator;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.levelgen.feature.Feature;
-import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
-import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
 import net.regions_unexplored.registry.RUBlocks;
 
 import java.util.Random;
 
-public class MarshFeature extends Feature<NoneFeatureConfiguration> {
-    public MarshFeature(Codec<NoneFeatureConfiguration> codec) {
-        super(codec);
+public class MarshFeature implements Feature {
+    public static final MapCodec<MarshFeature> CODEC = MapCodec.unit(MarshFeature::new);
+
+    @Override
+    public MapCodec<MarshFeature> codec() {
+        return CODEC;
     }
 
-    public boolean place(FeaturePlaceContext<NoneFeatureConfiguration> context) {
-        BlockPos pos = context.origin();
-        WorldGenLevel level = context.level();
+    public boolean place(WorldGenLevel level, ChunkGenerator generator, RandomSource random, BlockPos pos) {
         placeBlob(level, pos);
         return true;
     }

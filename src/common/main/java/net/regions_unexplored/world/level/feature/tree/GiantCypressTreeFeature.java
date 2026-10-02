@@ -1,6 +1,6 @@
 package net.regions_unexplored.world.level.feature.tree;
 
-import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.tags.BlockTags;
@@ -12,45 +12,50 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.LeavesBlock;
 import net.minecraft.world.level.block.RotatedPillarBlock;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.chunk.ChunkGenerator;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
-import net.minecraft.world.level.levelgen.feature.Feature;
-import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
 import net.regions_unexplored.block.type.base.RUGrowingPlantHeadBlock;
 import net.regions_unexplored.config.RUConfigHandler;
 import net.regions_unexplored.registry.RUBlocks;
 import net.regions_unexplored.registry.tag.*;
+import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
+import net.minecraft.world.level.levelgen.feature.treedecorators.TreeDecorator;
 import net.regions_unexplored.world.level.feature.configuration.RUTreeConfiguration;
 
+import java.util.List;
 import java.util.Random;
 
-public class GiantCypressTreeFeature extends Feature<RUTreeConfiguration> {
+public class GiantCypressTreeFeature extends RUTreeFeature {
+    public static final MapCodec<GiantCypressTreeFeature> CODEC = treeCodec(GiantCypressTreeFeature::new);
 
-    public GiantCypressTreeFeature(Codec<RUTreeConfiguration> codec) {
-        super(codec);
+    public GiantCypressTreeFeature(BlockStateProvider trunkProvider, BlockStateProvider foliageProvider, BlockStateProvider branchProvider, List<TreeDecorator> decorators, int minimumSize, int sizeVariation) {
+        super(trunkProvider, foliageProvider, branchProvider, decorators, minimumSize, sizeVariation);
     }
 
-    public boolean place(FeaturePlaceContext<RUTreeConfiguration> context) {
-        RUTreeConfiguration treeConfiguration = context.config();
-        BlockPos pos = context.origin();
-        RandomSource randomSource = context.random();
-        WorldGenLevel level = context.level();
+    @Override
+    public MapCodec<GiantCypressTreeFeature> codec() {
+        return CODEC;
+    }
+
+    public boolean place(WorldGenLevel level, ChunkGenerator generator, RandomSource randomSource, BlockPos pos) {
+        RUTreeConfiguration treeConfiguration = treeConfiguration();
         boolean hasVines = false;
         if(randomSource.nextInt(3)==0){
             hasVines = true;
         }
-        int height_main = context.random().nextInt(treeConfiguration.sizeVariation()) + treeConfiguration.minimumSize();
-        int height_1n = context.random().nextInt(5) + 8;
-        int height_1s = context.random().nextInt(5) + 8;
-        int height_1e = context.random().nextInt(5) + 8;
-        int height_1w = context.random().nextInt(5) + 8;
-        int height_2n = context.random().nextInt(3) + 3;
-        int height_2s = context.random().nextInt(3) + 3;
-        int height_2e = context.random().nextInt(3) + 3;
-        int height_2w = context.random().nextInt(3) + 3;
-        int height_3n = context.random().nextInt(1) + 1;
-        int height_3s = context.random().nextInt(1) + 1;
-        int height_3e = context.random().nextInt(1) + 1;
-        int height_3w = context.random().nextInt(1) + 1;
+        int height_main = randomSource.nextInt(treeConfiguration.sizeVariation()) + treeConfiguration.minimumSize();
+        int height_1n = randomSource.nextInt(5) + 8;
+        int height_1s = randomSource.nextInt(5) + 8;
+        int height_1e = randomSource.nextInt(5) + 8;
+        int height_1w = randomSource.nextInt(5) + 8;
+        int height_2n = randomSource.nextInt(3) + 3;
+        int height_2s = randomSource.nextInt(3) + 3;
+        int height_2e = randomSource.nextInt(3) + 3;
+        int height_2w = randomSource.nextInt(3) + 3;
+        int height_3n = randomSource.nextInt(1) + 1;
+        int height_3s = randomSource.nextInt(1) + 1;
+        int height_3e = randomSource.nextInt(1) + 1;
+        int height_3w = randomSource.nextInt(1) + 1;
 
         int check = 0;
         BlockPos.MutableBlockPos checkPos = pos.mutable();

@@ -32,7 +32,7 @@ import net.regions_unexplored.registry.RUBlocks;
 import net.regions_unexplored.registry.RUParticleTypes;
 import net.regions_unexplored.registry.data.RULootTables;
 
-import static net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider.simple;
+import static net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider.of;
 
 public class AppleLeavesBlock extends RUTintedParticlesLeavesBlock implements BonemealableBlock{
     public static final int MAX_AGE = 4;
@@ -144,8 +144,8 @@ public class AppleLeavesBlock extends RUTintedParticlesLeavesBlock implements Bo
 
     public static BlockStateProvider createStateProvider(int normalWeight) {
         return LithostitchedStateProviders.weighted(WeightedList.<BlockStateProvider>builder()
-            .add(simple(Blocks.OAK_LEAVES), normalWeight)
-            .add(new RandomizedIntStateProvider(simple(RUBlocks.APPLE_OAK_NATURAL_SET.getLeaves()), AppleLeavesBlock.AGE, UniformInt.of(2, 4)), 1)
+            .add(of(Blocks.OAK_LEAVES), normalWeight)
+            .add(new RandomizedIntStateProvider(of(RUBlocks.APPLE_OAK_NATURAL_SET.getLeaves()), AppleLeavesBlock.AGE, UniformInt.of(2, 4)), 1)
         .build());
     }
 }

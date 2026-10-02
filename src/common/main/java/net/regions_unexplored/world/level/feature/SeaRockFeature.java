@@ -1,6 +1,7 @@
 package net.regions_unexplored.world.level.feature;
 
-import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
@@ -9,31 +10,42 @@ import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.chunk.ChunkGenerator;
 import net.minecraft.world.level.levelgen.feature.Feature;
-import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
 import net.minecraft.world.level.material.Fluids;
 import net.regions_unexplored.registry.RUBlocks;
-import net.regions_unexplored.world.level.feature.configuration.SeaRockConfiguration;
 
-public class SeaRockFeature extends Feature<SeaRockConfiguration> {
-        public SeaRockFeature(Codec<SeaRockConfiguration> p_66017_) {
-            super(p_66017_);
+public class SeaRockFeature implements Feature {
+        public static final MapCodec<SeaRockFeature> CODEC = RecordCodecBuilder.mapCodec(i -> i.group(
+            BlockState.CODEC.fieldOf("state").forGetter(f -> f.state),
+            BlockState.CODEC.fieldOf("alt_state").forGetter(f -> f.altState)
+        ).apply(i, SeaRockFeature::new));
+
+        private final BlockState state;
+        private final BlockState altState;
+
+        public SeaRockFeature(BlockState state, BlockState altState) {
+            this.state = state;
+            this.altState = altState;
         }
 
-        public boolean place(FeaturePlaceContext<SeaRockConfiguration> p_159884_) {
-            BlockPos blockpos = p_159884_.origin();
-            WorldGenLevel worldgenlevel = p_159884_.level();
+        @Override
+        public MapCodec<SeaRockFeature> codec() {
+            return CODEC;
+        }
+
+        public boolean place(WorldGenLevel worldgenlevel, ChunkGenerator generator, RandomSource randomsource, BlockPos p_159884_) {
+            BlockPos blockpos = p_159884_;
             blockpos = new BlockPos(blockpos.getX(), blockpos.getY(), blockpos.getZ());
             if(worldgenlevel.getBlockState(blockpos.below()).is(Blocks.PACKED_ICE)){
                 return false;
             }
-            RandomSource randomsource = p_159884_.random();
             if(randomsource.nextInt(2)==0){
                 return false;
             }
             boolean flag = randomsource.nextDouble() > 0.7D;
-            BlockState blockstate = (p_159884_.config()).state;
-            BlockState blockstateAlt = (p_159884_.config()).altState;
+            BlockState blockstate = this.state;
+            BlockState blockstateAlt = this.altState;
             double d0 = randomsource.nextDouble() * 2.0D * Math.PI;
             int i = 11 - randomsource.nextInt(5);
             int j = 3 + randomsource.nextInt(3);

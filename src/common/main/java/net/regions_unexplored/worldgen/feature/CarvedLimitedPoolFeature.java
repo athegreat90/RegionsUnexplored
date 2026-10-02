@@ -1,13 +1,13 @@
 package net.regions_unexplored.worldgen.feature;
 
-import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.chunk.ChunkGenerator;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.levelgen.feature.Feature;
-import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
 import net.regions_unexplored.worldgen.feature.config.CarvedLimitedPoolFeatureConfig;
 
 import javax.annotation.Nonnull;
@@ -18,19 +18,30 @@ import javax.annotation.Nonnull;
  * It is a partial reimplementation of Terralith's Yellowstone hot springs, in code form
  * @author VoidsongDragonfly
  */
-public class CarvedLimitedPoolFeature extends Feature<CarvedLimitedPoolFeatureConfig> {
-    public CarvedLimitedPoolFeature(Codec<CarvedLimitedPoolFeatureConfig> codec) {
-        super(codec);
+public class CarvedLimitedPoolFeature implements Feature {
+    public static final MapCodec<CarvedLimitedPoolFeature> CODEC = CarvedLimitedPoolFeatureConfig.CODEC.fieldOf("config")
+        .xmap(CarvedLimitedPoolFeature::new, CarvedLimitedPoolFeature::config);
+
+    private final CarvedLimitedPoolFeatureConfig config;
+
+    public CarvedLimitedPoolFeature(CarvedLimitedPoolFeatureConfig config) {
+        this.config = config;
+    }
+
+    public CarvedLimitedPoolFeatureConfig config() {
+        return this.config;
     }
 
     @Override
-    public boolean place(@Nonnull FeaturePlaceContext<CarvedLimitedPoolFeatureConfig> context) {
+    public MapCodec<CarvedLimitedPoolFeature> codec() {
+        return CODEC;
+    }
+
+    @Override
+    public boolean place(@Nonnull WorldGenLevel level, @Nonnull ChunkGenerator generator, @Nonnull RandomSource random, @Nonnull BlockPos origin) {
         // Basic information we need for placement
-        CarvedLimitedPoolFeatureConfig configuration = context.config();
-        WorldGenLevel level = context.level();
-        BlockPos origin = context.origin();
+        CarvedLimitedPoolFeatureConfig configuration = this.config;
         BlockPos.MutableBlockPos mut = origin.mutable();
-        RandomSource random = context.random();
         // We don't want to continue scanning for the entire feature depth if we don't need to
         int maxDepth = 1;
         // Iterate over the area from the origin, we iterate N times, where N is max depth
@@ -95,7 +106,7 @@ public class CarvedLimitedPoolFeature extends Feature<CarvedLimitedPoolFeatureCo
                         // Skip the rest of this iteration if we have found water
                         if (water) continue;
                         // If none of these are true, we can place a column to column depth of our block
-                        for (int m = 1; m <= configuration.slopeDepth().sample(context.random())+1; m++) {
+                        for (int m = 1; m <= configuration.slopeDepth().sample(random)+1; m++) {
                             mut = mut.set(level.getHeightmapPos(Heightmap.Types.WORLD_SURFACE, origin.offset(i, 0, j)).below(m));
                             // We have to make sure it's the right state where we're placing it
                             if (configuration.wall().test(level, mut))

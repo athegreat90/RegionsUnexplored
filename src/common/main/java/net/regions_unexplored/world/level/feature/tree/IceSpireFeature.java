@@ -1,6 +1,6 @@
 package net.regions_unexplored.world.level.feature.tree;
 
-import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.tags.BlockTags;
@@ -10,26 +10,31 @@ import net.minecraft.world.level.LevelSimulatedReader;
 import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.levelgen.feature.Feature;
-import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
+import net.minecraft.world.level.chunk.ChunkGenerator;
 import net.regions_unexplored.registry.RUBlocks;
 import net.regions_unexplored.registry.tag.*;
+import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
+import net.minecraft.world.level.levelgen.feature.treedecorators.TreeDecorator;
 import net.regions_unexplored.world.level.feature.configuration.RUTreeConfiguration;
 
+import java.util.List;
 import java.util.Random;
 
-public class IceSpireFeature extends Feature<RUTreeConfiguration> {
+public class IceSpireFeature extends RUTreeFeature {
+    public static final MapCodec<IceSpireFeature> CODEC = treeCodec(IceSpireFeature::new);
 
-    public IceSpireFeature(Codec<RUTreeConfiguration> codec) {
-        super(codec);
+    public IceSpireFeature(BlockStateProvider trunkProvider, BlockStateProvider foliageProvider, BlockStateProvider branchProvider, List<TreeDecorator> decorators, int minimumSize, int sizeVariation) {
+        super(trunkProvider, foliageProvider, branchProvider, decorators, minimumSize, sizeVariation);
     }
 
-    public boolean place(FeaturePlaceContext<RUTreeConfiguration> context) {
-        RUTreeConfiguration treeConfiguration = context.config();
-        BlockPos pos = context.origin();
-        RandomSource randomSource = context.random();
-        WorldGenLevel level = context.level();
-        int height_main = context.random().nextInt(treeConfiguration.sizeVariation()) + treeConfiguration.minimumSize();
+    @Override
+    public MapCodec<IceSpireFeature> codec() {
+        return CODEC;
+    }
+
+    public boolean place(WorldGenLevel level, ChunkGenerator generator, RandomSource randomSource, BlockPos pos) {
+        RUTreeConfiguration treeConfiguration = treeConfiguration();
+        int height_main = randomSource.nextInt(treeConfiguration.sizeVariation()) + treeConfiguration.minimumSize();
         int height_2n = height_main>10 ? (height_main/2)+randomSource.nextInt(3) : (height_main/2);
         int height_2s = height_main>10 ? (height_main/2)+randomSource.nextInt(3) : (height_main/2);
         int height_2e = height_main>10 ? (height_main/2)+randomSource.nextInt(3) : (height_main/2);

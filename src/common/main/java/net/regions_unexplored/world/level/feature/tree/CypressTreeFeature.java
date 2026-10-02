@@ -1,6 +1,6 @@
 package net.regions_unexplored.world.level.feature.tree;
 
-import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.tags.BlockTags;
@@ -12,33 +12,38 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.LeavesBlock;
 import net.minecraft.world.level.block.RotatedPillarBlock;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.chunk.ChunkGenerator;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
-import net.minecraft.world.level.levelgen.feature.Feature;
-import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
 import net.regions_unexplored.block.type.base.RUGrowingPlantHeadBlock;
 import net.regions_unexplored.config.RUConfigHandler;
 import net.regions_unexplored.registry.RUBlocks;
 import net.regions_unexplored.registry.tag.*;
+import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
+import net.minecraft.world.level.levelgen.feature.treedecorators.TreeDecorator;
 import net.regions_unexplored.world.level.feature.configuration.RUTreeConfiguration;
 
+import java.util.List;
 import java.util.Random;
 
-public class CypressTreeFeature extends Feature<RUTreeConfiguration> {
+public class CypressTreeFeature extends RUTreeFeature {
+    public static final MapCodec<CypressTreeFeature> CODEC = treeCodec(CypressTreeFeature::new);
 
-    public CypressTreeFeature(Codec<RUTreeConfiguration> codec) {
-        super(codec);
+    public CypressTreeFeature(BlockStateProvider trunkProvider, BlockStateProvider foliageProvider, BlockStateProvider branchProvider, List<TreeDecorator> decorators, int minimumSize, int sizeVariation) {
+        super(trunkProvider, foliageProvider, branchProvider, decorators, minimumSize, sizeVariation);
     }
 
-    public boolean place(FeaturePlaceContext<RUTreeConfiguration> context) {
-        RUTreeConfiguration treeConfiguration = context.config();
-        BlockPos pos = context.origin();
-        RandomSource randomSource = context.random();
-        WorldGenLevel level = context.level();
+    @Override
+    public MapCodec<CypressTreeFeature> codec() {
+        return CODEC;
+    }
+
+    public boolean place(WorldGenLevel level, ChunkGenerator generator, RandomSource randomSource, BlockPos pos) {
+        RUTreeConfiguration treeConfiguration = treeConfiguration();
         boolean hasVines = false;
         if(randomSource.nextInt(3)==0){
             hasVines = true;
         }
-        int height_main = context.random().nextInt(treeConfiguration.sizeVariation()) + treeConfiguration.minimumSize();
+        int height_main = randomSource.nextInt(treeConfiguration.sizeVariation()) + treeConfiguration.minimumSize();
 
         int check = 0;
         BlockPos.MutableBlockPos checkPos = pos.mutable();

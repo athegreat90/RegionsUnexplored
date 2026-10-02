@@ -1,7 +1,8 @@
 package net.regions_unexplored.world.level.feature.tree.nether;
 
-import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
+import net.minecraft.util.RandomSource;
 import net.minecraft.core.Direction;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.level.LevelAccessor;
@@ -11,25 +12,22 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.LeavesBlock;
 import net.minecraft.world.level.block.RotatedPillarBlock;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.levelgen.feature.Feature;
-import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
-import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
 import net.regions_unexplored.registry.RUBlocks;
 import net.regions_unexplored.registry.tag.*;
 import net.regions_unexplored.block.type.wood.MagmaLogBlock;
 
 import java.util.Random;
 
-public class TallBrimWillowFeature extends Feature<NoneFeatureConfiguration> {
+public class TallBrimWillowFeature implements Feature {
+    public static final MapCodec<TallBrimWillowFeature> CODEC = MapCodec.unit(TallBrimWillowFeature::new);
 
-    public TallBrimWillowFeature(Codec<NoneFeatureConfiguration> codec) {
-        super(codec);
+    @Override
+    public MapCodec<TallBrimWillowFeature> codec() {
+        return CODEC;
     }
 
-    public boolean place(FeaturePlaceContext<NoneFeatureConfiguration> context) {
-        BlockPos pos = context.origin();
-        WorldGenLevel level = context.level();
-        int height = context.random().nextInt(3)+13;
+    public boolean place(WorldGenLevel level, ChunkGenerator generator, RandomSource randomSource, BlockPos pos) {
+        int height = randomSource.nextInt(3)+13;
 
         if(level.getBlockState(pos.north()).getBlock() == RUBlocks.BRIMWOOD_WOOD_SET.getLogMagma()){
             return false;

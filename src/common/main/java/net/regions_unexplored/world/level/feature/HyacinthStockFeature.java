@@ -1,16 +1,18 @@
 package net.regions_unexplored.world.level.feature;
 
 import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.util.RandomSource;
-import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelSimulatedReader;
 import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.chunk.ChunkGenerator;
 import net.minecraft.world.level.levelgen.feature.Feature;
-import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
+import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
 import net.regions_unexplored.registry.RUBlocks;
 import net.regions_unexplored.registry.tag.*;
 import net.regions_unexplored.block.type.aquatic.TallHyacinthStockBlock;
@@ -19,18 +21,31 @@ import net.regions_unexplored.world.level.feature.configuration.HyacinthStockCon
 
 import java.util.Random;
 
-public class HyacinthStockFeature extends Feature<HyacinthStockConfiguration> {
+public class HyacinthStockFeature implements Feature {
+    public static final MapCodec<HyacinthStockFeature> CODEC = RecordCodecBuilder.mapCodec(i -> i.group(
+        BlockStateProvider.CODEC.fieldOf("stock_provider").forGetter(f -> f.stockProvider),
+        Codec.INT.fieldOf("minimum_size").forGetter(f -> f.minimumSize),
+        Codec.INT.fieldOf("size_variation").forGetter(f -> f.sizeVariation)
+    ).apply(i, HyacinthStockFeature::new));
 
-    public HyacinthStockFeature(Codec<HyacinthStockConfiguration> codec) {
-        super(codec);
+    private final BlockStateProvider stockProvider;
+    private final int minimumSize;
+    private final int sizeVariation;
+
+    public HyacinthStockFeature(BlockStateProvider stockProvider, int minimumSize, int sizeVariation) {
+        this.stockProvider = stockProvider;
+        this.minimumSize = minimumSize;
+        this.sizeVariation = sizeVariation;
     }
 
-    public boolean place(FeaturePlaceContext<HyacinthStockConfiguration> context) {
-        HyacinthStockConfiguration stockConfiguration = context.config();
-        BlockPos pos = context.origin();
-        RandomSource randomSource = context.random();
-        WorldGenLevel level = context.level();
-        int height_main = context.random().nextInt(stockConfiguration.sizeVariation) + stockConfiguration.minimumSize;
+    @Override
+    public MapCodec<HyacinthStockFeature> codec() {
+        return CODEC;
+    }
+
+    public boolean place(WorldGenLevel level, ChunkGenerator generator, RandomSource randomSource, BlockPos pos) {
+        HyacinthStockConfiguration stockConfiguration = new HyacinthStockConfiguration(stockProvider, minimumSize, sizeVariation);
+        int height_main = randomSource.nextInt(stockConfiguration.sizeVariation) + stockConfiguration.minimumSize;
 
         if(!level.getBlockState(pos.below()).isFaceSturdy(level, pos, Direction.UP)){
            return false;

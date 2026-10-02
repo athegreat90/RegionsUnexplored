@@ -1,6 +1,6 @@
 package net.regions_unexplored.world.level.feature;
 
-import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.tags.BlockTags;
@@ -12,9 +12,9 @@ import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.chunk.ChunkGenerator;
 import net.minecraft.world.level.levelgen.Column;
 import net.minecraft.world.level.levelgen.feature.Feature;
-import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
 import net.regions_unexplored.registry.RUBlocks;
 import net.regions_unexplored.world.level.feature.configuration.PointedRedstoneClusterConfiguration;
 import net.regions_unexplored.world.level.feature.configuration.PointedRedstoneUtils;
@@ -22,16 +22,27 @@ import net.regions_unexplored.world.level.feature.configuration.PointedRedstoneU
 import java.util.Optional;
 import java.util.OptionalInt;
 
-public class PointedRedstoneClusterFeature extends Feature<PointedRedstoneClusterConfiguration> {
-    public PointedRedstoneClusterFeature(Codec<PointedRedstoneClusterConfiguration> codec) {
-        super(codec);
+public class PointedRedstoneClusterFeature implements Feature {
+    public static final MapCodec<PointedRedstoneClusterFeature> CODEC = PointedRedstoneClusterConfiguration.CODEC.fieldOf("config")
+        .xmap(PointedRedstoneClusterFeature::new, PointedRedstoneClusterFeature::config);
+
+    private final PointedRedstoneClusterConfiguration config;
+
+    public PointedRedstoneClusterFeature(PointedRedstoneClusterConfiguration config) {
+        this.config = config;
     }
 
-    public boolean place(FeaturePlaceContext<PointedRedstoneClusterConfiguration> context) {
-        WorldGenLevel level = context.level();
-        BlockPos pos = context.origin();
-        PointedRedstoneClusterConfiguration redstoneClusterConfiguration = context.config();
-        RandomSource random = context.random();
+    public PointedRedstoneClusterConfiguration config() {
+        return this.config;
+    }
+
+    @Override
+    public MapCodec<PointedRedstoneClusterFeature> codec() {
+        return CODEC;
+    }
+
+    public boolean place(WorldGenLevel level, ChunkGenerator generator, RandomSource random, BlockPos pos) {
+        PointedRedstoneClusterConfiguration redstoneClusterConfiguration = this.config;
         if (!PointedRedstoneUtils.isEmptyOrWater(level, pos)) {
             return false;
         } else {

@@ -1,6 +1,6 @@
 package net.regions_unexplored.world.level.feature.tree;
 
-import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.util.RandomSource;
@@ -11,30 +11,35 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.LeavesBlock;
 import net.minecraft.world.level.block.VineBlock;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.chunk.ChunkGenerator;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
-import net.minecraft.world.level.levelgen.feature.Feature;
-import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
 import net.regions_unexplored.block.type.wood.BranchBlock;
 import net.regions_unexplored.config.RUConfigHandler;
 import net.regions_unexplored.registry.RUBlocks;
 import net.regions_unexplored.registry.tag.*;
+import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
+import net.minecraft.world.level.levelgen.feature.treedecorators.TreeDecorator;
 import net.regions_unexplored.world.level.feature.configuration.RUTreeConfiguration;
 
+import java.util.List;
 import java.util.Random;
 
-public class SmallEucalyptusTreeFeature extends Feature<RUTreeConfiguration> {
+public class SmallEucalyptusTreeFeature extends RUTreeFeature {
+    public static final MapCodec<SmallEucalyptusTreeFeature> CODEC = treeCodec(SmallEucalyptusTreeFeature::new);
 
-    public SmallEucalyptusTreeFeature(Codec<RUTreeConfiguration> codec) {
-        super(codec);
+    public SmallEucalyptusTreeFeature(BlockStateProvider trunkProvider, BlockStateProvider foliageProvider, BlockStateProvider branchProvider, List<TreeDecorator> decorators, int minimumSize, int sizeVariation) {
+        super(trunkProvider, foliageProvider, branchProvider, decorators, minimumSize, sizeVariation);
     }
 
-    public boolean place(FeaturePlaceContext<RUTreeConfiguration> context) {
-        RUTreeConfiguration treeConfiguration = context.config();
-        BlockPos pos = context.origin();
-        RandomSource randomSource = context.random();
-        WorldGenLevel level = context.level();
-        int height_main = context.random().nextInt(treeConfiguration.sizeVariation()) + treeConfiguration.minimumSize();
+    @Override
+    public MapCodec<SmallEucalyptusTreeFeature> codec() {
+        return CODEC;
+    }
+
+    public boolean place(WorldGenLevel level, ChunkGenerator generator, RandomSource randomSource, BlockPos pos) {
+        RUTreeConfiguration treeConfiguration = treeConfiguration();
+        int height_main = randomSource.nextInt(treeConfiguration.sizeVariation()) + treeConfiguration.minimumSize();
 
         int check = 0;
         BlockPos.MutableBlockPos checkPos = pos.mutable();

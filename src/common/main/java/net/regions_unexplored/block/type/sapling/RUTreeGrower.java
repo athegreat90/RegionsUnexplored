@@ -12,7 +12,7 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.chunk.ChunkGenerator;
-import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
+import net.minecraft.world.level.levelgen.feature.Feature;
 
 import javax.annotation.Nullable;
 import java.util.List;
@@ -67,27 +67,27 @@ public class RUTreeGrower {
 		this.tree3x3Square = tree3x3Square;
 	}
 	
-	public static RUTreeGrower create1x1(String name, ResourceKey<ConfiguredFeature<?, ?>> key) {
+	public static RUTreeGrower create1x1(String name, ResourceKey<Feature> key) {
 		return new RUTreeGrower(name, 0f, Entry.of(key), empty(), empty(), empty());
 	}
 	
-	public static RUTreeGrower create1x1(String name, float secondaryChance, ResourceKey<ConfiguredFeature<?, ?>> primary, ResourceKey<ConfiguredFeature<?, ?>> secondary) {
+	public static RUTreeGrower create1x1(String name, float secondaryChance, ResourceKey<Feature> primary, ResourceKey<Feature> secondary) {
 		return new RUTreeGrower(name, secondaryChance, Entry.of(primary, secondary), empty(), empty(), empty());
 	}
 	
-	public static RUTreeGrower create2x2(String name, ResourceKey<ConfiguredFeature<?, ?>> key) {
+	public static RUTreeGrower create2x2(String name, ResourceKey<Feature> key) {
 		return new RUTreeGrower(name, 0f, empty(), Entry.of(key), empty(), empty());
 	}
 	
-	public static RUTreeGrower create3x3Plus(String name, ResourceKey<ConfiguredFeature<?, ?>> key) {
+	public static RUTreeGrower create3x3Plus(String name, ResourceKey<Feature> key) {
 		return new RUTreeGrower(name, 0f, empty(), empty(), Entry.of(key), empty());
 	}
 	
-	public static RUTreeGrower create3x3Square(String name, ResourceKey<ConfiguredFeature<?, ?>> key) {
+	public static RUTreeGrower create3x3Square(String name, ResourceKey<Feature> key) {
 		return new RUTreeGrower(name, 0f, empty(), empty(), empty(), Entry.of(key));
 	}
 	
-	private @Nullable ResourceKey<ConfiguredFeature<?, ?>> getConfiguredFeature(Optional<Entry> optional, RandomSource random) {
+	private @Nullable ResourceKey<Feature> getConfiguredFeature(Optional<Entry> optional, RandomSource random) {
 		if (optional.isEmpty()) return null;
 		Entry entry = optional.get();
 		if (entry.secondary().isPresent() && random.nextFloat() < this.secondaryChance) return entry.secondary().get();
@@ -95,7 +95,7 @@ public class RUTreeGrower {
 	}
 	
 	public boolean growTree(ServerLevel level, ChunkGenerator generator, BlockPos pos, BlockState state, RandomSource random) {
-		Registry<ConfiguredFeature<?, ?>> registry = level.registryAccess().lookupOrThrow(Registries.CONFIGURED_FEATURE);
+		Registry<Feature> registry = level.registryAccess().lookupOrThrow(Registries.FEATURE);
 		Result placementResult;
 		
 		placementResult = tryGrow(OFFSETS_3X3_SQUARE, this.tree3x3Square, level, registry, generator, pos, state, random);
@@ -113,7 +113,7 @@ public class RUTreeGrower {
 		return false;
 	}
 	
-	private Result tryGrow(List<BlockPos> offsets, Optional<Entry> entry, ServerLevel level, Registry<ConfiguredFeature<?, ?>> registry, ChunkGenerator generator, BlockPos origin, BlockState state, RandomSource random) {
+	private Result tryGrow(List<BlockPos> offsets, Optional<Entry> entry, ServerLevel level, Registry<Feature> registry, ChunkGenerator generator, BlockPos origin, BlockState state, RandomSource random) {
 		var key = this.getConfiguredFeature(entry, random);
 		if (key == null) return Result.CONTINUE;
 		var feature = registry.getOptional(key).orElse(null);
@@ -148,12 +148,12 @@ public class RUTreeGrower {
 		return Result.CONTINUE;
 	}
 	
-	public record Entry(ResourceKey<ConfiguredFeature<?, ?>> primary, Optional<ResourceKey<ConfiguredFeature<?, ?>>> secondary) {
-		public static Optional<Entry> of(ResourceKey<ConfiguredFeature<?, ?>> key) {
+	public record Entry(ResourceKey<Feature> primary, Optional<ResourceKey<Feature>> secondary) {
+		public static Optional<Entry> of(ResourceKey<Feature> key) {
 			return Optional.of(new Entry(key, empty()));
 		}
 		
-		public static Optional<Entry> of(ResourceKey<ConfiguredFeature<?, ?>> primary, ResourceKey<ConfiguredFeature<?, ?>> secondary) {
+		public static Optional<Entry> of(ResourceKey<Feature> primary, ResourceKey<Feature> secondary) {
 			return Optional.of(new Entry(primary, Optional.of(secondary)));
 		}
 	}

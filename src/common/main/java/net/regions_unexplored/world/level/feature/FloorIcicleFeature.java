@@ -1,27 +1,25 @@
 package net.regions_unexplored.world.level.feature;
 
-import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.state.properties.DripstoneThickness;
+import net.minecraft.world.level.chunk.ChunkGenerator;
 import net.minecraft.world.level.levelgen.feature.Feature;
-import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
-import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
 import net.regions_unexplored.block.type.base.SpeleothemBlock;
 import net.regions_unexplored.registry.RUBlocks;
 
-public class FloorIcicleFeature extends Feature<NoneFeatureConfiguration> {
+public class FloorIcicleFeature implements Feature {
+    public static final MapCodec<FloorIcicleFeature> CODEC = MapCodec.unit(FloorIcicleFeature::new);
 
-    public FloorIcicleFeature(Codec<NoneFeatureConfiguration> codec) {
-        super(codec);
+    @Override
+    public MapCodec<FloorIcicleFeature> codec() {
+        return CODEC;
     }
 
-    public boolean place(FeaturePlaceContext<NoneFeatureConfiguration> context) {
-        BlockPos pos = context.origin();
-        WorldGenLevel level = context.level();
-        RandomSource randomSource = context.level().getRandom();
+    public boolean place(WorldGenLevel level, ChunkGenerator generator, RandomSource randomSource, BlockPos pos) {
         BlockPos.MutableBlockPos checkPos = pos.mutable();
         BlockPos.MutableBlockPos placePos = pos.mutable();
         int size = randomSource.nextInt(4)+2;

@@ -1,30 +1,27 @@
 package net.regions_unexplored.world.level.feature;
 
-import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.WorldGenLevel;
+import net.minecraft.world.level.chunk.ChunkGenerator;
 import net.minecraft.world.level.levelgen.feature.Feature;
-import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
-import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
 import net.regions_unexplored.registry.RUBlocks;
 import net.regions_unexplored.block.type.cave.HangingPrismariteBlock;
 import net.regions_unexplored.block.properties.type.HangingPrismariteShape;
 
 import java.util.Random;
 
-public class HangingPrismariteFeature extends Feature<NoneFeatureConfiguration> {
+public class HangingPrismariteFeature implements Feature {
+    public static final MapCodec<HangingPrismariteFeature> CODEC = MapCodec.unit(HangingPrismariteFeature::new);
 
-    public HangingPrismariteFeature(Codec<NoneFeatureConfiguration> codec) {
-        super(codec);
+    @Override
+    public MapCodec<HangingPrismariteFeature> codec() {
+        return CODEC;
     }
 
-    public boolean place(FeaturePlaceContext<NoneFeatureConfiguration> context) {
-        BlockPos pos = context.origin();
-        WorldGenLevel level = context.level();
-
-
+    public boolean place(WorldGenLevel level, ChunkGenerator generator, RandomSource random, BlockPos pos) {
         if(level.getBlockState(pos.above()).isFaceSturdy(level, pos.above(), Direction.DOWN)){
             placeBlob(level, pos);
             return true;

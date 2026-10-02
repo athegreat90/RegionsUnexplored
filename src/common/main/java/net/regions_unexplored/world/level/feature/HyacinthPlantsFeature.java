@@ -1,26 +1,33 @@
 package net.regions_unexplored.world.level.feature;
 
 import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.chunk.ChunkGenerator;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.levelgen.feature.Feature;
-import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
-import net.minecraft.world.level.levelgen.feature.configurations.ProbabilityFeatureConfiguration;
 import net.regions_unexplored.registry.RUBlocks;
 
-public class HyacinthPlantsFeature extends Feature<ProbabilityFeatureConfiguration> {
-   public HyacinthPlantsFeature(Codec<ProbabilityFeatureConfiguration> p_66768_) {
-      super(p_66768_);
+public class HyacinthPlantsFeature implements Feature {
+   public static final MapCodec<HyacinthPlantsFeature> CODEC = Codec.floatRange(0.0F, 1.0F).fieldOf("probability")
+       .xmap(HyacinthPlantsFeature::new, f -> f.probability);
+
+   private final float probability;
+
+   public HyacinthPlantsFeature(float probability) {
+      this.probability = probability;
    }
 
-   public boolean place(FeaturePlaceContext<ProbabilityFeatureConfiguration> p_160318_) {
-      RandomSource randomsource = p_160318_.random();
-      WorldGenLevel worldgenlevel = p_160318_.level();
-      BlockPos blockpos = p_160318_.origin();
+   @Override
+   public MapCodec<HyacinthPlantsFeature> codec() {
+      return CODEC;
+   }
+
+   public boolean place(WorldGenLevel worldgenlevel, ChunkGenerator generator, RandomSource randomsource, BlockPos blockpos) {
       BlockState blockstate = Blocks.SEAGRASS.defaultBlockState();
       int i = randomsource.nextInt(8) - randomsource.nextInt(8);
       int j = randomsource.nextInt(8) - randomsource.nextInt(8);

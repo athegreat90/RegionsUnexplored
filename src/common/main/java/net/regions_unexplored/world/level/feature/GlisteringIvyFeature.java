@@ -1,31 +1,29 @@
 package net.regions_unexplored.world.level.feature;
 
-import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
-import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.GrowingPlantHeadBlock;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.chunk.ChunkGenerator;
 import net.minecraft.world.level.levelgen.feature.Feature;
-import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
-import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
 import net.regions_unexplored.registry.RUBlocks;
 
-public class GlisteringIvyFeature extends Feature<NoneFeatureConfiguration> {
+public class GlisteringIvyFeature implements Feature {
     private static final Direction[] DIRECTIONS = Direction.values();
 
-    public GlisteringIvyFeature(Codec<NoneFeatureConfiguration> codec) {
-        super(codec);
+    public static final MapCodec<GlisteringIvyFeature> CODEC = MapCodec.unit(GlisteringIvyFeature::new);
+
+    @Override
+    public MapCodec<GlisteringIvyFeature> codec() {
+        return CODEC;
     }
 
-    public boolean place(FeaturePlaceContext<NoneFeatureConfiguration> context) {
-        WorldGenLevel worldgenlevel = context.level();
-        BlockPos pos = context.origin();
-        RandomSource randomsource = context.random();
+    public boolean place(WorldGenLevel worldgenlevel, ChunkGenerator generator, RandomSource randomsource, BlockPos pos) {
         if (!worldgenlevel.isEmptyBlock(pos)) {
             return false;
         } else {

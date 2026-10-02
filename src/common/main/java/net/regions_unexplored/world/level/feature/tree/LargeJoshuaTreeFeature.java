@@ -1,31 +1,29 @@
 package net.regions_unexplored.world.level.feature.tree;
 
-import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
+import net.minecraft.util.RandomSource;
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.RotatedPillarBlock;
 import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
-import net.minecraft.world.level.levelgen.feature.Feature;
-import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
-import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
 import net.regions_unexplored.block.type.wood.BeardBlock;
 import net.regions_unexplored.registry.RUBlocks;
 import net.regions_unexplored.block.type.leaves.JoshuaLeavesBlock;
 
 import java.util.Random;
 
-public class LargeJoshuaTreeFeature extends Feature<NoneFeatureConfiguration> {
+public class LargeJoshuaTreeFeature implements Feature {
+    public static final MapCodec<LargeJoshuaTreeFeature> CODEC = MapCodec.unit(LargeJoshuaTreeFeature::new);
 
-    public LargeJoshuaTreeFeature(Codec<NoneFeatureConfiguration> codec) {
-        super(codec);
+    @Override
+    public MapCodec<LargeJoshuaTreeFeature> codec() {
+        return CODEC;
     }
 
-    public boolean place(FeaturePlaceContext<NoneFeatureConfiguration> context) {
-        BlockPos pos = context.origin();
-        WorldGenLevel level = context.level();
-        int height = context.random().nextInt(5) + 8;
+    public boolean place(WorldGenLevel level, ChunkGenerator generator, RandomSource randomSource, BlockPos pos) {
+        int height = randomSource.nextInt(5) + 8;
         int check = 0;
 
         BlockPos.MutableBlockPos checkPos = pos.mutable();

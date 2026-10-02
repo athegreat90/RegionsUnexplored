@@ -1,25 +1,24 @@
 package net.regions_unexplored.world.level.feature;
 
-import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.chunk.ChunkGenerator;
 import net.minecraft.world.level.levelgen.feature.Feature;
-import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
-import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
 import net.regions_unexplored.registry.RUBlocks;
 
-public class ObsidianSpireFeature extends Feature<NoneFeatureConfiguration> {
+public class ObsidianSpireFeature implements Feature {
+    public static final MapCodec<ObsidianSpireFeature> CODEC = MapCodec.unit(ObsidianSpireFeature::new);
 
-    public ObsidianSpireFeature(Codec<NoneFeatureConfiguration> codec) {
-        super(codec);
+    @Override
+    public MapCodec<ObsidianSpireFeature> codec() {
+        return CODEC;
     }
 
-    public boolean place(FeaturePlaceContext<NoneFeatureConfiguration> context) {
-        BlockPos pos = context.origin();
-        WorldGenLevel level = context.level();
+    public boolean place(WorldGenLevel level, ChunkGenerator generator, RandomSource random, BlockPos pos) {
         if(level.getBlockState(pos.below()).is(RUBlocks.COBALT_NYLIUM.get())) {
             return false;
         }
@@ -30,35 +29,35 @@ public class ObsidianSpireFeature extends Feature<NoneFeatureConfiguration> {
                 if (level.isOutsideBuildHeight(placePos)) {
                     return true;
                 }
-                int north = context.random().nextInt(4);
-                int south = context.random().nextInt(4);
-                int east = context.random().nextInt(4);
-                int west = context.random().nextInt(4);
+                int north = random.nextInt(4);
+                int south = random.nextInt(4);
+                int east = random.nextInt(4);
+                int west = random.nextInt(4);
                 level.setBlock(placePos, Blocks.OBSIDIAN.defaultBlockState(), 2);
                 if(north==0){
                     level.setBlock(placePos.north(), RUBlocks.COBALT_OBSIDIAN.get().defaultBlockState(), 2);
-                        if(context.random().nextInt(3)==0){
-                            placeBlob(level, placePos, context.random());
+                        if(random.nextInt(3)==0){
+                            placeBlob(level, placePos, random);
                         }
                 }
                 if(south==0){
                     level.setBlock(placePos.south(), RUBlocks.COBALT_OBSIDIAN.get().defaultBlockState(), 2);
-                    if(context.random().nextInt(3)==0){
-                        placeBlob(level, placePos, context.random());
+                    if(random.nextInt(3)==0){
+                        placeBlob(level, placePos, random);
                     }
                 }
                 if(east==0){
                     level.setBlock(placePos.east(), RUBlocks.COBALT_OBSIDIAN.get().defaultBlockState(), 2);
-                    int east2 = context.random().nextInt(3);
-                    if(context.random().nextInt(3)==0){
-                        placeBlob(level, placePos, context.random());
+                    int east2 = random.nextInt(3);
+                    if(random.nextInt(3)==0){
+                        placeBlob(level, placePos, random);
                     }
                 }
                 if(west==0){
                     level.setBlock(placePos.west(), RUBlocks.COBALT_OBSIDIAN.get().defaultBlockState(), 2);
-                    int west2 = context.random().nextInt(3);
-                    if(context.random().nextInt(3)==0){
-                        placeBlob(level, placePos, context.random());
+                    int west2 = random.nextInt(3);
+                    if(random.nextInt(3)==0){
+                        placeBlob(level, placePos, random);
                     }
                 }
                 placePos.move(Direction.UP);

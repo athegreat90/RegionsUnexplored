@@ -1,83 +1,79 @@
 package net.regions_unexplored.registry;
 
+import com.mojang.serialization.MapCodec;
 import java.util.function.Supplier;
 
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.level.levelgen.feature.Feature;
-import net.minecraft.world.level.levelgen.feature.configurations.*;
 import net.regions_unexplored.module.platform.Registrar;
 import net.regions_unexplored.world.level.feature.*;
 import net.regions_unexplored.world.level.feature.bioshroom.*;
-import net.regions_unexplored.world.level.feature.configuration.*;
 import net.regions_unexplored.world.level.feature.tree.*;
 import net.regions_unexplored.world.level.feature.tree.nether.*;
 import net.regions_unexplored.worldgen.feature.CarvedLimitedPoolFeature;
 import net.regions_unexplored.worldgen.feature.RUFallenTreeFeature;
 import net.regions_unexplored.worldgen.feature.RURockFeature;
-import net.regions_unexplored.worldgen.feature.config.CarvedLimitedPoolFeatureConfig;
-import net.regions_unexplored.worldgen.feature.config.FallenTreeConfig;
-import net.regions_unexplored.worldgen.feature.config.RockFeatureConfig;
 
 public interface RUFeatureTypes {
     // Trees
-    Supplier<Feature<GiantBioshroomConfiguration>> GIANT_BLUE_BIOSHROOM = register("giant_blue_bioshroom", new GiantBlueBioshroomFeature(GiantBioshroomConfiguration.CODEC));
-    Supplier<Feature<GiantBioshroomConfiguration>> GIANT_GREEN_BIOSHROOM = register("giant_green_bioshroom", new GiantGreenBioshroomFeature(GiantBioshroomConfiguration.CODEC));
-    Supplier<Feature<GiantBioshroomConfiguration>> GIANT_PINK_BIOSHROOM = register("giant_pink_bioshroom", new GiantPinkBioshroomFeature(GiantBioshroomConfiguration.CODEC));
-    Supplier<Feature<GiantBioshroomConfiguration>> GIANT_YELLOW_BIOSHROOM = register("giant_yellow_bioshroom", new GiantYellowBioshroomFeature(GiantBioshroomConfiguration.CODEC));
-    Supplier<Feature<NoneFeatureConfiguration>> SMALL_YELLOW_BIOSHROOM = register("small_yellow_bioshroom", new YellowBioshroomShrubFeature(NoneFeatureConfiguration.CODEC));
-    Supplier<Feature<RUTreeConfiguration>> ASHEN_TREE = register("ashen_tree", new AshenTreeFeature(RUTreeConfiguration.CODEC));
-    Supplier<Feature<RUTreeConfiguration>> ASPEN_TREE = register("aspen_tree", new AspenTreeFeature(RUTreeConfiguration.CODEC));
-    Supplier<Feature<RUTreeConfiguration>> BAMBOO_TREE = register("bamboo_tree", new BambooTreeFeature(RUTreeConfiguration.CODEC));
-    Supplier<Feature<RUTreeConfiguration>> MEGA_BAOBAB_TREE = register("mega_baobab_tree", new MegaBaobabTreeFeature(RUTreeConfiguration.CODEC));
-    Supplier<Feature<RUTreeConfiguration>> ULTRA_BAOBAB_TREE = register("ultra_baobab_tree", new UltraBaobabTreeFeature(RUTreeConfiguration.CODEC));
-    Supplier<Feature<RUTreeConfiguration>> BLACKWOOD_TREE = register("blackwood_tree", new BlackwoodTreeFeature(RUTreeConfiguration.CODEC));
-    Supplier<Feature<NoneFeatureConfiguration>> COBALT_TREE = register("cobalt_tree", new CobaltShrubFeature(NoneFeatureConfiguration.CODEC));
-    Supplier<Feature<RUTreeConfiguration>> CYPRESS_TREE = register("cypress_tree", new CypressTreeFeature(RUTreeConfiguration.CODEC));
-    Supplier<Feature<RUTreeConfiguration>> DEAD_TREE = register("dead_tree", new DeadTreeFeature(RUTreeConfiguration.CODEC));
-    Supplier<Feature<RUTreeConfiguration>> SMALL_EUCALYPTUS_TREE = register("small_eucalyptus_tree", new SmallEucalyptusTreeFeature(RUTreeConfiguration.CODEC));
-    Supplier<Feature<RUTreeConfiguration>> EUCALYPTUS_TREE = register("eucalyptus_tree", new EucalyptusTreeFeature(RUTreeConfiguration.CODEC));
-    Supplier<Feature<RUTreeConfiguration>> GIANT_CYPRESS_TREE = register("giant_cypress_tree", new GiantCypressTreeFeature(RUTreeConfiguration.CODEC));
-    Supplier<Feature<RUTreeConfiguration>> LARCH_TREE = register("larch_tree", new LarchTreeFeature(RUTreeConfiguration.CODEC));
-    Supplier<Feature<NoneFeatureConfiguration>> LARGE_JOSHUA_TREE = register("large_joshua_tree", new LargeJoshuaTreeFeature(NoneFeatureConfiguration.CODEC));
-    Supplier<Feature<RUTreeConfiguration>> KAPOK_TREE = register("kapok_tree", new KapokTreeFeature(RUTreeConfiguration.CODEC));
-    Supplier<Feature<NoneFeatureConfiguration>> MEDIUM_JOSHUA_TREE = register("medium_joshua_tree", new MediumJoshuaTreeFeature(NoneFeatureConfiguration.CODEC));
-    Supplier<Feature<RUTreeConfiguration>> PALM_TREE = register("palm_tree", new PalmTreeFeature(RUTreeConfiguration.CODEC));
-    Supplier<Feature<RUTreeConfiguration>> LUSH_PINE_TREE = register("lush_pine_tree", new LushPineTreeFeature(RUTreeConfiguration.CODEC));
-    Supplier<Feature<RUTreeConfiguration>> SMALL_JOSHUA_TREE = register("small_joshua_tree", new SmallJoshuaTreeFeature(RUTreeConfiguration.CODEC));
-    Supplier<Feature<RUTreeConfiguration>> SMALL_OAK_TREE = register("small_oak_tree", new SmallOakTreeFeature(RUTreeConfiguration.CODEC));
-    Supplier<Feature<RUTreeConfiguration>> STRIPPED_PINE_TREE = register("stripped_pine_tree", new StrippedPineTreeFeature(RUTreeConfiguration.CODEC));
-    Supplier<Feature<RUTreeConfiguration>> SAGUARO_CACTUS = register("saguaro_cactus", new SaguaroCactusFeature(RUTreeConfiguration.CODEC));
-    Supplier<Feature<RUTreeConfiguration>> SAKURA_TREE = register("sakura_tree", new SakuraTreeFeature(RUTreeConfiguration.CODEC));
-    Supplier<Feature<RUTreeConfiguration>> LARGE_SOCOTRA_TREE = register("large_socotra_tree", new LargeSocotraTreeFeature(RUTreeConfiguration.CODEC));
-    Supplier<Feature<NoneFeatureConfiguration>> SMALL_SOCOTRA_TREE = register("small_socotra_tree", new SmallSocotraTreeFeature(NoneFeatureConfiguration.CODEC));
-    Supplier<Feature<NoneFeatureConfiguration>> BRIM_WILLOW = register("brim_willow", new BrimWillowFeature(NoneFeatureConfiguration.CODEC));
-    Supplier<Feature<NoneFeatureConfiguration>> TALL_BRIM_WILLOW = register("tall_brim_willow", new TallBrimWillowFeature(NoneFeatureConfiguration.CODEC));
-    Supplier<Feature<RUTreeConfiguration>> TREE_SHRUB = register("tree_shrub", new TreeShrubFeature(RUTreeConfiguration.CODEC));
+    Supplier<MapCodec<GiantBlueBioshroomFeature>> GIANT_BLUE_BIOSHROOM = register("giant_blue_bioshroom", GiantBlueBioshroomFeature.CODEC);
+    Supplier<MapCodec<GiantGreenBioshroomFeature>> GIANT_GREEN_BIOSHROOM = register("giant_green_bioshroom", GiantGreenBioshroomFeature.CODEC);
+    Supplier<MapCodec<GiantPinkBioshroomFeature>> GIANT_PINK_BIOSHROOM = register("giant_pink_bioshroom", GiantPinkBioshroomFeature.CODEC);
+    Supplier<MapCodec<GiantYellowBioshroomFeature>> GIANT_YELLOW_BIOSHROOM = register("giant_yellow_bioshroom", GiantYellowBioshroomFeature.CODEC);
+    Supplier<MapCodec<YellowBioshroomShrubFeature>> SMALL_YELLOW_BIOSHROOM = register("small_yellow_bioshroom", YellowBioshroomShrubFeature.CODEC);
+    Supplier<MapCodec<AshenTreeFeature>> ASHEN_TREE = register("ashen_tree", AshenTreeFeature.CODEC);
+    Supplier<MapCodec<AspenTreeFeature>> ASPEN_TREE = register("aspen_tree", AspenTreeFeature.CODEC);
+    Supplier<MapCodec<BambooTreeFeature>> BAMBOO_TREE = register("bamboo_tree", BambooTreeFeature.CODEC);
+    Supplier<MapCodec<MegaBaobabTreeFeature>> MEGA_BAOBAB_TREE = register("mega_baobab_tree", MegaBaobabTreeFeature.CODEC);
+    Supplier<MapCodec<UltraBaobabTreeFeature>> ULTRA_BAOBAB_TREE = register("ultra_baobab_tree", UltraBaobabTreeFeature.CODEC);
+    Supplier<MapCodec<BlackwoodTreeFeature>> BLACKWOOD_TREE = register("blackwood_tree", BlackwoodTreeFeature.CODEC);
+    Supplier<MapCodec<CobaltShrubFeature>> COBALT_TREE = register("cobalt_tree", CobaltShrubFeature.CODEC);
+    Supplier<MapCodec<CypressTreeFeature>> CYPRESS_TREE = register("cypress_tree", CypressTreeFeature.CODEC);
+    Supplier<MapCodec<DeadTreeFeature>> DEAD_TREE = register("dead_tree", DeadTreeFeature.CODEC);
+    Supplier<MapCodec<SmallEucalyptusTreeFeature>> SMALL_EUCALYPTUS_TREE = register("small_eucalyptus_tree", SmallEucalyptusTreeFeature.CODEC);
+    Supplier<MapCodec<EucalyptusTreeFeature>> EUCALYPTUS_TREE = register("eucalyptus_tree", EucalyptusTreeFeature.CODEC);
+    Supplier<MapCodec<GiantCypressTreeFeature>> GIANT_CYPRESS_TREE = register("giant_cypress_tree", GiantCypressTreeFeature.CODEC);
+    Supplier<MapCodec<LarchTreeFeature>> LARCH_TREE = register("larch_tree", LarchTreeFeature.CODEC);
+    Supplier<MapCodec<LargeJoshuaTreeFeature>> LARGE_JOSHUA_TREE = register("large_joshua_tree", LargeJoshuaTreeFeature.CODEC);
+    Supplier<MapCodec<KapokTreeFeature>> KAPOK_TREE = register("kapok_tree", KapokTreeFeature.CODEC);
+    Supplier<MapCodec<MediumJoshuaTreeFeature>> MEDIUM_JOSHUA_TREE = register("medium_joshua_tree", MediumJoshuaTreeFeature.CODEC);
+    Supplier<MapCodec<PalmTreeFeature>> PALM_TREE = register("palm_tree", PalmTreeFeature.CODEC);
+    Supplier<MapCodec<LushPineTreeFeature>> LUSH_PINE_TREE = register("lush_pine_tree", LushPineTreeFeature.CODEC);
+    Supplier<MapCodec<SmallJoshuaTreeFeature>> SMALL_JOSHUA_TREE = register("small_joshua_tree", SmallJoshuaTreeFeature.CODEC);
+    Supplier<MapCodec<SmallOakTreeFeature>> SMALL_OAK_TREE = register("small_oak_tree", SmallOakTreeFeature.CODEC);
+    Supplier<MapCodec<StrippedPineTreeFeature>> STRIPPED_PINE_TREE = register("stripped_pine_tree", StrippedPineTreeFeature.CODEC);
+    Supplier<MapCodec<SaguaroCactusFeature>> SAGUARO_CACTUS = register("saguaro_cactus", SaguaroCactusFeature.CODEC);
+    Supplier<MapCodec<SakuraTreeFeature>> SAKURA_TREE = register("sakura_tree", SakuraTreeFeature.CODEC);
+    Supplier<MapCodec<LargeSocotraTreeFeature>> LARGE_SOCOTRA_TREE = register("large_socotra_tree", LargeSocotraTreeFeature.CODEC);
+    Supplier<MapCodec<SmallSocotraTreeFeature>> SMALL_SOCOTRA_TREE = register("small_socotra_tree", SmallSocotraTreeFeature.CODEC);
+    Supplier<MapCodec<BrimWillowFeature>> BRIM_WILLOW = register("brim_willow", BrimWillowFeature.CODEC);
+    Supplier<MapCodec<TallBrimWillowFeature>> TALL_BRIM_WILLOW = register("tall_brim_willow", TallBrimWillowFeature.CODEC);
+    Supplier<MapCodec<TreeShrubFeature>> TREE_SHRUB = register("tree_shrub", TreeShrubFeature.CODEC);
     // Not trees
-    Supplier<Feature<PointedRedstoneConfiguration>> POINTED_REDSTONE = register("pointed_redstone", new PointedRedstoneFeature(PointedRedstoneConfiguration.CODEC));
-    Supplier<Feature<PointedRedstoneClusterConfiguration>> POINTED_REDSTONE_CLUSTER = register("pointed_redstone_cluster", new PointedRedstoneClusterFeature(PointedRedstoneClusterConfiguration.CODEC));
-    Supplier<Feature<NoneFeatureConfiguration>> HANGING_PRISMARITE = register("hanging_prismarite", new HangingPrismariteFeature(NoneFeatureConfiguration.CODEC));
-    Supplier<Feature<ColumnFeatureConfiguration>> BASALT_BLOB = register("basalt_blob", new BasaltBlobFeature(ColumnFeatureConfiguration.CODEC));
-    Supplier<Feature<NoneFeatureConfiguration>> GIANT_LILY = register("giant_lily", new GiantLilyPadFeature(NoneFeatureConfiguration.CODEC));
-    Supplier<Feature<NoneFeatureConfiguration>> ICICLE_UP = register("icicle_up", new FloorIcicleFeature(NoneFeatureConfiguration.CODEC));
-    Supplier<Feature<RUTreeConfiguration>> SPIRE = register("spire", new IceSpireFeature(RUTreeConfiguration.CODEC));
-    Supplier<Feature<NoneFeatureConfiguration>> MARSH = register("marsh", new MarshFeature(NoneFeatureConfiguration.CODEC));
-    Supplier<Feature<NoneFeatureConfiguration>> WATER_EDGE = register("water_edge", new WaterEdgeFeature(NoneFeatureConfiguration.CODEC));
-    Supplier<Feature<NoneFeatureConfiguration>> ROCK_PILLAR = register("rock_pillar", new RockPillarFeature(NoneFeatureConfiguration.CODEC));
-    Supplier<Feature<HyacinthStockConfiguration>> TALL_HYACINTH_STOCK = register("tall_hyacinth_stock", new HyacinthStockFeature(HyacinthStockConfiguration.CODEC));
-    Supplier<Feature<ProbabilityFeatureConfiguration>> HYACINTH_PLANTS = register("hyacinth_plants", new HyacinthPlantsFeature(ProbabilityFeatureConfiguration.CODEC));
-    Supplier<Feature<SeaRockConfiguration>> OCEAN_ROCK = register("ocean_rock", new SeaRockFeature(SeaRockConfiguration.CODEC));
-    Supplier<Feature<NoneFeatureConfiguration>> NETHER_ROCK = register("nether_rock", new NetherRockFeature(NoneFeatureConfiguration.CODEC));
-    Supplier<Feature<NoneFeatureConfiguration>> GLISTERING_IVY = register("glistering_ivy", new GlisteringIvyFeature(NoneFeatureConfiguration.CODEC));
-    Supplier<Feature<NoneFeatureConfiguration>> HANGING_EARLIGHT = register("hanging_earlight", new HangingEarlightFeature(NoneFeatureConfiguration.CODEC));
-    Supplier<Feature<NoneFeatureConfiguration>> OBSIDIAN_SPIRE = register("obsidian_spire", new ObsidianSpireFeature(NoneFeatureConfiguration.CODEC));
+    Supplier<MapCodec<PointedRedstoneFeature>> POINTED_REDSTONE = register("pointed_redstone", PointedRedstoneFeature.CODEC);
+    Supplier<MapCodec<PointedRedstoneClusterFeature>> POINTED_REDSTONE_CLUSTER = register("pointed_redstone_cluster", PointedRedstoneClusterFeature.CODEC);
+    Supplier<MapCodec<HangingPrismariteFeature>> HANGING_PRISMARITE = register("hanging_prismarite", HangingPrismariteFeature.CODEC);
+    Supplier<MapCodec<BasaltBlobFeature>> BASALT_BLOB = register("basalt_blob", BasaltBlobFeature.CODEC);
+    Supplier<MapCodec<GiantLilyPadFeature>> GIANT_LILY = register("giant_lily", GiantLilyPadFeature.CODEC);
+    Supplier<MapCodec<FloorIcicleFeature>> ICICLE_UP = register("icicle_up", FloorIcicleFeature.CODEC);
+    Supplier<MapCodec<IceSpireFeature>> SPIRE = register("spire", IceSpireFeature.CODEC);
+    Supplier<MapCodec<MarshFeature>> MARSH = register("marsh", MarshFeature.CODEC);
+    Supplier<MapCodec<WaterEdgeFeature>> WATER_EDGE = register("water_edge", WaterEdgeFeature.CODEC);
+    Supplier<MapCodec<RockPillarFeature>> ROCK_PILLAR = register("rock_pillar", RockPillarFeature.CODEC);
+    Supplier<MapCodec<HyacinthStockFeature>> TALL_HYACINTH_STOCK = register("tall_hyacinth_stock", HyacinthStockFeature.CODEC);
+    Supplier<MapCodec<HyacinthPlantsFeature>> HYACINTH_PLANTS = register("hyacinth_plants", HyacinthPlantsFeature.CODEC);
+    Supplier<MapCodec<SeaRockFeature>> OCEAN_ROCK = register("ocean_rock", SeaRockFeature.CODEC);
+    Supplier<MapCodec<NetherRockFeature>> NETHER_ROCK = register("nether_rock", NetherRockFeature.CODEC);
+    Supplier<MapCodec<GlisteringIvyFeature>> GLISTERING_IVY = register("glistering_ivy", GlisteringIvyFeature.CODEC);
+    Supplier<MapCodec<HangingEarlightFeature>> HANGING_EARLIGHT = register("hanging_earlight", HangingEarlightFeature.CODEC);
+    Supplier<MapCodec<ObsidianSpireFeature>> OBSIDIAN_SPIRE = register("obsidian_spire", ObsidianSpireFeature.CODEC);
     // 0.6+ features
-    Supplier<Feature<RockFeatureConfig>> ROCK = register("rock", new RURockFeature());
-    Supplier<Feature<FallenTreeConfig>> FALLEN_TREE = register("fallen_tree", new RUFallenTreeFeature());
-    Supplier<Feature<CarvedLimitedPoolFeatureConfig>> CARVED_LIMITED_POOL = register("carved_limited_pool", new CarvedLimitedPoolFeature(CarvedLimitedPoolFeatureConfig.CODEC));
+    Supplier<MapCodec<RURockFeature>> ROCK = register("rock", RURockFeature.CODEC);
+    Supplier<MapCodec<RUFallenTreeFeature>> FALLEN_TREE = register("fallen_tree", RUFallenTreeFeature.CODEC);
+    Supplier<MapCodec<CarvedLimitedPoolFeature>> CARVED_LIMITED_POOL = register("carved_limited_pool", CarvedLimitedPoolFeature.CODEC);
 
-    private static <FC extends FeatureConfiguration> Supplier<Feature<FC>> register(String name, Feature<FC> feature) {
-        return Registrar.register(BuiltInRegistries.FEATURE, name, () -> feature);
+    private static <F extends Feature> Supplier<MapCodec<F>> register(String name, MapCodec<F> codec) {
+        return Registrar.register(BuiltInRegistries.FEATURE_TYPE, name, () -> codec);
     }
 
     static void init() {

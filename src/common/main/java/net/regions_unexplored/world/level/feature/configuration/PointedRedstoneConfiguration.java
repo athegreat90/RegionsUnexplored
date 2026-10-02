@@ -2,9 +2,8 @@ package net.regions_unexplored.world.level.feature.configuration;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfiguration;
 
-public class PointedRedstoneConfiguration implements FeatureConfiguration {
+public class PointedRedstoneConfiguration {
     public static final Codec<PointedRedstoneConfiguration> CODEC = RecordCodecBuilder.create((p_191286_) -> {
         return p_191286_.group(Codec.floatRange(0.0F, 1.0F).fieldOf("chance_of_taller_redstone").orElse(0.2F).forGetter((tallRedstoneChance) -> {
             return tallRedstoneChance.chanceOfTallerRedstone;

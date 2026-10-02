@@ -1,28 +1,46 @@
 package net.regions_unexplored.world.level.feature;
 
 import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.util.RandomSource;
-import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.WorldGenLevel;
+import net.minecraft.world.level.chunk.ChunkGenerator;
 import net.minecraft.world.level.levelgen.feature.Feature;
-import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
 import net.regions_unexplored.world.level.feature.configuration.PointedRedstoneConfiguration;
 import net.regions_unexplored.world.level.feature.configuration.PointedRedstoneUtils;
 
 import java.util.Optional;
 
-public class PointedRedstoneFeature extends Feature<PointedRedstoneConfiguration> {
-    public PointedRedstoneFeature(Codec<PointedRedstoneConfiguration> codec) {
-        super(codec);
+public class PointedRedstoneFeature implements Feature {
+    public static final MapCodec<PointedRedstoneFeature> CODEC = RecordCodecBuilder.mapCodec(i -> i.group(
+        Codec.floatRange(0.0F, 1.0F).fieldOf("chance_of_taller_redstone").orElse(0.2F).forGetter(f -> f.chanceOfTallerRedstone),
+        Codec.floatRange(0.0F, 1.0F).fieldOf("chance_of_directional_spread").orElse(0.7F).forGetter(f -> f.chanceOfDirectionalSpread),
+        Codec.floatRange(0.0F, 1.0F).fieldOf("chance_of_spread_radius2").orElse(0.5F).forGetter(f -> f.chanceOfSpreadRadius2),
+        Codec.floatRange(0.0F, 1.0F).fieldOf("chance_of_spread_radius3").orElse(0.5F).forGetter(f -> f.chanceOfSpreadRadius3)
+    ).apply(i, PointedRedstoneFeature::new));
+
+    private final float chanceOfTallerRedstone;
+    private final float chanceOfDirectionalSpread;
+    private final float chanceOfSpreadRadius2;
+    private final float chanceOfSpreadRadius3;
+
+    public PointedRedstoneFeature(float chanceOfTallerRedstone, float chanceOfDirectionalSpread, float chanceOfSpreadRadius2, float chanceOfSpreadRadius3) {
+        this.chanceOfTallerRedstone = chanceOfTallerRedstone;
+        this.chanceOfDirectionalSpread = chanceOfDirectionalSpread;
+        this.chanceOfSpreadRadius2 = chanceOfSpreadRadius2;
+        this.chanceOfSpreadRadius3 = chanceOfSpreadRadius3;
     }
 
-    public boolean place(FeaturePlaceContext<PointedRedstoneConfiguration> context) {
-        WorldGenLevel level = context.level();
-        BlockPos pos = context.origin();
-        RandomSource random = context.random();
-        PointedRedstoneConfiguration redstoneConfiguration = context.config();
+    @Override
+    public MapCodec<PointedRedstoneFeature> codec() {
+        return CODEC;
+    }
+
+    public boolean place(WorldGenLevel level, ChunkGenerator generator, RandomSource random, BlockPos pos) {
+        PointedRedstoneConfiguration redstoneConfiguration = new PointedRedstoneConfiguration(chanceOfTallerRedstone, chanceOfDirectionalSpread, chanceOfSpreadRadius2, chanceOfSpreadRadius3);
         Optional<Direction> optional = getTipDirection(level, pos, random);
         if (optional.isEmpty()) {
             return false;
