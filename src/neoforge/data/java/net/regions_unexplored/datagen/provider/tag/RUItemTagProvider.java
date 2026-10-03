@@ -122,13 +122,16 @@ public class RUItemTagProvider extends TagsProvider<Item> {
         addCommonTags(provider);
 
         this.tag(ItemTags.BAMBOO_BLOCKS).addTag(RUItemTags.BAMBOO_LOGS);
-        this.tag(ItemTags.BIRCH_LOGS).add(RUBlocks.SILVER_BIRCH_WOOD_SET.getLog().asItem());
+        this.tag(ItemTags.BIRCH_LOGS)
+            .add(RUBlocks.SILVER_BIRCH_WOOD_SET.getLog().asItem())
+            .add(RUBlocks.SILVER_BIRCH_WOOD_SET.getWood().asItem());
 
 
         var ruLogs = this.tag(RUItemTags.LOGS).add(RUBlocks.BAMBOO_LOG.get().asItem()).add(RUBlocks.SMALL_OAK_LOG.get().asItem());
         var nonFlammableWood = this.tag(ItemTags.NON_FLAMMABLE_WOOD);
         var logs = this.tag(ItemTags.LOGS);
         var logsThatBurn = this.tag(ItemTags.LOGS_THAT_BURN);
+        logsThatBurn.addTag(RUItemTags.BRANCHES);
         var strippedLogs = this.tag(Tags.Items.STRIPPED_LOGS);
         var strippedWoods = this.tag(Tags.Items.STRIPPED_WOODS);
         var planks = this.tag(ItemTags.PLANKS);
