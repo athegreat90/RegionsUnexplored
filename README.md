@@ -1,12 +1,12 @@
 # Regions Unexplored
 
-Regions Unexplored is a biome mod that adds a full stack of new biomes spread across the Overworld and Nether!
+Regions Unexplored adds a wide range of new biomes to the Overworld and Nether.
 
-## Supported Versions/Loaders
+## Current development version
 
-The current supported versions are **Fabric/Neoforge 1.21.1**. At this time, **no other versions are supported**.
+The current development branch targets **Minecraft 26.2** on both **Fabric** and **NeoForge**. The 26.2 port updates the mod and its data generation for the Minecraft 26.2 APIs; check the download details for the Minecraft version and loader supported by a particular release.
 
-In the near-ish future, Fabric/Neoforge 26.1 will also become supported versions in conjunction with Fabric/Neoforge 1.21.1.
+The generated item tags include Regions Unexplored branches in the vanilla `logs_that_burn` tag, and include silver birch wood alongside its log in the vanilla `birch_logs` tag.
 
 ## Developers
 
@@ -16,4 +16,4 @@ In the near-ish future, Fabric/Neoforge 26.1 will also become supported versions
 
 ## License
 
-The mod is currently under the All Rights Reserved (ARR) license. 
+The mod is currently under the All Rights Reserved (ARR) license.
