@@ -146,7 +146,7 @@ public class PointedRedstoneClusterFeature extends Feature<PointedRedstoneCluste
 
     private boolean canPlacePool(WorldGenLevel level, BlockPos pos) {
         BlockState blockstate = level.getBlockState(pos);
-        if (!blockstate.is(Blocks.RED_TERRACOTTA) && !blockstate.is(RUBlocks.RAW_REDSTONE_BLOCK.get()) && !blockstate.is(RUBlocks.REDSTONE_SPIKE.get())) {
+        if (!blockstate.is(Blocks.DYED_TERRACOTTA.red()) && !blockstate.is(RUBlocks.RAW_REDSTONE_BLOCK.get()) && !blockstate.is(RUBlocks.REDSTONE_SPIKE.get())) {
             if (level.getBlockState(pos.above()).getFluidState().is(FluidTags.WATER)) {
                 return false;
             } else {

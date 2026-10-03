@@ -2,7 +2,7 @@ package net.regions_unexplored;
 
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.entity.BlockEntityTypes;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.ModContainer;
@@ -53,17 +53,17 @@ public class RegionsUnexploredNeo {
     private void setupBlockEntities(BlockEntityTypeAddBlocksEvent event) {
         for (WoodSet set : RUBlocks.WOOD_SETS) {
             if (set.getSign() != null) {
-                event.modify(BlockEntityType.SIGN, set.getSign());
+                event.modify(BlockEntityTypes.SIGN, set.getSign());
             }
             if (set.getWallSign() != null) {
-                event.modify(BlockEntityType.SIGN, set.getWallSign());
+                event.modify(BlockEntityTypes.SIGN, set.getWallSign());
             }
 
             if (set.getHangingSign() != null) {
-                event.modify(BlockEntityType.HANGING_SIGN, set.getHangingSign());
+                event.modify(BlockEntityTypes.HANGING_SIGN, set.getHangingSign());
             }
             if (set.getWallHangingSign() != null) {
-                event.modify(BlockEntityType.HANGING_SIGN, set.getWallHangingSign());
+                event.modify(BlockEntityTypes.HANGING_SIGN, set.getWallHangingSign());
             }
         }
     }

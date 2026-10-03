@@ -10,7 +10,7 @@ import net.minecraft.world.attribute.AmbientParticle;
 import net.minecraft.world.attribute.BackgroundMusic;
 import net.minecraft.world.attribute.EnvironmentAttribute;
 import net.minecraft.world.attribute.EnvironmentAttributes;
-import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.EntityTypes;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.level.biome.*;
 import net.minecraft.world.level.levelgen.GenerationStep;
@@ -33,9 +33,9 @@ public class AquaticBiomes {
         MobSpawnSettings.Builder spawnBuilder = new MobSpawnSettings.Builder();
         BiomeDefaultFeatures.farmAnimals(spawnBuilder);
         if(isTropical){
-            spawnBuilder.addSpawn(MobCategory.CREATURE, 10, new MobSpawnSettings.SpawnerData(EntityType.CHICKEN, 4, 4));
-            spawnBuilder.addSpawn(MobCategory.CREATURE, 40, new MobSpawnSettings.SpawnerData(EntityType.PARROT, 1, 2));
-            spawnBuilder.addSpawn(MobCategory.MONSTER, 2, new MobSpawnSettings.SpawnerData(EntityType.OCELOT, 1, 1));
+            spawnBuilder.addSpawn(MobCategory.CREATURE, 10, new MobSpawnSettings.SpawnerData(EntityTypes.CHICKEN, 4, 4));
+            spawnBuilder.addSpawn(MobCategory.CREATURE, 40, new MobSpawnSettings.SpawnerData(EntityTypes.PARROT, 1, 2));
+            spawnBuilder.addSpawn(MobCategory.MONSTER, 2, new MobSpawnSettings.SpawnerData(EntityTypes.OCELOT, 1, 1));
         }
         BiomeDefaultFeatures.commonSpawns(spawnBuilder);
         return spawnBuilder;
@@ -49,10 +49,10 @@ public class AquaticBiomes {
     
     private static MobSpawnSettings.Builder baseRiverSpawning(boolean moreDrowned) {
         MobSpawnSettings.Builder spawnBuilder = new MobSpawnSettings.Builder();
-        spawnBuilder.addSpawn(MobCategory.WATER_CREATURE, 2, new MobSpawnSettings.SpawnerData(EntityType.SQUID, 1, 4));
-        spawnBuilder.addSpawn(MobCategory.WATER_AMBIENT, 5, new MobSpawnSettings.SpawnerData(EntityType.SALMON, 1, 5));
+        spawnBuilder.addSpawn(MobCategory.WATER_CREATURE, 2, new MobSpawnSettings.SpawnerData(EntityTypes.SQUID, 1, 4));
+        spawnBuilder.addSpawn(MobCategory.WATER_AMBIENT, 5, new MobSpawnSettings.SpawnerData(EntityTypes.SALMON, 1, 5));
         BiomeDefaultFeatures.commonSpawns(spawnBuilder);
-        spawnBuilder.addSpawn(MobCategory.MONSTER, moreDrowned ? 100 : 1, new MobSpawnSettings.SpawnerData(EntityType.DROWNED, 1, 1));
+        spawnBuilder.addSpawn(MobCategory.MONSTER, moreDrowned ? 100 : 1, new MobSpawnSettings.SpawnerData(EntityTypes.DROWNED, 1, 1));
         return spawnBuilder;
     }
 
@@ -164,7 +164,7 @@ public class AquaticBiomes {
 
         //add mob spawns
         MobSpawnSettings.Builder spawnBuilder = baseOceanSpawning();
-        spawnBuilder.addSpawn(MobCategory.WATER_AMBIENT, 5, new MobSpawnSettings.SpawnerData(EntityType.SALMON, 1, 5));
+        spawnBuilder.addSpawn(MobCategory.WATER_AMBIENT, 5, new MobSpawnSettings.SpawnerData(EntityTypes.SALMON, 1, 5));
 
         return biomeBuilder(0.5f, 0.5f)
             .setAttribute(EnvironmentAttributes.WATER_FOG_COLOR, 0x052133)
@@ -213,8 +213,8 @@ public class AquaticBiomes {
 
         //add mob spawns
         MobSpawnSettings.Builder spawnBuilder = baseRiverSpawning(false);
-        spawnBuilder.addSpawn(MobCategory.CREATURE, 5, new MobSpawnSettings.SpawnerData(EntityType.TURTLE, 1, 1));
-        spawnBuilder.addSpawn(MobCategory.WATER_AMBIENT, 25, new MobSpawnSettings.SpawnerData(EntityType.TROPICAL_FISH, 8, 8));
+        spawnBuilder.addSpawn(MobCategory.CREATURE, 5, new MobSpawnSettings.SpawnerData(EntityTypes.TURTLE, 1, 1));
+        spawnBuilder.addSpawn(MobCategory.WATER_AMBIENT, 25, new MobSpawnSettings.SpawnerData(EntityTypes.TROPICAL_FISH, 8, 8));
 
         return biomeBuilder(0.8f, 0.7f)
             .setAttribute(EnvironmentAttributes.WATER_FOG_COLOR, 0x0a57a6)
@@ -246,9 +246,9 @@ public class AquaticBiomes {
 
         //add mob spawns
         MobSpawnSettings.Builder spawnBuilder = (new MobSpawnSettings.Builder())
-                .addSpawn(MobCategory.WATER_CREATURE, 1, new MobSpawnSettings.SpawnerData(EntityType.SQUID, 1, 3))
-                .addSpawn(MobCategory.WATER_AMBIENT, 25, new MobSpawnSettings.SpawnerData(EntityType.TROPICAL_FISH, 8, 8))
-                .addSpawn(MobCategory.WATER_CREATURE, 2, new MobSpawnSettings.SpawnerData(EntityType.DOLPHIN, 1, 2));
+                .addSpawn(MobCategory.WATER_CREATURE, 1, new MobSpawnSettings.SpawnerData(EntityTypes.SQUID, 1, 3))
+                .addSpawn(MobCategory.WATER_AMBIENT, 25, new MobSpawnSettings.SpawnerData(EntityTypes.TROPICAL_FISH, 8, 8))
+                .addSpawn(MobCategory.WATER_CREATURE, 2, new MobSpawnSettings.SpawnerData(EntityTypes.DOLPHIN, 1, 2));
         BiomeDefaultFeatures.commonSpawns(spawnBuilder);
 
         return biomeBuilder(0.8f, 0.5f)

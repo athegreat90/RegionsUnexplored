@@ -1,6 +1,5 @@
 {
   "type": "minecraft:crafting_shapeless",
-  "category": "misc",
   "group": "saplings",
   "ingredients": [
     "regions_unexplored:lavender_wisteria_shrub"

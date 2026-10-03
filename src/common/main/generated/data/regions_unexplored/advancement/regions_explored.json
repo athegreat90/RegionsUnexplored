@@ -8,7 +8,7 @@
             "condition": "minecraft:entity_properties",
             "entity": "this",
             "predicate": {
-              "location": {
+              "minecraft:location": {
                 "biomes": "regions_unexplored:alpha_grove"
               }
             }
@@ -24,7 +24,7 @@
             "condition": "minecraft:entity_properties",
             "entity": "this",
             "predicate": {
-              "location": {
+              "minecraft:location": {
                 "biomes": "regions_unexplored:ancient_delta"
               }
             }
@@ -40,7 +40,7 @@
             "condition": "minecraft:entity_properties",
             "entity": "this",
             "predicate": {
-              "location": {
+              "minecraft:location": {
                 "biomes": "regions_unexplored:ashen_woodland"
               }
             }
@@ -56,7 +56,7 @@
             "condition": "minecraft:entity_properties",
             "entity": "this",
             "predicate": {
-              "location": {
+              "minecraft:location": {
                 "biomes": "regions_unexplored:autumnal_maple_forest"
               }
             }
@@ -72,7 +72,7 @@
             "condition": "minecraft:entity_properties",
             "entity": "this",
             "predicate": {
-              "location": {
+              "minecraft:location": {
                 "biomes": "regions_unexplored:bamboo_forest"
               }
             }
@@ -88,7 +88,7 @@
             "condition": "minecraft:entity_properties",
             "entity": "this",
             "predicate": {
-              "location": {
+              "minecraft:location": {
                 "biomes": "regions_unexplored:baobab_savanna"
               }
             }
@@ -104,7 +104,7 @@
             "condition": "minecraft:entity_properties",
             "entity": "this",
             "predicate": {
-              "location": {
+              "minecraft:location": {
                 "biomes": "regions_unexplored:bayou"
               }
             }
@@ -120,7 +120,7 @@
             "condition": "minecraft:entity_properties",
             "entity": "this",
             "predicate": {
-              "location": {
+              "minecraft:location": {
                 "biomes": "regions_unexplored:bioshroom_caves"
               }
             }
@@ -136,7 +136,7 @@
             "condition": "minecraft:entity_properties",
             "entity": "this",
             "predicate": {
-              "location": {
+              "minecraft:location": {
                 "biomes": "regions_unexplored:blackstone_basin"
               }
             }
@@ -152,7 +152,7 @@
             "condition": "minecraft:entity_properties",
             "entity": "this",
             "predicate": {
-              "location": {
+              "minecraft:location": {
                 "biomes": "regions_unexplored:blackwood_taiga"
               }
             }
@@ -168,7 +168,7 @@
             "condition": "minecraft:entity_properties",
             "entity": "this",
             "predicate": {
-              "location": {
+              "minecraft:location": {
                 "biomes": "regions_unexplored:boreal_taiga"
               }
             }
@@ -184,7 +184,7 @@
             "condition": "minecraft:entity_properties",
             "entity": "this",
             "predicate": {
-              "location": {
+              "minecraft:location": {
                 "biomes": "regions_unexplored:chalk_cliffs"
               }
             }
@@ -200,7 +200,7 @@
             "condition": "minecraft:entity_properties",
             "entity": "this",
             "predicate": {
-              "location": {
+              "minecraft:location": {
                 "biomes": "regions_unexplored:clover_plains"
               }
             }
@@ -216,7 +216,7 @@
             "condition": "minecraft:entity_properties",
             "entity": "this",
             "predicate": {
-              "location": {
+              "minecraft:location": {
                 "biomes": "regions_unexplored:cold_boreal_taiga"
               }
             }
@@ -232,7 +232,7 @@
             "condition": "minecraft:entity_properties",
             "entity": "this",
             "predicate": {
-              "location": {
+              "minecraft:location": {
                 "biomes": "regions_unexplored:cold_river"
               }
             }
@@ -248,7 +248,7 @@
             "condition": "minecraft:entity_properties",
             "entity": "this",
             "predicate": {
-              "location": {
+              "minecraft:location": {
                 "biomes": "regions_unexplored:dry_bushland"
               }
             }
@@ -264,7 +264,7 @@
             "condition": "minecraft:entity_properties",
             "entity": "this",
             "predicate": {
-              "location": {
+              "minecraft:location": {
                 "biomes": "regions_unexplored:eucalyptus_forest"
               }
             }
@@ -280,7 +280,7 @@
             "condition": "minecraft:entity_properties",
             "entity": "this",
             "predicate": {
-              "location": {
+              "minecraft:location": {
                 "biomes": "regions_unexplored:fen"
               }
             }
@@ -296,7 +296,7 @@
             "condition": "minecraft:entity_properties",
             "entity": "this",
             "predicate": {
-              "location": {
+              "minecraft:location": {
                 "biomes": "regions_unexplored:flower_fields"
               }
             }
@@ -312,7 +312,7 @@
             "condition": "minecraft:entity_properties",
             "entity": "this",
             "predicate": {
-              "location": {
+              "minecraft:location": {
                 "biomes": "regions_unexplored:frozen_pine_taiga"
               }
             }
@@ -328,7 +328,7 @@
             "condition": "minecraft:entity_properties",
             "entity": "this",
             "predicate": {
-              "location": {
+              "minecraft:location": {
                 "biomes": "regions_unexplored:fungal_fen"
               }
             }
@@ -344,7 +344,7 @@
             "condition": "minecraft:entity_properties",
             "entity": "this",
             "predicate": {
-              "location": {
+              "minecraft:location": {
                 "biomes": "regions_unexplored:glistering_meadow"
               }
             }
@@ -360,7 +360,7 @@
             "condition": "minecraft:entity_properties",
             "entity": "this",
             "predicate": {
-              "location": {
+              "minecraft:location": {
                 "biomes": "regions_unexplored:grassland"
               }
             }
@@ -376,7 +376,7 @@
             "condition": "minecraft:entity_properties",
             "entity": "this",
             "predicate": {
-              "location": {
+              "minecraft:location": {
                 "biomes": "regions_unexplored:grassy_beach"
               }
             }
@@ -392,7 +392,7 @@
             "condition": "minecraft:entity_properties",
             "entity": "this",
             "predicate": {
-              "location": {
+              "minecraft:location": {
                 "biomes": "regions_unexplored:gravel_beach"
               }
             }
@@ -408,7 +408,7 @@
             "condition": "minecraft:entity_properties",
             "entity": "this",
             "predicate": {
-              "location": {
+              "minecraft:location": {
                 "biomes": "regions_unexplored:highland_fields"
               }
             }
@@ -424,7 +424,7 @@
             "condition": "minecraft:entity_properties",
             "entity": "this",
             "predicate": {
-              "location": {
+              "minecraft:location": {
                 "biomes": "regions_unexplored:hyacinth_deeps"
               }
             }
@@ -440,7 +440,7 @@
             "condition": "minecraft:entity_properties",
             "entity": "this",
             "predicate": {
-              "location": {
+              "minecraft:location": {
                 "biomes": "regions_unexplored:icy_heights"
               }
             }
@@ -456,7 +456,7 @@
             "condition": "minecraft:entity_properties",
             "entity": "this",
             "predicate": {
-              "location": {
+              "minecraft:location": {
                 "biomes": "regions_unexplored:infernal_holt"
               }
             }
@@ -472,7 +472,7 @@
             "condition": "minecraft:entity_properties",
             "entity": "this",
             "predicate": {
-              "location": {
+              "minecraft:location": {
                 "biomes": "regions_unexplored:inferno"
               }
             }
@@ -488,7 +488,7 @@
             "condition": "minecraft:entity_properties",
             "entity": "this",
             "predicate": {
-              "location": {
+              "minecraft:location": {
                 "biomes": "regions_unexplored:joshua_desert"
               }
             }
@@ -504,7 +504,7 @@
             "condition": "minecraft:entity_properties",
             "entity": "this",
             "predicate": {
-              "location": {
+              "minecraft:location": {
                 "biomes": "regions_unexplored:magnolia_woodland"
               }
             }
@@ -520,7 +520,7 @@
             "condition": "minecraft:entity_properties",
             "entity": "this",
             "predicate": {
-              "location": {
+              "minecraft:location": {
                 "biomes": "regions_unexplored:maple_forest"
               }
             }
@@ -536,7 +536,7 @@
             "condition": "minecraft:entity_properties",
             "entity": "this",
             "predicate": {
-              "location": {
+              "minecraft:location": {
                 "biomes": "regions_unexplored:marsh"
               }
             }
@@ -552,7 +552,7 @@
             "condition": "minecraft:entity_properties",
             "entity": "this",
             "predicate": {
-              "location": {
+              "minecraft:location": {
                 "biomes": "regions_unexplored:muddy_river"
               }
             }
@@ -568,7 +568,7 @@
             "condition": "minecraft:entity_properties",
             "entity": "this",
             "predicate": {
-              "location": {
+              "minecraft:location": {
                 "biomes": "regions_unexplored:mycotoxic_undergrowth"
               }
             }
@@ -584,7 +584,7 @@
             "condition": "minecraft:entity_properties",
             "entity": "this",
             "predicate": {
-              "location": {
+              "minecraft:location": {
                 "biomes": "regions_unexplored:old_growth_bayou"
               }
             }
@@ -600,7 +600,7 @@
             "condition": "minecraft:entity_properties",
             "entity": "this",
             "predicate": {
-              "location": {
+              "minecraft:location": {
                 "biomes": "regions_unexplored:old_growth_boreal_taiga"
               }
             }
@@ -616,7 +616,7 @@
             "condition": "minecraft:entity_properties",
             "entity": "this",
             "predicate": {
-              "location": {
+              "minecraft:location": {
                 "biomes": "regions_unexplored:old_growth_forest"
               }
             }
@@ -632,7 +632,7 @@
             "condition": "minecraft:entity_properties",
             "entity": "this",
             "predicate": {
-              "location": {
+              "minecraft:location": {
                 "biomes": "regions_unexplored:old_growth_golden_boreal_taiga"
               }
             }
@@ -648,7 +648,7 @@
             "condition": "minecraft:entity_properties",
             "entity": "this",
             "predicate": {
-              "location": {
+              "minecraft:location": {
                 "biomes": "regions_unexplored:orchard"
               }
             }
@@ -664,7 +664,7 @@
             "condition": "minecraft:entity_properties",
             "entity": "this",
             "predicate": {
-              "location": {
+              "minecraft:location": {
                 "biomes": "regions_unexplored:outback"
               }
             }
@@ -680,7 +680,7 @@
             "condition": "minecraft:entity_properties",
             "entity": "this",
             "predicate": {
-              "location": {
+              "minecraft:location": {
                 "biomes": "regions_unexplored:pine_slopes"
               }
             }
@@ -696,7 +696,7 @@
             "condition": "minecraft:entity_properties",
             "entity": "this",
             "predicate": {
-              "location": {
+              "minecraft:location": {
                 "biomes": "regions_unexplored:pine_taiga"
               }
             }
@@ -712,7 +712,7 @@
             "condition": "minecraft:entity_properties",
             "entity": "this",
             "predicate": {
-              "location": {
+              "minecraft:location": {
                 "biomes": "regions_unexplored:poppy_fields"
               }
             }
@@ -728,7 +728,7 @@
             "condition": "minecraft:entity_properties",
             "entity": "this",
             "predicate": {
-              "location": {
+              "minecraft:location": {
                 "biomes": "regions_unexplored:prairie"
               }
             }
@@ -744,7 +744,7 @@
             "condition": "minecraft:entity_properties",
             "entity": "this",
             "predicate": {
-              "location": {
+              "minecraft:location": {
                 "biomes": "regions_unexplored:prismachasm"
               }
             }
@@ -760,7 +760,7 @@
             "condition": "minecraft:entity_properties",
             "entity": "this",
             "predicate": {
-              "location": {
+              "minecraft:location": {
                 "biomes": "regions_unexplored:rainforest"
               }
             }
@@ -776,7 +776,7 @@
             "condition": "minecraft:entity_properties",
             "entity": "this",
             "predicate": {
-              "location": {
+              "minecraft:location": {
                 "biomes": "regions_unexplored:redstone_caves"
               }
             }
@@ -792,7 +792,7 @@
             "condition": "minecraft:entity_properties",
             "entity": "this",
             "predicate": {
-              "location": {
+              "minecraft:location": {
                 "biomes": "regions_unexplored:redwoods"
               }
             }
@@ -808,7 +808,7 @@
             "condition": "minecraft:entity_properties",
             "entity": "this",
             "predicate": {
-              "location": {
+              "minecraft:location": {
                 "biomes": "regions_unexplored:rocky_reef"
               }
             }
@@ -824,7 +824,7 @@
             "condition": "minecraft:entity_properties",
             "entity": "this",
             "predicate": {
-              "location": {
+              "minecraft:location": {
                 "biomes": "regions_unexplored:saguaro_desert"
               }
             }
@@ -840,7 +840,7 @@
             "condition": "minecraft:entity_properties",
             "entity": "this",
             "predicate": {
-              "location": {
+              "minecraft:location": {
                 "biomes": "regions_unexplored:shrubland"
               }
             }
@@ -856,7 +856,7 @@
             "condition": "minecraft:entity_properties",
             "entity": "this",
             "predicate": {
-              "location": {
+              "minecraft:location": {
                 "biomes": "regions_unexplored:silver_birch_forest"
               }
             }
@@ -872,7 +872,7 @@
             "condition": "minecraft:entity_properties",
             "entity": "this",
             "predicate": {
-              "location": {
+              "minecraft:location": {
                 "biomes": "regions_unexplored:sparse_rainforest"
               }
             }
@@ -888,7 +888,7 @@
             "condition": "minecraft:entity_properties",
             "entity": "this",
             "predicate": {
-              "location": {
+              "minecraft:location": {
                 "biomes": "regions_unexplored:sparse_redwoods"
               }
             }
@@ -904,7 +904,7 @@
             "condition": "minecraft:entity_properties",
             "entity": "this",
             "predicate": {
-              "location": {
+              "minecraft:location": {
                 "biomes": "regions_unexplored:spires"
               }
             }
@@ -920,7 +920,7 @@
             "condition": "minecraft:entity_properties",
             "entity": "this",
             "predicate": {
-              "location": {
+              "minecraft:location": {
                 "biomes": "regions_unexplored:towering_cliffs"
               }
             }
@@ -936,7 +936,7 @@
             "condition": "minecraft:entity_properties",
             "entity": "this",
             "predicate": {
-              "location": {
+              "minecraft:location": {
                 "biomes": "regions_unexplored:tropical_river"
               }
             }
@@ -952,7 +952,7 @@
             "condition": "minecraft:entity_properties",
             "entity": "this",
             "predicate": {
-              "location": {
+              "minecraft:location": {
                 "biomes": "regions_unexplored:tropics"
               }
             }
@@ -968,7 +968,7 @@
             "condition": "minecraft:entity_properties",
             "entity": "this",
             "predicate": {
-              "location": {
+              "minecraft:location": {
                 "biomes": "regions_unexplored:tundra"
               }
             }
@@ -984,7 +984,7 @@
             "condition": "minecraft:entity_properties",
             "entity": "this",
             "predicate": {
-              "location": {
+              "minecraft:location": {
                 "biomes": "regions_unexplored:willow_forest"
               }
             }
@@ -1000,7 +1000,7 @@
             "condition": "minecraft:entity_properties",
             "entity": "this",
             "predicate": {
-              "location": {
+              "minecraft:location": {
                 "biomes": "regions_unexplored:windswept_maple_forest"
               }
             }
@@ -1016,7 +1016,7 @@
             "condition": "minecraft:entity_properties",
             "entity": "this",
             "predicate": {
-              "location": {
+              "minecraft:location": {
                 "biomes": "regions_unexplored:wisteria_grove"
               }
             }

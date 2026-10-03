@@ -2,9 +2,7 @@
   "type": "minecraft:condition",
   "if_true": {
     "type": "minecraft:biome",
-    "biome_is": [
-      "regions_unexplored:tundra"
-    ]
+    "biome_is": "regions_unexplored:tundra"
   },
   "then_run": {
     "type": "minecraft:condition",

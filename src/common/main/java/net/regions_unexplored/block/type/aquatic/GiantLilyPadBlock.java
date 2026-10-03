@@ -6,8 +6,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.EntityTypes;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.*;
@@ -18,7 +17,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.level.material.Fluids;
-import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import net.regions_unexplored.registry.RUBlocks;
@@ -48,7 +46,7 @@ public class GiantLilyPadBlock extends HorizontalDirectionalBlock {
 
     @Override
     public void fallOn(final Level level, final BlockState state, final BlockPos pos, final Entity entity, final double fallDistance) {
-        if(entity.getType() != EntityType.FROG) {
+        if(entity.getType() != EntityTypes.FROG) {
             if (entity.isSuppressingBounce()) {
                 super.fallOn(level, state, pos, entity, fallDistance);
             } else {
@@ -58,31 +56,8 @@ public class GiantLilyPadBlock extends HorizontalDirectionalBlock {
     }
 
     @Override
-    public void updateEntityMovementAfterFallOn(final BlockGetter level, final Entity entity) {
-        Vec3 vec3 = entity.getDeltaMovement();
-        if (vec3.y < -0.7D) {
-            if(entity.getType() != EntityType.FROG) {
-                if (entity.isSuppressingBounce()) {
-                    super.updateEntityMovementAfterFallOn(level, entity);
-                } else {
-                    this.bounceUp(entity);
-                }
-            }
-        }
-        else{
-            entity.setDeltaMovement(entity.getDeltaMovement().multiply(1, 0, 1));
-            entity.setDeltaMovement(entity.getDeltaMovement().multiply(1, 0, 1));
-        }
-    }
-
-    private void bounceUp(Entity entity) {
-        if(entity.getType() != EntityType.FROG) {
-            Vec3 vec3 = entity.getDeltaMovement();
-            if (vec3.y < 0) {
-                double d0 = entity instanceof LivingEntity ? 1 : 0.8D;
-                entity.setDeltaMovement(vec3.x, -vec3.y * d0, vec3.z);
-            }
-        }
+    public float getBounceRestitution() {
+        return 0.8F;
     }
 
     public VoxelShape getShape(BlockState state, BlockGetter block, BlockPos pos, CollisionContext context) {

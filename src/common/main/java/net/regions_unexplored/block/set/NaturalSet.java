@@ -52,7 +52,7 @@ public class NaturalSet {
 
     public static NaturalSet ashen() {
         NaturalSet set = NaturalSet.create("ashen").withLeaves(MapColor.COLOR_LIGHT_GRAY, RUTintedParticlesLeavesBlock.small(RUTintedParticlesLeavesBlock.TintGetter.constant(0x767470))).withSapling(RUTreeGrowers.ASHEN);
-        set.shrub = RUBlockUtils.register("ashen_shrub", p -> new ShrubBlock(SHRUB_PROPERTIES.apply(postProcessed(p)).sound(SoundType.ROOTED_DIRT).emissiveRendering((bs, br, bp) -> true)));
+        set.shrub = RUBlockUtils.register("ashen_shrub", p -> new ShrubBlock(SHRUB_PROPERTIES.apply(postProcessed(p)).sound(SoundType.ROOTED_DIRT).emissiveRendering(bs -> true)));
         return set;
     }
 

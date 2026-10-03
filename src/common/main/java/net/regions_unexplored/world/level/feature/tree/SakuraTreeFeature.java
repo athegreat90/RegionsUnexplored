@@ -13,7 +13,7 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.LeavesBlock;
 import net.minecraft.world.level.block.RotatedPillarBlock;
 import net.minecraft.world.level.block.entity.BeehiveBlockEntity;
-import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.entity.BlockEntityTypes;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
@@ -705,7 +705,7 @@ public class SakuraTreeFeature extends Feature<RUTreeConfiguration> {
         int chance = random.nextInt(20);
         if(level.getBlockState(pos).isAir()&&chance==0){
             level.setBlock(pos, Blocks.BEE_NEST.defaultBlockState().setValue(BeehiveBlock.FACING, direction), 2);
-            level.getBlockEntity(pos, BlockEntityType.BEEHIVE).ifPresent((addBee) -> {
+            level.getBlockEntity(pos, BlockEntityTypes.BEEHIVE).ifPresent((addBee) -> {
                 int j = 2 + random.nextInt(2);
                 for(int k = 0; k < j; ++k) {
                     addBee.storeBee(BeehiveBlockEntity.Occupant.create(k));

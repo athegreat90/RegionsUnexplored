@@ -1,4 +1,4 @@
-// 26.1.2	2026-07-22T18:04:02.4183019	Tags for minecraft:block mod id regions_unexplored
+// 26.2	2026-10-03T17:09:29.1543811	Tags for minecraft:block mod id regions_unexplored
 ea8b8f6b2f430d03e607eca76aae3d7cc7490153 data/c/tags/block/fences/wooden.json
 98584abed8bda97702f8e7eb6abe15be7ed61c1b data/c/tags/block/fence_gates/wooden.json
 fbd3b5574bd57030107ab08e4b239ea1520ad7e1 data/c/tags/block/glass_blocks.json
@@ -15,7 +15,6 @@ ebcf7881dcf42cb3d8c8b5c2e92ebf16fd9d7284 data/minecraft/tags/block/axolotls_spaw
 1cc6465fdc3acf8fe7b1b7222366b5ac6a51047f data/minecraft/tags/block/bamboo_blocks.json
 290f9c5b08e0c6d280807616e1e324e4434614f5 data/minecraft/tags/block/base_stone_nether.json
 5ecfd72ac3e8a18c7e0a3cf586faa87f3e79974b data/minecraft/tags/block/bee_growables.json
-97f41cb82157199dc7c5cf445da6a766663cb647 data/minecraft/tags/block/birch_logs.json
 81f5e63f6e2825682a3c500f029f3900997c1635 data/minecraft/tags/block/ceiling_hanging_signs.json
 066e0dd0337506623e2c75472a614193d962b6d6 data/minecraft/tags/block/climbable.json
 69c6847b104e7676022e5e22588b60f57b6704c7 data/minecraft/tags/block/combination_step_sound_blocks.json
@@ -41,7 +40,6 @@ c4bf46aa5158748c8dac7d9bb1a478951e35bc19 data/minecraft/tags/block/infiniburn_ov
 ce661a2cc1ea0aa24a40d970993483c4a982107a data/minecraft/tags/block/inside_step_sound_blocks.json
 8fe544c2f323dbb88992f6f2c31dbcb97eb51552 data/minecraft/tags/block/leaves.json
 c95c48f7f02e110d75aa593f55ddd2ccac780c1b data/minecraft/tags/block/logs.json
-3a86aa69fea45f0216d7ff886ee487e53fcae70d data/minecraft/tags/block/logs_that_burn.json
 4df567e2c152a3325acd0907b34a48ac2afaa26b data/minecraft/tags/block/mangrove_logs_can_grow_through.json
 4df567e2c152a3325acd0907b34a48ac2afaa26b data/minecraft/tags/block/mangrove_roots_can_grow_through.json
 04104def11f785780b79c980a04d983044e6975f data/minecraft/tags/block/mineable/axe.json
@@ -51,7 +49,6 @@ ca9cd6acb745fe8f4f2b799f2c3d052990ac4413 data/minecraft/tags/block/mineable/shov
 10d234ca9ece9037b01fe5a6bba75797317140dd data/minecraft/tags/block/mooshrooms_spawnable_on.json
 9cdd939a688f285cefb44a7c3b0b24c1200ff4d0 data/minecraft/tags/block/needs_diamond_tool.json
 50fd989e28f0c322a7c71da5f445451f7a7c24dc data/minecraft/tags/block/nylium.json
-e525dce519521ffa483578397a6c13a57c5e24d1 data/minecraft/tags/block/oak_logs.json
 a27e7054a99fa10eb2354c3ac2f702a7c9db7dbb data/minecraft/tags/block/overrides_mushroom_light_requirement.json
 4b0f72febafc16da901b0f0c2e9718cfdfb6ebb1 data/minecraft/tags/block/overworld_carver_replaceables.json
 35682a435daf595b0d45efb8b7731023976e2597 data/minecraft/tags/block/overworld_natural_logs.json
@@ -60,7 +57,6 @@ a27e7054a99fa10eb2354c3ac2f702a7c9db7dbb data/minecraft/tags/block/overrides_mus
 383dc10b54bd34839335cce24fa62c6ff592028c data/minecraft/tags/block/rabbits_spawnable_on.json
 35542335114630d0298c6515453ff763ed4cc6d1 data/minecraft/tags/block/replaceable.json
 a3787a9ae31d02c86bb84a413252481eddf692f9 data/minecraft/tags/block/replaceable_by_trees.json
-e1261cc158cab3ad35f9e8a56d65942e12c77a2b data/minecraft/tags/block/saplings.json
 8ec272c54edc1df8941d6e1e627a2c3f2bce813d data/minecraft/tags/block/slabs.json
 f9ec98e2d89f62e2cd0419d2e2a6c092f2afd28c data/minecraft/tags/block/small_flowers.json
 e66784e2aab07f25408ee5347aa6acaf325e458c data/minecraft/tags/block/snaps_goat_horn.json
@@ -116,7 +112,7 @@ bad9e0deb4c1548ac1165e6f47f1042270900ee7 data/regions_unexplored/tags/block/palm
 65067910cc94375d05668858f2a9bfd23af682e6 data/regions_unexplored/tags/block/pink_bioshroom_logs.json
 9dc848c4573262deb3589f2593a6e3f5129aea22 data/regions_unexplored/tags/block/prismarite_crystals.json
 4d231c78e96822dfb6afa0c0f613279035a1c30a data/regions_unexplored/tags/block/redwood_logs.json
-4919e0db5dd2b30e163362f29b8fdcebf9e8e127 data/regions_unexplored/tags/block/replaceable_blocks.json
+446dfbf7ed94d6ee638b25bb76bb5a767df26030 data/regions_unexplored/tags/block/replaceable_blocks.json
 1f4dce6589341da3e1bfe928b4636fe41d16f976 data/regions_unexplored/tags/block/replaceable_by_peat_dirt.json
 e19b880744eef3885511d6773d84bcdb7fc961f6 data/regions_unexplored/tags/block/replaceable_by_silt_dirt.json
 8df623c37629c5bcd7aa79b4fe3afadc9f72ffcd data/regions_unexplored/tags/block/shrubs.json

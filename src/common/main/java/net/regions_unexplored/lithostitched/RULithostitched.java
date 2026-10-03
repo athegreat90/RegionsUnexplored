@@ -29,12 +29,12 @@ import net.regions_unexplored.world.surface.RUSurfaceRuleBuilder;
 public class RULithostitched {
     public static void init() {
         AddWorldgenModifiersEvent.EVENT.register((registries, consumer) -> {
+            var biomes = registries.lookupOrThrow(Registries.BIOME);
+
             consumer.accept(
                 RegionsUnexplored.id("surface_rule/nether"),
-                WorldgenModifier.builder().addSurfaceRule(Level.NETHER, InjectionType.PREPEND, RUSurfaceRuleBuilder.nether())
+                WorldgenModifier.builder().addSurfaceRule(Level.NETHER, InjectionType.PREPEND, RUSurfaceRuleBuilder.nether(biomes))
             );
-            
-            var biomes = registries.lookupOrThrow(Registries.BIOME);
             var features = registries.lookupOrThrow(Registries.PLACED_FEATURE);
             consumer.accept(
                 RegionsUnexplored.id("inferno/no_water_springs"),

@@ -2,9 +2,7 @@
   "type": "minecraft:condition",
   "if_true": {
     "type": "minecraft:biome",
-    "biome_is": [
-      "regions_unexplored:pine_slopes"
-    ]
+    "biome_is": "regions_unexplored:pine_slopes"
   },
   "then_run": {
     "type": "minecraft:block",

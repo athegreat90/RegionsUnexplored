@@ -6,6 +6,7 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.EntityTypes;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockBehaviour;
@@ -177,7 +178,7 @@ public class RUBlockUtils {
     }
     
     public static Boolean ocelotOrParrot(BlockState state, BlockGetter getter, BlockPos pos, EntityType<?> type) {
-        return (type == EntityType.OCELOT || type == EntityType.PARROT);
+        return (type == EntityTypes.OCELOT || type == EntityTypes.PARROT);
     }
     
     // Shape builders

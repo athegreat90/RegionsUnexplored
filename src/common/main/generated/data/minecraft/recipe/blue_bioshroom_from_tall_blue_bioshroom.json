@@ -1,6 +1,5 @@
 {
   "type": "minecraft:crafting_shapeless",
-  "category": "misc",
   "group": "bioshrooms",
   "ingredients": [
     "regions_unexplored:tall_blue_bioshroom"

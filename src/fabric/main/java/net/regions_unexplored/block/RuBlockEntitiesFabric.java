@@ -2,6 +2,7 @@ package net.regions_unexplored.block;
 
 import net.fabricmc.fabric.api.object.builder.v1.block.entity.FabricBlockEntityType;
 import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.entity.BlockEntityTypes;
 import net.regions_unexplored.block.set.WoodSet;
 import net.regions_unexplored.registry.RUBlocks;
 
@@ -9,17 +10,17 @@ public class RuBlockEntitiesFabric {
     public static void addBlockEntities() {
         for (WoodSet set : RUBlocks.WOOD_SETS) {
             if (set.getSign() != null) {
-                cast(BlockEntityType.SIGN).addValidBlock(set.getSign());
+                cast(BlockEntityTypes.SIGN).addValidBlock(set.getSign());
             }
             if (set.getWallSign() != null) {
-                cast(BlockEntityType.SIGN).addValidBlock(set.getWallSign());
+                cast(BlockEntityTypes.SIGN).addValidBlock(set.getWallSign());
             }
 
             if (set.getHangingSign() != null) {
-                cast(BlockEntityType.HANGING_SIGN).addValidBlock(set.getHangingSign());
+                cast(BlockEntityTypes.HANGING_SIGN).addValidBlock(set.getHangingSign());
             }
             if (set.getWallHangingSign() != null) {
-                cast(BlockEntityType.HANGING_SIGN).addValidBlock(set.getWallHangingSign());
+                cast(BlockEntityTypes.HANGING_SIGN).addValidBlock(set.getWallHangingSign());
             }
         }
     }

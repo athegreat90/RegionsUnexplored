@@ -1,6 +1,7 @@
 package net.regions_unexplored.datagen.provider.tag;
 
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.EntityTypeTagsProvider;
 import net.minecraft.tags.EntityTypeTags;
@@ -16,7 +17,8 @@ public class RUEntityTypeTagProvider extends EntityTypeTagsProvider {
 
     @Override
     public void addTags(HolderLookup.Provider provider) {
-        this.tag(EntityTypeTags.NO_ANGER_FROM_WIND_CHARGE).add(RUEntityTypes.ASHEN.get());
-        this.tag(EntityTypeTags.ZOMBIES).add(RUEntityTypes.ASHEN.get());
+        var ashen = BuiltInRegistries.ENTITY_TYPE.getResourceKey(RUEntityTypes.ASHEN.get()).orElseThrow();
+        this.tag(EntityTypeTags.NO_ANGER_FROM_WIND_CHARGE).add(ashen);
+        this.tag(EntityTypeTags.ZOMBIES).add(ashen);
     }
 }

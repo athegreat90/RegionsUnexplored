@@ -4,8 +4,14 @@ import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.AdvancementHolder;
 import net.minecraft.advancements.AdvancementType;
 import net.minecraft.advancements.DisplayInfo;
-import net.minecraft.advancements.criterion.*;
-import net.minecraft.advancements.criterion.InventoryChangeTrigger.TriggerInstance;
+import net.minecraft.advancements.triggers.ConsumeItemTrigger;
+import net.minecraft.advancements.triggers.EnterBlockTrigger;
+import net.minecraft.advancements.triggers.InventoryChangeTrigger;
+import net.minecraft.advancements.triggers.ItemUsedOnLocationTrigger;
+import net.minecraft.advancements.triggers.PlayerTrigger;
+import net.minecraft.advancements.predicates.BlockPredicate;
+import net.minecraft.advancements.predicates.LocationPredicate;
+import net.minecraft.advancements.triggers.InventoryChangeTrigger.TriggerInstance;
 import net.minecraft.core.*;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.PackOutput;
@@ -37,8 +43,8 @@ import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
 import java.util.function.UnaryOperator;
 
-import static net.minecraft.advancements.criterion.ConsumeItemTrigger.TriggerInstance.*;
-import static net.minecraft.advancements.criterion.InventoryChangeTrigger.TriggerInstance.hasItems;
+import static net.minecraft.advancements.triggers.ConsumeItemTrigger.TriggerInstance.*;
+import static net.minecraft.advancements.triggers.InventoryChangeTrigger.TriggerInstance.hasItems;
 
 public class RUAdvancementProvider extends AdvancementProvider {
 

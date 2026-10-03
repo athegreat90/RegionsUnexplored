@@ -2,9 +2,7 @@
   "type": "minecraft:condition",
   "if_true": {
     "type": "minecraft:biome",
-    "biome_is": [
-      "regions_unexplored:mountains"
-    ]
+    "biome_is": "regions_unexplored:mountains"
   },
   "then_run": {
     "type": "minecraft:sequence",

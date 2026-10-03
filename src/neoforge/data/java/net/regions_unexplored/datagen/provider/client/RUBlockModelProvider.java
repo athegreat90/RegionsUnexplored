@@ -143,7 +143,7 @@ public class RUBlockModelProvider {
 		itemGenerated(RUBlocks.LARGE_PRISMARITE_CLUSTER.get(), true);
 		
 		String prismaglass = name(RUBlocks.PRISMAGLASS.get());
-		blockSingle(RUBlocks.PRISMAGLASS.get(), cuboidModel(prismaglass, template("cube_all_tinted"), b -> b.texture("all", texturize(nameId(Blocks.WHITE_STAINED_GLASS), false))));
+		blockSingle(RUBlocks.PRISMAGLASS.get(), cuboidModel(prismaglass, template("cube_all_tinted"), b -> b.texture("all", texturize(nameId(Blocks.STAINED_GLASS.white()), false))));
 		cuboidModel(prismaglass + "_item", "cube_all", b -> b.texture("all", texturize(nameId(RUBlocks.PRISMAGLASS.get()), true))).createTemplate(nameId(RUBlocks.PRISMAGLASS.get()).withSuffix("_item"), "block/", this.modelOutput);
 		itemBlock(RUBlocks.PRISMAGLASS.get(), nameId(RUBlocks.PRISMAGLASS.get()).withSuffix("_item"));
 		
@@ -300,15 +300,15 @@ public class RUBlockModelProvider {
     // FULL
 	
 	private void fullSpeleothem(Block block) {
-		PropertyDispatch.C2<MultiVariant, Direction, DripstoneThickness> generator = PropertyDispatch.initial(
-			BlockStateProperties.VERTICAL_DIRECTION, BlockStateProperties.DRIPSTONE_THICKNESS
+		PropertyDispatch.C2<MultiVariant, Direction, SpeleothemThickness> generator = PropertyDispatch.initial(
+			BlockStateProperties.VERTICAL_DIRECTION, BlockStateProperties.SPELEOTHEM_THICKNESS
 		);
 		
-		for (DripstoneThickness speleothemThickness : DripstoneThickness.values()) {
+		for (SpeleothemThickness speleothemThickness : SpeleothemThickness.values()) {
 			generator.select(Direction.UP, speleothemThickness, this.createSpeleothemVariant(Direction.UP, speleothemThickness, block));
 		}
 		
-		for (DripstoneThickness speleothemThickness : DripstoneThickness.values()) {
+		for (SpeleothemThickness speleothemThickness : SpeleothemThickness.values()) {
 			generator.select(Direction.DOWN, speleothemThickness, this.createSpeleothemVariant(Direction.DOWN, speleothemThickness, block));
 		}
 		
@@ -317,7 +317,7 @@ public class RUBlockModelProvider {
 		this.itemGenerated(block, nameId(block).withSuffix("_up_tip"), false);
 	}
 	
-	private MultiVariant createSpeleothemVariant(final Direction direction, final DripstoneThickness speleothemThickness, final Block block) {
+	private MultiVariant createSpeleothemVariant(final Direction direction, final SpeleothemThickness speleothemThickness, final Block block) {
 		String suffix = "_" + direction.getSerializedName() + "_" + speleothemThickness.getSerializedName();
 		TextureMapping texture = TextureMapping.cross(TextureMapping.getBlockTexture(block, suffix));
 		return plainVariant(ModelTemplates.POINTED_DRIPSTONE.createWithSuffix(block, suffix, texture, this.modelOutput));

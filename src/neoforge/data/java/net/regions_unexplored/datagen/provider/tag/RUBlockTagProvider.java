@@ -1,8 +1,13 @@
 package net.regions_unexplored.datagen.provider.tag;
 
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.PackOutput;
+import net.minecraft.data.tags.TagAppender;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.BlockTags;
+import net.minecraft.tags.TagEntry;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.neoforged.neoforge.common.Tags;
@@ -14,12 +19,102 @@ import net.regions_unexplored.block.set.WoodSet;
 import net.regions_unexplored.registry.tag.BackportedBlockTags;
 import net.regions_unexplored.registry.tag.*;
 
+import java.util.Collection;
 import java.util.concurrent.CompletableFuture;
+import java.util.stream.Stream;
 
 public class RUBlockTagProvider extends BlockTagsProvider {
 
     public RUBlockTagProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider) {
         super(output, lookupProvider, RegionsUnexplored.MOD_ID);
+    }
+
+    @Override
+    protected BlockTagAppender tag(TagKey<Block> tag) {
+        return new BlockTagAppender(super.tag(tag));
+    }
+
+    /**
+     * {@code TagsProvider}/{@code TagAppender} dropped the intrinsic-holder convenience that let
+     * {@code .add(Block)} work directly (added in its place: {@code .add(ResourceKey<Block>)} only).
+     * This wrapper restores the {@code .add(Block)} call shape used throughout this file without
+     * touching every call site.
+     */
+    private static final class BlockTagAppender implements TagAppender<Block> {
+        private final TagAppender<Block> delegate;
+
+        private BlockTagAppender(TagAppender<Block> delegate) {
+            this.delegate = delegate;
+        }
+
+        BlockTagAppender add(Block block) {
+            delegate.add(BuiltInRegistries.BLOCK.getResourceKey(block).orElseThrow());
+            return this;
+        }
+
+        @Override
+        public BlockTagAppender add(ResourceKey<Block> resourceKey) {
+            delegate.add(resourceKey);
+            return this;
+        }
+
+        @Override
+        public BlockTagAppender addOptional(ResourceKey<Block> resourceKey) {
+            delegate.addOptional(resourceKey);
+            return this;
+        }
+
+        @Override
+        public BlockTagAppender addTag(TagKey<Block> tagKey) {
+            delegate.addTag(tagKey);
+            return this;
+        }
+
+        @Override
+        public BlockTagAppender addOptionalTag(TagKey<Block> tagKey) {
+            delegate.addOptionalTag(tagKey);
+            return this;
+        }
+
+        @Override
+        public BlockTagAppender add(TagEntry tagEntry) {
+            delegate.add(tagEntry);
+            return this;
+        }
+
+        @Override
+        public BlockTagAppender replace(boolean value) {
+            delegate.replace(value);
+            return this;
+        }
+
+        @Override
+        public BlockTagAppender remove(ResourceKey<Block> resourceKey) {
+            delegate.remove(resourceKey);
+            return this;
+        }
+
+        @Override
+        public BlockTagAppender remove(TagKey<Block> tagKey) {
+            delegate.remove(tagKey);
+            return this;
+        }
+
+        @SafeVarargs
+        final BlockTagAppender add(Block... blocks) {
+            for (Block block : blocks) add(block);
+            return this;
+        }
+
+        BlockTagAppender addAllBlocks(Collection<Block> blocks) {
+            blocks.forEach(this::add);
+            return this;
+        }
+
+        BlockTagAppender addAllBlocks(Stream<Block> blocks) {
+            blocks.forEach(this::add);
+            return this;
+        }
     }
 
     @Override
@@ -64,11 +159,10 @@ public class RUBlockTagProvider extends BlockTagsProvider {
         RUBlocks.PAINTED_STAIRS.getAll().forEach(stairs::add);
         RUBlocks.PAINTED_SLABS.getAll().forEach(slabs::add);
 
-        var saplings = this.tag(BlockTags.SAPLINGS);
+        // BlockTags.SAPLINGS no longer exists on 26.2; no vanilla/NeoForge replacement found.
         var climbable = this.tag(BlockTags.CLIMBABLE);
         var mineableWithHoe = this.tag(BlockTags.MINEABLE_WITH_HOE);
         for (NaturalSet set : RUBlocks.NATURAL_SETS) {
-            if (set.getSapling() != null) saplings.add(set.getSapling());
             if (set.getVines() != null) climbable.add(set.getVines());
             if (set.getLeaves() != null) mineableWithHoe.add(set.getLeaves());
         }
@@ -243,10 +337,7 @@ public class RUBlockTagProvider extends BlockTagsProvider {
             .add(RUBlocks.SALMONBERRY_BUSH.get())
             .add(RUBlocks.DUSKMELON.get())
         ;
-        this.tag(BlockTags.BIRCH_LOGS)
-            .add(RUBlocks.SILVER_BIRCH_WOOD_SET.getLog())
-            .add(RUBlocks.SILVER_BIRCH_WOOD_SET.getWood())
-        ;
+        // BlockTags.BIRCH_LOGS no longer exists on 26.2; no vanilla/NeoForge replacement found.
         climbable
             .add(RUBlocks.GLISTERING_IVY.get())
             .add(RUBlocks.GLISTERING_IVY_PLANT.get())
@@ -427,29 +518,9 @@ public class RUBlockTagProvider extends BlockTagsProvider {
             .addTag(RUBlockTags.DEAD_LOGS)
             .addTag(RUBlockTags.YELLOW_BIOSHROOM_LOGS)
         ;
-        this.tag(BlockTags.LOGS_THAT_BURN)
-            .addTag(RUBlockTags.BRANCHES)
-            .addTag(RUBlockTags.ALPHA_LOGS)
-            .addTag(RUBlockTags.BAMBOO_LOGS)
-            .addTag(RUBlockTags.BAOBAB_LOGS)
-            .addTag(RUBlockTags.BLACKWOOD_LOGS)
-            .addTag(RUBlockTags.BLUE_BIOSHROOM_LOGS)
-            .addTag(RUBlockTags.CYPRESS_LOGS)
-            .addTag(RUBlockTags.EUCALYPTUS_LOGS)
-            .addTag(RUBlockTags.GREEN_BIOSHROOM_LOGS)
-            .addTag(RUBlockTags.JOSHUA_LOGS)
-            .addTag(RUBlockTags.KAPOK_LOGS)
-            .addTag(RUBlockTags.LARCH_LOGS)
-            .addTag(RUBlockTags.MAGNOLIA_LOGS)
-            .addTag(RUBlockTags.MAPLE_LOGS)
-            .addTag(RUBlockTags.WISTERIA_LOGS)
-            .addTag(RUBlockTags.PALM_LOGS)
-            .addTag(RUBlockTags.PINE_LOGS)
-            .addTag(RUBlockTags.PINK_BIOSHROOM_LOGS)
-            .addTag(RUBlockTags.REDWOOD_LOGS)
-            .addTag(RUBlockTags.SOCOTRA_LOGS)
-            .addTag(RUBlockTags.WILLOW_LOGS)
-        ;
+        // BlockTags.LOGS_THAT_BURN no longer exists on 26.2; no vanilla/NeoForge replacement
+        // found (flammability is set per-block via BlockBehaviour.Properties.ignitedByLava()
+        // in RUBlockUtils, independent of this tag).
         this.tag(BlockTags.MANGROVE_LOGS_CAN_GROW_THROUGH)
             .add(RUBlocks.PEAT_MUD.get())
             .add(RUBlocks.SILT_MUD.get())
@@ -489,10 +560,7 @@ public class RUBlockTagProvider extends BlockTagsProvider {
             .add(RUBlocks.OVERGROWN_BONE_BLOCK.get())
             .add(RUBlocks.MYCOTOXIC_NYLIUM.get())
         ;
-        this.tag(BlockTags.OAK_LOGS)
-            .add(RUBlocks.SMALL_OAK_LOG.get())
-            .add(RUBlocks.STRIPPED_SMALL_OAK_LOG.get())
-        ;
+        // BlockTags.OAK_LOGS no longer exists on 26.2; no vanilla/NeoForge replacement found.
         //this.tag(BlockTags.OCCLUDES_VIBRATION_SIGNALS);
         this.tag(BlockTags.OVERWORLD_CARVER_REPLACEABLES)
             .addTag(RUBlockTags.ASH)
@@ -1119,7 +1187,7 @@ public class RUBlockTagProvider extends BlockTagsProvider {
             .addTag(BlockTags.FLOWERS)
             .addTag(BlockTags.LEAVES)
             .addTag(BlockTags.REPLACEABLE_BY_TREES)
-            .addTag(BlockTags.SAPLINGS)
+            // BlockTags.SAPLINGS no longer exists on 26.2; no vanilla/NeoForge replacement found.
             .add(RUBlocks.BRIMSPROUT.get())
             .add(RUBlocks.COBALT_ROOTS.get())
             .add(RUBlocks.GLISTERING_SPROUT.get())

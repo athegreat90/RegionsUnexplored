@@ -53,6 +53,7 @@ public class RUSurfaceRuleBootstrap {
     private static final ConditionSource RANDOM = noiseAbove(RUNoises.WEIGHTED, 0);
     
     public static void bootstrap(BootstrapContext<RuleSource> context) {
+        var biomeGetter = context.lookup(Registries.BIOME);
         ConditionSource aboveWater = waterBlockCheck(0, 0);
         ConditionSource notUnderwater = waterBlockCheck(-1, 0);
         ConditionSource notUnderDeepWater = waterStartCheck(-6, -1);
@@ -64,20 +65,20 @@ public class RUSurfaceRuleBootstrap {
         RuleSource gravelOrStoneIfCeiling = sequence(ifTrue(ON_CEILING, STONE), GRAVEL);
         
         RuleSource powderSnowUnderRule = ifTrue(
-            allOf(noiseCondition(Noises.POWDER_SNOW, 0.45D, 0.58D), aboveWater),
+            allOf(noiseCondition2d(Noises.POWDER_SNOW, 0.45D, 0.58D), aboveWater),
             block(Blocks.POWDER_SNOW)
         );
         RuleSource powderSnowSurfaceRule = ifTrue(
-            allOf(noiseCondition(Noises.POWDER_SNOW, 0.35D, 0.6D), aboveWater),
+            allOf(noiseCondition2d(Noises.POWDER_SNOW, 0.35D, 0.6D), aboveWater),
             block(Blocks.POWDER_SNOW)
         );
         
         var swamp = context.register(SWAMP, ifTrue(
             allOf(
-                isBiome(RUBiomes.FEN),
+                isBiome(biomeGetter, RUBiomes.FEN),
                 aboveY(62),
                 belowY(63),
-                noiseCondition(Noises.SWAMP, 0)
+                noiseCondition2d(Noises.SWAMP, 0)
             ),
             block(Blocks.WATER)
         ));
@@ -195,7 +196,7 @@ public class RUSurfaceRuleBootstrap {
                 configSelector(RUBlocks.PEAT_MUD, Blocks.MUD)
             ), RUBiomes.BAYOU),
             biome(context, prefix, ifTrue(
-                anyOf(noiseAbove(-0.11), noiseCondition(Noises.SWAMP, 0)),
+                anyOf(noiseAbove(-0.11), noiseCondition2d(Noises.SWAMP, 0)),
                 block(Blocks.MUD)
             ), RUBiomes.OLD_GROWTH_BAYOU),
             biome(context, prefix, ifTrue(allOf(belowY(65), noiseAbove(Noises.SWAMP, 0)), sandOrSandstoneIfCeiling), RUBiomes.TROPICS),
@@ -284,9 +285,9 @@ public class RUSurfaceRuleBootstrap {
                                 reference(surface)
                             ),
                             ifTrue(
-                                isBiome(RUBiomes.HYACINTH_DEEPS),
+                                isBiome(biomeGetter, RUBiomes.HYACINTH_DEEPS),
                                 sequence(
-                                    ifTrue(noiseCondition(Noises.SWAMP, 0.15), MOSSY_STONE),
+                                    ifTrue(noiseCondition2d(Noises.SWAMP, 0.15), MOSSY_STONE),
                                     GRAVEL
                                 )
                             )
@@ -294,19 +295,19 @@ public class RUSurfaceRuleBootstrap {
                     ),
                     ifTrue(notUnderDeepWater, sequence(
                         ifTrue(VERY_DEEP_UNDER_FLOOR, sequence(
-                            ifTrue(isBiome(RUBiomes.CHALK_CLIFFS), block(RUBlocks.CHALK)),
-                            ifTrue(isBiome(RUBiomes.REMOVED_ARID_MOUNTAINS, RUBiomes.BAOBAB_SAVANNA), TERRACOTTA)
+                            ifTrue(isBiome(biomeGetter, RUBiomes.CHALK_CLIFFS), block(RUBlocks.CHALK)),
+                            ifTrue(isBiome(biomeGetter, RUBiomes.REMOVED_ARID_MOUNTAINS, RUBiomes.BAOBAB_SAVANNA), TERRACOTTA)
                         )),
                         ifTrue(UNDER_FLOOR, reference(underSurface)),
                         ifTrue(DEEP_UNDER_FLOOR, ifTrue(inBiomeTag(context, RUBiomeTags.SURFACE_SAND), SANDSTONE)),
                         ifTrue(VERY_DEEP_UNDER_FLOOR, sequence(
-                            ifTrue(isBiome(RUBiomes.SAGUARO_DESERT), SANDSTONE),
-                            ifTrue(isBiome(RUBiomes.ICY_HEIGHTS, RUBiomes.SPIRES), block(Blocks.PACKED_ICE))
+                            ifTrue(isBiome(biomeGetter, RUBiomes.SAGUARO_DESERT), SANDSTONE),
+                            ifTrue(isBiome(biomeGetter, RUBiomes.ICY_HEIGHTS, RUBiomes.SPIRES), block(Blocks.PACKED_ICE))
                         ))
                     )),
                     ifTrue(ON_FLOOR, sequence(
-                        ifTrue(isBiome(RUBiomes.ROCKY_REEF), sandOrSandstoneIfCeiling),
-                        ifTrue(isBiome(RUBiomes.MUDDY_RIVER), configSelector(RUBlocks.PEAT_MUD, Blocks.MUD))
+                        ifTrue(isBiome(biomeGetter, RUBiomes.ROCKY_REEF), sandOrSandstoneIfCeiling),
+                        ifTrue(isBiome(biomeGetter, RUBiomes.MUDDY_RIVER), configSelector(RUBlocks.PEAT_MUD, Blocks.MUD))
                     ))
                 )
             ),
@@ -315,7 +316,7 @@ public class RUSurfaceRuleBootstrap {
                 caves
             ),
             ifTrue(
-                allOf(UNDER_CEILING, isBiome(RUBiomes.ANCIENT_DELTA)),
+                allOf(UNDER_CEILING, isBiome(biomeGetter, RUBiomes.ANCIENT_DELTA)),
                 block(RUBlocks.ARGILLITE)
             )
         ));
@@ -337,19 +338,19 @@ public class RUSurfaceRuleBootstrap {
     }
     
     private static ConditionSource noiseAbove(double min) {
-        return noiseCondition(Noises.SURFACE, min, Double.MAX_VALUE);
+        return noiseCondition2d(Noises.SURFACE, min, Double.MAX_VALUE);
     }
     
     private static ConditionSource noiseBetween(double min, double max) {
-        return noiseCondition(Noises.SURFACE, min, max);
+        return noiseCondition2d(Noises.SURFACE, min, max);
     }
     
     private static ConditionSource noiseAbove(ResourceKey<NormalNoise.NoiseParameters> noise, double min) {
-        return noiseCondition(noise, min, Double.MAX_VALUE);
+        return noiseCondition2d(noise, min, Double.MAX_VALUE);
     }
     
     private static ConditionSource noiseBetween(ResourceKey<NormalNoise.NoiseParameters> noise, double min, double max) {
-        return noiseCondition(noise, min, max);
+        return noiseCondition2d(noise, min, max);
     }
     
     private static ConditionSource aboveY(int y) {
@@ -367,15 +368,15 @@ public class RUSurfaceRuleBootstrap {
     
     private static Holder<RuleSource> biome(BootstrapContext<RuleSource> context, String prefix, RuleSource source, ResourceKey<Biome> biome) {
         return context.register(RUSurfaceRules.key("overworld/" + prefix + "/" + biome.identifier().getPath()), ifTrue(
-            isBiome(biome),
+            isBiome(context.lookup(Registries.BIOME), biome),
             source
         ));
     }
-    
+
     @SafeVarargs
     private static Holder<RuleSource> biomes(BootstrapContext<RuleSource> context, String name, RuleSource source, ResourceKey<Biome>... biomes) {
         return context.register(RUSurfaceRules.key("overworld/" + name), ifTrue(
-            isBiome(biomes),
+            isBiome(context.lookup(Registries.BIOME), biomes),
             source
         ));
     }

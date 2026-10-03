@@ -3,7 +3,7 @@ package net.regions_unexplored.block.type.dirt;
 import java.util.Optional;
 import java.util.function.Supplier;
 
-import net.minecraft.advancements.CriteriaTriggers;
+import net.minecraft.advancements.triggers.CriteriaTriggers;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceKey;
@@ -143,7 +143,7 @@ public class RUGrassBlock extends SnowyBlock implements BonemealableBlock {
 		} else if (aboveState.getFluidState().isFull()) {
 			return false;
 		} else {
-			int lightBlockInto = LightEngine.getLightBlockInto(state, aboveState, Direction.UP, aboveState.getLightDampening());
+			int lightBlockInto = LightEngine.getLightDampeningInto(state, aboveState, Direction.UP, aboveState.getLightDampening());
 			return lightBlockInto < 15;
 		}
 	}

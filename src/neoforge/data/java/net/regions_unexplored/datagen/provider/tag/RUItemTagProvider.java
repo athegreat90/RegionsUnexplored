@@ -1,10 +1,15 @@
 package net.regions_unexplored.datagen.provider.tag;
 
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.PackOutput;
-import net.minecraft.data.tags.IntrinsicHolderTagsProvider;
+import net.minecraft.data.tags.TagAppender;
+import net.minecraft.data.tags.TagsProvider;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.ItemTags;
+import net.minecraft.tags.TagEntry;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
@@ -15,11 +20,101 @@ import net.regions_unexplored.block.set.WoodSet;
 import net.regions_unexplored.registry.tag.RUItemTags;
 import net.regions_unexplored.registry.RUItems;
 
+import java.util.Collection;
 import java.util.concurrent.CompletableFuture;
+import java.util.stream.Stream;
 
-public class RUItemTagProvider extends IntrinsicHolderTagsProvider<Item> {
+public class RUItemTagProvider extends TagsProvider<Item> {
     public RUItemTagProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> registries) {
-        super(output, Registries.ITEM, registries, e -> e.builtInRegistryHolder().key());
+        super(output, Registries.ITEM, registries);
+    }
+
+    @Override
+    protected ItemTagAppender tag(TagKey<Item> tag) {
+        return new ItemTagAppender(super.tag(tag));
+    }
+
+    /**
+     * {@code TagsProvider}/{@code TagAppender} dropped the intrinsic-holder convenience that let
+     * {@code .add(Item)} work directly (added in its place: {@code .add(ResourceKey<Item>)} only).
+     * This wrapper restores the {@code .add(Item)} call shape used throughout this file without
+     * touching every call site.
+     */
+    private static final class ItemTagAppender implements TagAppender<Item> {
+        private final TagAppender<Item> delegate;
+
+        private ItemTagAppender(TagAppender<Item> delegate) {
+            this.delegate = delegate;
+        }
+
+        ItemTagAppender add(Item item) {
+            delegate.add(BuiltInRegistries.ITEM.getResourceKey(item).orElseThrow());
+            return this;
+        }
+
+        @Override
+        public ItemTagAppender add(ResourceKey<Item> resourceKey) {
+            delegate.add(resourceKey);
+            return this;
+        }
+
+        @Override
+        public ItemTagAppender addOptional(ResourceKey<Item> resourceKey) {
+            delegate.addOptional(resourceKey);
+            return this;
+        }
+
+        @Override
+        public ItemTagAppender addTag(TagKey<Item> tagKey) {
+            delegate.addTag(tagKey);
+            return this;
+        }
+
+        @Override
+        public ItemTagAppender addOptionalTag(TagKey<Item> tagKey) {
+            delegate.addOptionalTag(tagKey);
+            return this;
+        }
+
+        @Override
+        public ItemTagAppender add(TagEntry tagEntry) {
+            delegate.add(tagEntry);
+            return this;
+        }
+
+        @Override
+        public ItemTagAppender replace(boolean value) {
+            delegate.replace(value);
+            return this;
+        }
+
+        @Override
+        public ItemTagAppender remove(ResourceKey<Item> resourceKey) {
+            delegate.remove(resourceKey);
+            return this;
+        }
+
+        @Override
+        public ItemTagAppender remove(TagKey<Item> tagKey) {
+            delegate.remove(tagKey);
+            return this;
+        }
+
+        @SafeVarargs
+        final ItemTagAppender add(Item... items) {
+            for (Item item : items) add(item);
+            return this;
+        }
+
+        ItemTagAppender addAllItems(Collection<Item> items) {
+            items.forEach(this::add);
+            return this;
+        }
+
+        ItemTagAppender addAllItems(Stream<Item> items) {
+            items.forEach(this::add);
+            return this;
+        }
     }
 
     @Override
@@ -124,7 +219,7 @@ public class RUItemTagProvider extends IntrinsicHolderTagsProvider<Item> {
             .add(RUBlocks.STONE_GRASS_BLOCK.get().asItem())
             .add(RUBlocks.ARGILLITE_GRASS_BLOCK.get().asItem())
             .add(RUBlocks.VIRIDESCENT_NYLIUM.get().asItem());
-        this.tag(ItemTags.FLOWERS)
+        this.tag(Tags.Items.FLOWERS)
             .add(RUBlocks.HYACINTH_FLOWERS.get().asItem())
             .add(RUBlocks.ORANGE_CONEFLOWER.get().asItem())
             .add(RUBlocks.PURPLE_CONEFLOWER.get().asItem())
@@ -134,7 +229,7 @@ public class RUItemTagProvider extends IntrinsicHolderTagsProvider<Item> {
         this.tag(ItemTags.FOX_FOOD).add(RUItems.SALMONBERRY.get().asItem());
         this.tag(ItemTags.OAK_LOGS).add(RUBlocks.SMALL_OAK_LOG.get().asItem()).add(RUBlocks.STRIPPED_SMALL_OAK_LOG.get().asItem());
         this.tag(ItemTags.REDSTONE_ORES).add(RUBlocks.RAW_REDSTONE_BLOCK.get().asItem());
-        var smallFlowers = this.tag(ItemTags.SMALL_FLOWERS)
+        var smallFlowers = this.tag(Tags.Items.FLOWERS_SMALL)
                 .add(RUBlocks.ALPHA_DANDELION.get().asItem())
                 .add(RUBlocks.ALPHA_ROSE.get().asItem())
                 .add(RUBlocks.ASTER.get().asItem())
@@ -164,8 +259,9 @@ public class RUItemTagProvider extends IntrinsicHolderTagsProvider<Item> {
             snowbelles.add(block.asItem());
         }
         //this.tag(ItemTags.TALL_FLOWERS).add(RUBlocks.TASSEL.get().asItem()).add(RUBlocks.DAY_LILY.get().asItem());
-        this.tag(ItemTags.STAIRS).add(RUBlocks.CHALK_STAIRS.get().asItem()).add(RUBlocks.CHALK_BRICK_STAIRS.get().asItem()).add(RUBlocks.POLISHED_CHALK_STAIRS.get().asItem());
-        this.tag(ItemTags.SLABS).add(RUBlocks.CHALK_SLAB.get().asItem()).add(RUBlocks.CHALK_BRICK_SLAB.get().asItem()).add(RUBlocks.POLISHED_CHALK_SLAB.get().asItem());
+        // ItemTags.STAIRS/SLABS (generic, non-material-specific) no longer exist on 26.2;
+        // only material-specific variants (e.g. sandstone) remain, which don't fit chalk.
+        // The blocks themselves stay correctly tagged via RUBlockTagProvider.
         this.tag(ItemTags.TRIM_MATERIALS).add(RUBlocks.PRISMARITE_CLUSTER.get().asItem());
         this.tag(ItemTags.WART_BLOCKS)
             .add(RUBlocks.GREEN_BIOSHROOM_BLOCK.get().asItem())

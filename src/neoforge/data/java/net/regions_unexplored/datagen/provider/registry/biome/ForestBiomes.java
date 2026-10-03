@@ -6,7 +6,7 @@ import net.minecraft.sounds.Musics;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.attribute.BackgroundMusic;
 import net.minecraft.world.attribute.EnvironmentAttributes;
-import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.EntityTypes;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.level.biome.*;
 import net.minecraft.world.level.levelgen.GenerationStep;
@@ -25,7 +25,7 @@ public class ForestBiomes {
         MobSpawnSettings.Builder spawnBuilder = new MobSpawnSettings.Builder();
         BiomeDefaultFeatures.farmAnimals(spawnBuilder);
         BiomeDefaultFeatures.commonSpawns(spawnBuilder);
-        if(hasWolfSpawns)spawnBuilder.addSpawn(MobCategory.CREATURE, 5, new MobSpawnSettings.SpawnerData(EntityType.WOLF, 4, 4));
+        if(hasWolfSpawns)spawnBuilder.addSpawn(MobCategory.CREATURE, 5, new MobSpawnSettings.SpawnerData(EntityTypes.WOLF, 4, 4));
         return spawnBuilder;
     }
 
@@ -87,7 +87,7 @@ public class ForestBiomes {
 
         //add mob spawns
         MobSpawnSettings.Builder spawnBuilder = baseForestSpawning(false);
-        spawnBuilder.addSpawn(MobCategory.CREATURE, 80, new MobSpawnSettings.SpawnerData(EntityType.PANDA, 1, 2));
+        spawnBuilder.addSpawn(MobCategory.CREATURE, 80, new MobSpawnSettings.SpawnerData(EntityTypes.PANDA, 1, 2));
 
         return biomeBuilder(0.875f, 0.8f, true)
             .setAttribute(EnvironmentAttributes.SKY_COLOR, 0xa2c1b5)
@@ -117,7 +117,7 @@ public class ForestBiomes {
 
         //add mob spawns
         MobSpawnSettings.Builder spawnBuilder = baseForestSpawning(false);
-        spawnBuilder.addSpawn(MobCategory.CREATURE, 8, new MobSpawnSettings.SpawnerData(EntityType.FOX, 2, 4));
+        spawnBuilder.addSpawn(MobCategory.CREATURE, 8, new MobSpawnSettings.SpawnerData(EntityTypes.FOX, 2, 4));
 
         return biomeBuilder(0.95f, 0.8f, true)
             .setAttribute(EnvironmentAttributes.BACKGROUND_MUSIC, new BackgroundMusic(SoundEvents.MUSIC_BIOME_FOREST))
@@ -173,7 +173,7 @@ public class ForestBiomes {
 
         //add mob spawns
         MobSpawnSettings.Builder spawnBuilder = baseForestSpawning(true);
-        spawnBuilder.addSpawn(MobCategory.CREATURE, 5, new MobSpawnSettings.SpawnerData(EntityType.WOLF, 4, 4));
+        spawnBuilder.addSpawn(MobCategory.CREATURE, 5, new MobSpawnSettings.SpawnerData(EntityTypes.WOLF, 4, 4));
 
         return biomeBuilder(0.6f, 0.5f, true)
             .setAttribute(EnvironmentAttributes.BACKGROUND_MUSIC, new BackgroundMusic(SoundEvents.MUSIC_BIOME_FOREST))
@@ -202,7 +202,7 @@ public class ForestBiomes {
         
         //add mob spawns
         MobSpawnSettings.Builder spawnBuilder = baseForestSpawning(false);
-        spawnBuilder.addSpawn(MobCategory.CREATURE, 10, new MobSpawnSettings.SpawnerData(EntityType.CHICKEN, 4, 4));
+        spawnBuilder.addSpawn(MobCategory.CREATURE, 10, new MobSpawnSettings.SpawnerData(EntityTypes.CHICKEN, 4, 4));
 
         return biomeBuilder(1.1f, 0.85f, true)
             .setAttribute(EnvironmentAttributes.BACKGROUND_MUSIC, new BackgroundMusic(SoundEvents.MUSIC_BIOME_CHERRY_GROVE))
@@ -231,7 +231,7 @@ public class ForestBiomes {
 
         //add mob spawns
         MobSpawnSettings.Builder spawnBuilder = baseForestSpawning(false);
-        spawnBuilder.addSpawn(MobCategory.CREATURE, 8, new MobSpawnSettings.SpawnerData(EntityType.RABBIT, 4, 4));
+        spawnBuilder.addSpawn(MobCategory.CREATURE, 8, new MobSpawnSettings.SpawnerData(EntityTypes.RABBIT, 4, 4));
 
         return biomeBuilder(0.7f, 0.4f, true)
             .setAttribute(EnvironmentAttributes.BACKGROUND_MUSIC, new BackgroundMusic(SoundEvents.MUSIC_BIOME_FLOWER_FOREST))
@@ -261,7 +261,7 @@ public class ForestBiomes {
 
         //add mob spawns
         MobSpawnSettings.Builder spawnBuilder = baseForestSpawning(true);
-        spawnBuilder.addSpawn(MobCategory.CREATURE, 5, new MobSpawnSettings.SpawnerData(EntityType.WOLF, 4, 4));
+        spawnBuilder.addSpawn(MobCategory.CREATURE, 5, new MobSpawnSettings.SpawnerData(EntityTypes.WOLF, 4, 4));
 
         return biomeBuilder(0.5f, 0.6f, true)
             .setAttribute(EnvironmentAttributes.BACKGROUND_MUSIC, new BackgroundMusic(SoundEvents.MUSIC_BIOME_FOREST))
@@ -291,8 +291,8 @@ public class ForestBiomes {
 
         //add mob spawns
         MobSpawnSettings.Builder spawnBuilder = baseForestSpawning(false);
-        spawnBuilder.addSpawn(MobCategory.CREATURE, 5, new MobSpawnSettings.SpawnerData(EntityType.WOLF, 4, 4));
-        spawnBuilder.addSpawn(MobCategory.CREATURE, 15, new MobSpawnSettings.SpawnerData(EntityType.RABBIT, 3, 4));
+        spawnBuilder.addSpawn(MobCategory.CREATURE, 5, new MobSpawnSettings.SpawnerData(EntityTypes.WOLF, 4, 4));
+        spawnBuilder.addSpawn(MobCategory.CREATURE, 15, new MobSpawnSettings.SpawnerData(EntityTypes.RABBIT, 3, 4));
 
         return biomeBuilder(0.725f, 0.6f, true)
             .setAttribute(EnvironmentAttributes.BACKGROUND_MUSIC, new BackgroundMusic(SoundEvents.MUSIC_BIOME_FOREST))
@@ -319,7 +319,7 @@ public class ForestBiomes {
         builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, RuVegetationPlacements.PATCH_SHORT_GRASS_SPARSE);
         //add mob spawns
         MobSpawnSettings.Builder spawnBuilder = baseForestSpawning(true);
-        spawnBuilder.addSpawn(MobCategory.CREATURE, 10, new MobSpawnSettings.SpawnerData(EntityType.FOX, 3, 4));
+        spawnBuilder.addSpawn(MobCategory.CREATURE, 10, new MobSpawnSettings.SpawnerData(EntityTypes.FOX, 3, 4));
 
         return biomeBuilder(0.6f, 0.5f, true)
             .setAttribute(EnvironmentAttributes.BACKGROUND_MUSIC, new BackgroundMusic(SoundEvents.MUSIC_BIOME_FOREST))

@@ -8,7 +8,7 @@ import net.minecraft.sounds.Musics;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.attribute.BackgroundMusic;
 import net.minecraft.world.attribute.EnvironmentAttributes;
-import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.EntityTypes;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.level.biome.*;
 import net.minecraft.world.level.levelgen.GenerationStep;
@@ -29,11 +29,11 @@ public class WetBiomes {
     private static MobSpawnSettings.Builder baseSwampSpawning(boolean hasWolfSpawns) {
         MobSpawnSettings.Builder spawnBuilder = new MobSpawnSettings.Builder();
         BiomeDefaultFeatures.commonSpawns(spawnBuilder);
-        spawnBuilder.addSpawn(MobCategory.MONSTER, 1, new MobSpawnSettings.SpawnerData(EntityType.SLIME, 1, 1));
-        spawnBuilder.addSpawn(MobCategory.CREATURE, 10, new MobSpawnSettings.SpawnerData(EntityType.FROG, 2, 5));
-        spawnBuilder.addSpawn(MobCategory.WATER_AMBIENT, 25, new MobSpawnSettings.SpawnerData(EntityType.TROPICAL_FISH, 8, 8));
+        spawnBuilder.addSpawn(MobCategory.MONSTER, 1, new MobSpawnSettings.SpawnerData(EntityTypes.SLIME, 1, 1));
+        spawnBuilder.addSpawn(MobCategory.CREATURE, 10, new MobSpawnSettings.SpawnerData(EntityTypes.FROG, 2, 5));
+        spawnBuilder.addSpawn(MobCategory.WATER_AMBIENT, 25, new MobSpawnSettings.SpawnerData(EntityTypes.TROPICAL_FISH, 8, 8));
         if (hasWolfSpawns) {
-            spawnBuilder.addSpawn(MobCategory.CREATURE, 4, new MobSpawnSettings.SpawnerData(EntityType.WOLF, 2, 4));
+            spawnBuilder.addSpawn(MobCategory.CREATURE, 4, new MobSpawnSettings.SpawnerData(EntityTypes.WOLF, 2, 4));
             spawnBuilder.creatureGenerationProbability(0.03F);
         }
         return spawnBuilder;
@@ -41,12 +41,12 @@ public class WetBiomes {
     private static MobSpawnSettings.Builder baseJungleSpawning(boolean hasWolfSpawns) {
         MobSpawnSettings.Builder spawnBuilder = new MobSpawnSettings.Builder();
         BiomeDefaultFeatures.farmAnimals(spawnBuilder);
-        spawnBuilder.addSpawn(MobCategory.CREATURE, 10, new MobSpawnSettings.SpawnerData(EntityType.CHICKEN, 4, 4));
-        spawnBuilder.addSpawn(MobCategory.CREATURE, 40, new MobSpawnSettings.SpawnerData(EntityType.PARROT, 1, 2));
-        spawnBuilder.addSpawn(MobCategory.MONSTER, 2, new MobSpawnSettings.SpawnerData(EntityType.OCELOT, 1, 1));
+        spawnBuilder.addSpawn(MobCategory.CREATURE, 10, new MobSpawnSettings.SpawnerData(EntityTypes.CHICKEN, 4, 4));
+        spawnBuilder.addSpawn(MobCategory.CREATURE, 40, new MobSpawnSettings.SpawnerData(EntityTypes.PARROT, 1, 2));
+        spawnBuilder.addSpawn(MobCategory.MONSTER, 2, new MobSpawnSettings.SpawnerData(EntityTypes.OCELOT, 1, 1));
         BiomeDefaultFeatures.commonSpawns(spawnBuilder);
         if (hasWolfSpawns) {
-	        spawnBuilder.addSpawn(MobCategory.CREATURE, 8, new MobSpawnSettings.SpawnerData(EntityType.WOLF, 2, 4));
+	        spawnBuilder.addSpawn(MobCategory.CREATURE, 8, new MobSpawnSettings.SpawnerData(EntityTypes.WOLF, 2, 4));
         }
         return spawnBuilder;
     }
@@ -201,7 +201,7 @@ public class WetBiomes {
 
         //add mob spawns
         MobSpawnSettings.Builder spawnBuilder = baseSwampSpawning(false);
-        spawnBuilder.addSpawn(MobCategory.AXOLOTLS, 5, new MobSpawnSettings.SpawnerData(EntityType.AXOLOTL, 2, 6));
+        spawnBuilder.addSpawn(MobCategory.AXOLOTLS, 5, new MobSpawnSettings.SpawnerData(EntityTypes.AXOLOTL, 2, 6));
 
         return biomeBuilder(1, 1)
             .setAttribute(EnvironmentAttributes.WATER_FOG_COLOR, 0x2f4d5e)
@@ -233,8 +233,8 @@ public class WetBiomes {
 
         //add mob spawns
         MobSpawnSettings.Builder spawnBuilder = baseSwampSpawning(true);
-        spawnBuilder.addSpawn(MobCategory.CREATURE, 8, new MobSpawnSettings.SpawnerData(EntityType.MOOSHROOM, 4, 8));
-        spawnBuilder.addSpawn(MobCategory.AXOLOTLS, 4, new MobSpawnSettings.SpawnerData(EntityType.AXOLOTL, 2, 4));
+        spawnBuilder.addSpawn(MobCategory.CREATURE, 8, new MobSpawnSettings.SpawnerData(EntityTypes.MOOSHROOM, 4, 8));
+        spawnBuilder.addSpawn(MobCategory.AXOLOTLS, 4, new MobSpawnSettings.SpawnerData(EntityTypes.AXOLOTL, 2, 4));
 
         return biomeBuilder(1.15f, 1)
             .setAttribute(EnvironmentAttributes.FOG_COLOR, 0xc0e1d1)

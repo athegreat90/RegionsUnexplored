@@ -2,9 +2,7 @@
   "type": "minecraft:condition",
   "if_true": {
     "type": "minecraft:biome",
-    "biome_is": [
-      "regions_unexplored:redstone_caves"
-    ]
+    "biome_is": "regions_unexplored:redstone_caves"
   },
   "then_run": {
     "type": "minecraft:condition",

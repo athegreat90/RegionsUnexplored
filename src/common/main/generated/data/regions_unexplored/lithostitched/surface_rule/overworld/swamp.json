@@ -5,9 +5,7 @@
     "conditions": [
       {
         "type": "minecraft:biome",
-        "biome_is": [
-          "regions_unexplored:fen"
-        ]
+        "biome_is": "regions_unexplored:fen"
       },
       {
         "type": "minecraft:y_above",

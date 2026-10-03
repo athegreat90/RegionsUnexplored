@@ -2,9 +2,7 @@
   "type": "minecraft:condition",
   "if_true": {
     "type": "minecraft:biome",
-    "biome_is": [
-      "regions_unexplored:towering_cliffs"
-    ]
+    "biome_is": "regions_unexplored:towering_cliffs"
   },
   "then_run": {
     "type": "minecraft:sequence",

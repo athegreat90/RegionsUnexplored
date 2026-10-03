@@ -1,6 +1,5 @@
 {
   "type": "minecraft:crafting_shaped",
-  "category": "misc",
   "group": "prismarite",
   "key": {
     "#": "regions_unexplored:prismarite_cluster"

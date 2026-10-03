@@ -4,7 +4,7 @@ import dev.worldgen.lithostitched.api.tag.LithostitchedProcessorListTags;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.PackOutput;
-import net.minecraft.data.tags.KeyTagProvider;
+import net.minecraft.data.tags.TagsProvider;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureProcessorList;
 import net.regions_unexplored.RegionsUnexplored;
 
@@ -12,7 +12,7 @@ import java.util.concurrent.CompletableFuture;
 
 import static net.regions_unexplored.registry.data.RUProcessorLists.*;
 
-public class RUProcessorListTagProvider extends KeyTagProvider<StructureProcessorList> {
+public class RUProcessorListTagProvider extends TagsProvider<StructureProcessorList> {
     public RUProcessorListTagProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider) {
         super(output, Registries.PROCESSOR_LIST, lookupProvider, RegionsUnexplored.MOD_ID);
     }

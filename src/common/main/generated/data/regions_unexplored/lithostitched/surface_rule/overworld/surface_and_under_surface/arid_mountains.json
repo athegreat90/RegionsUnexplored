@@ -2,9 +2,7 @@
   "type": "minecraft:condition",
   "if_true": {
     "type": "minecraft:biome",
-    "biome_is": [
-      "regions_unexplored:arid_mountains"
-    ]
+    "biome_is": "regions_unexplored:arid_mountains"
   },
   "then_run": {
     "type": "minecraft:block",

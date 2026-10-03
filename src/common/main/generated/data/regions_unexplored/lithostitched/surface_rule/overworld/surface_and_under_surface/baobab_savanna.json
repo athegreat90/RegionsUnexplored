@@ -2,9 +2,7 @@
   "type": "minecraft:condition",
   "if_true": {
     "type": "minecraft:biome",
-    "biome_is": [
-      "regions_unexplored:baobab_savanna"
-    ]
+    "biome_is": "regions_unexplored:baobab_savanna"
   },
   "then_run": {
     "type": "minecraft:condition",

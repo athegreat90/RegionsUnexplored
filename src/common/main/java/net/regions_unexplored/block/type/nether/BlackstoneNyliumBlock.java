@@ -19,7 +19,7 @@ public class BlackstoneNyliumBlock extends RUNyliumBlock {
     private static boolean canBeNylium(final BlockState state, final LevelReader level, final BlockPos pos) {
         BlockPos above = pos.above();
         BlockState aboveState = level.getBlockState(above);
-        int lightBlockInto = LightEngine.getLightBlockInto(state, aboveState, Direction.UP, aboveState.getLightDampening());
+        int lightBlockInto = LightEngine.getLightDampeningInto(state, aboveState, Direction.UP, aboveState.getLightDampening());
         return lightBlockInto < 15;
     }
 

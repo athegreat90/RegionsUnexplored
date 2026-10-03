@@ -7,7 +7,7 @@ import net.minecraft.sounds.Musics;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.attribute.BackgroundMusic;
 import net.minecraft.world.attribute.EnvironmentAttributes;
-import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.EntityTypes;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.level.biome.*;
 import net.minecraft.world.level.levelgen.GenerationStep;
@@ -24,19 +24,19 @@ public class AridBiomes {
     private static MobSpawnSettings.Builder baseSavannaSpawning(boolean hasExtraWolves) {
         MobSpawnSettings.Builder spawnBuilder = new MobSpawnSettings.Builder();
         BiomeDefaultFeatures.desertSpawns(spawnBuilder);
-        spawnBuilder.addSpawn(MobCategory.CREATURE, 10, new MobSpawnSettings.SpawnerData(EntityType.ARMADILLO, 2, 3));
-        spawnBuilder.addSpawn(MobCategory.CREATURE, hasExtraWolves ? 8 : 4, new MobSpawnSettings.SpawnerData(EntityType.WOLF, 4, 8));
+        spawnBuilder.addSpawn(MobCategory.CREATURE, 10, new MobSpawnSettings.SpawnerData(EntityTypes.ARMADILLO, 2, 3));
+        spawnBuilder.addSpawn(MobCategory.CREATURE, hasExtraWolves ? 8 : 4, new MobSpawnSettings.SpawnerData(EntityTypes.WOLF, 4, 8));
         return spawnBuilder;
     }
     
     private static MobSpawnSettings.Builder baseDesertSpawning(boolean hasArmadilloSpawns) {
         MobSpawnSettings.Builder spawnBuilder = new MobSpawnSettings.Builder();
         BiomeDefaultFeatures.farmAnimals(spawnBuilder);
-        spawnBuilder.addSpawn(MobCategory.CREATURE, 1, new MobSpawnSettings.SpawnerData(EntityType.HORSE, 2, 6));
-        spawnBuilder.addSpawn(MobCategory.CREATURE, 1, new MobSpawnSettings.SpawnerData(EntityType.DONKEY, 1, 2));
+        spawnBuilder.addSpawn(MobCategory.CREATURE, 1, new MobSpawnSettings.SpawnerData(EntityTypes.HORSE, 2, 6));
+        spawnBuilder.addSpawn(MobCategory.CREATURE, 1, new MobSpawnSettings.SpawnerData(EntityTypes.DONKEY, 1, 2));
         BiomeDefaultFeatures.commonSpawns(spawnBuilder);
         if(hasArmadilloSpawns) {
-            spawnBuilder.addSpawn(MobCategory.CREATURE, 6, new MobSpawnSettings.SpawnerData(EntityType.ARMADILLO, 1, 2));
+            spawnBuilder.addSpawn(MobCategory.CREATURE, 6, new MobSpawnSettings.SpawnerData(EntityTypes.ARMADILLO, 1, 2));
             spawnBuilder.creatureGenerationProbability(0.03F);
         }
         return spawnBuilder;
@@ -176,7 +176,7 @@ public class AridBiomes {
 
         //add mob spawns
         MobSpawnSettings.Builder spawnBuilder = baseDesertSpawning(true);
-        spawnBuilder.addSpawn(MobCategory.CREATURE, 4, new MobSpawnSettings.SpawnerData(EntityType.WOLF, 4, 8));
+        spawnBuilder.addSpawn(MobCategory.CREATURE, 4, new MobSpawnSettings.SpawnerData(EntityTypes.WOLF, 4, 8));
         spawnBuilder.creatureGenerationProbability(0.04F);
 
         return biomeBuilder(2f, 0f, false)

@@ -2,9 +2,7 @@
   "type": "minecraft:condition",
   "if_true": {
     "type": "minecraft:biome",
-    "biome_is": [
-      "regions_unexplored:bayou"
-    ]
+    "biome_is": "regions_unexplored:bayou"
   },
   "then_run": {
     "type": "minecraft:condition",

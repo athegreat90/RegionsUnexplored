@@ -10,7 +10,7 @@ import net.minecraft.data.worldgen.placement.VegetationPlacements;
 import net.minecraft.sounds.Musics;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.attribute.*;
-import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.EntityTypes;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.level.biome.*;
 import net.minecraft.world.level.levelgen.GenerationStep;
@@ -57,10 +57,10 @@ public class NetherBiomes {
 
         //add mob spawns
         MobSpawnSettings.Builder spawnBuilder = new MobSpawnSettings.Builder()
-                .addSpawn(MobCategory.MONSTER, 25, new MobSpawnSettings.SpawnerData(EntityType.ZOMBIFIED_PIGLIN, 4, 4))
-                .addSpawn(MobCategory.MONSTER, 20, new MobSpawnSettings.SpawnerData(EntityType.WITHER_SKELETON, 1, 4))
-                .addSpawn(MobCategory.MONSTER, 1, new MobSpawnSettings.SpawnerData(EntityType.ENDERMAN, 1, 2))
-                .addSpawn(MobCategory.CREATURE, 60, new MobSpawnSettings.SpawnerData(EntityType.STRIDER, 1, 2));
+                .addSpawn(MobCategory.MONSTER, 25, new MobSpawnSettings.SpawnerData(EntityTypes.ZOMBIFIED_PIGLIN, 4, 4))
+                .addSpawn(MobCategory.MONSTER, 20, new MobSpawnSettings.SpawnerData(EntityTypes.WITHER_SKELETON, 1, 4))
+                .addSpawn(MobCategory.MONSTER, 1, new MobSpawnSettings.SpawnerData(EntityTypes.ENDERMAN, 1, 2))
+                .addSpawn(MobCategory.CREATURE, 60, new MobSpawnSettings.SpawnerData(EntityTypes.STRIDER, 1, 2));
 
         return biomeBuilder(2, 0, false)
             .setAttribute(EnvironmentAttributes.SKY_COLOR, 395547)
@@ -107,10 +107,10 @@ public class NetherBiomes {
 
         //add mob spawns
         MobSpawnSettings.Builder spawnBuilder = new MobSpawnSettings.Builder()
-                .addSpawn(MobCategory.MONSTER, 1, new MobSpawnSettings.SpawnerData(EntityType.ZOMBIFIED_PIGLIN, 2, 4))
-                .addSpawn(MobCategory.MONSTER, 9, new MobSpawnSettings.SpawnerData(EntityType.HOGLIN, 3, 4))
-                .addSpawn(MobCategory.MONSTER, 5, new MobSpawnSettings.SpawnerData(EntityType.PIGLIN, 3, 4))
-                .addSpawn(MobCategory.CREATURE, 60, new MobSpawnSettings.SpawnerData(EntityType.STRIDER, 1, 2));
+                .addSpawn(MobCategory.MONSTER, 1, new MobSpawnSettings.SpawnerData(EntityTypes.ZOMBIFIED_PIGLIN, 2, 4))
+                .addSpawn(MobCategory.MONSTER, 9, new MobSpawnSettings.SpawnerData(EntityTypes.HOGLIN, 3, 4))
+                .addSpawn(MobCategory.MONSTER, 5, new MobSpawnSettings.SpawnerData(EntityTypes.PIGLIN, 3, 4))
+                .addSpawn(MobCategory.CREATURE, 60, new MobSpawnSettings.SpawnerData(EntityTypes.STRIDER, 1, 2));
 
         return biomeBuilder(2, 0, false)
             .setAttribute(EnvironmentAttributes.SKY_COLOR, 3479565)
@@ -160,10 +160,10 @@ public class NetherBiomes {
 
         //add mob spawns
         MobSpawnSettings.Builder spawnBuilder = new MobSpawnSettings.Builder()
-                .addSpawn(MobCategory.MONSTER, 5, new MobSpawnSettings.SpawnerData(EntityType.GHAST, 1, 1))
-                .addSpawn(MobCategory.MONSTER, 1, new MobSpawnSettings.SpawnerData(EntityType.ENDERMAN, 1, 1))
-                .addSpawn(MobCategory.CREATURE, 40, new MobSpawnSettings.SpawnerData(EntityType.STRIDER, 1, 2))
-                .addSpawn(MobCategory.MONSTER, 5, new MobSpawnSettings.SpawnerData(EntityType.HOGLIN, 1, 3));
+                .addSpawn(MobCategory.MONSTER, 5, new MobSpawnSettings.SpawnerData(EntityTypes.GHAST, 1, 1))
+                .addSpawn(MobCategory.MONSTER, 1, new MobSpawnSettings.SpawnerData(EntityTypes.ENDERMAN, 1, 1))
+                .addSpawn(MobCategory.CREATURE, 40, new MobSpawnSettings.SpawnerData(EntityTypes.STRIDER, 1, 2))
+                .addSpawn(MobCategory.MONSTER, 5, new MobSpawnSettings.SpawnerData(EntityTypes.HOGLIN, 1, 3));
 
         return biomeBuilder(2, 0, false)
             .setAttribute(EnvironmentAttributes.SKY_COLOR, 4328552)
@@ -209,9 +209,9 @@ public class NetherBiomes {
 
         //add mob spawns
         MobSpawnSettings.Builder spawnBuilder = new MobSpawnSettings.Builder()
-                .addSpawn(MobCategory.MONSTER, 100, new MobSpawnSettings.SpawnerData(EntityType.ZOMBIFIED_PIGLIN, 4, 4))
-                .addSpawn(MobCategory.MONSTER, 5, new MobSpawnSettings.SpawnerData(EntityType.PIGLIN, 3, 4))
-                .addSpawn(MobCategory.CREATURE, 60, new MobSpawnSettings.SpawnerData(EntityType.STRIDER, 1, 2));
+                .addSpawn(MobCategory.MONSTER, 100, new MobSpawnSettings.SpawnerData(EntityTypes.ZOMBIFIED_PIGLIN, 4, 4))
+                .addSpawn(MobCategory.MONSTER, 5, new MobSpawnSettings.SpawnerData(EntityTypes.PIGLIN, 3, 4))
+                .addSpawn(MobCategory.CREATURE, 60, new MobSpawnSettings.SpawnerData(EntityTypes.STRIDER, 1, 2));
 
         return biomeBuilder(2, 0, false)
             .setAttribute(EnvironmentAttributes.SKY_COLOR, 10717988)
@@ -257,8 +257,8 @@ public class NetherBiomes {
 
         //add mob spawns
         MobSpawnSettings.Builder spawnBuilder = new MobSpawnSettings.Builder()
-                .addSpawn(MobCategory.MONSTER, 100, new MobSpawnSettings.SpawnerData(EntityType.ZOMBIFIED_PIGLIN, 4, 4))
-                .addSpawn(MobCategory.CREATURE, 60, new MobSpawnSettings.SpawnerData(EntityType.STRIDER, 1, 2));
+                .addSpawn(MobCategory.MONSTER, 100, new MobSpawnSettings.SpawnerData(EntityTypes.ZOMBIFIED_PIGLIN, 4, 4))
+                .addSpawn(MobCategory.CREATURE, 60, new MobSpawnSettings.SpawnerData(EntityTypes.STRIDER, 1, 2));
 
         return biomeBuilder(2, 0, false)
             .setAttribute(EnvironmentAttributes.SKY_COLOR, 5439488)
