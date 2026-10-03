@@ -152,6 +152,31 @@ cloche {
             server()
             clientData()
         }
+
+        metadata {
+            withToml {
+                withContents {
+                    @Suppress("UNCHECKED_CAST")
+                    val mods = this["mods"] as? MutableList<Any?>
+                    if (mods != null) {
+                        for (i in mods.indices) {
+                            val mod = mods[i] as? Map<*, *> ?: continue
+                            if (mod.containsKey("logoFile")) {
+                                val rebuilt = LinkedHashMap<Any?, Any?>()
+                                for ((key, value) in mod) {
+                                    if (key == "logoFile") {
+                                        rebuilt["iconFile"] = value
+                                    } else {
+                                        rebuilt[key] = value
+                                    }
+                                }
+                                mods[i] = rebuilt
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
 }
 
