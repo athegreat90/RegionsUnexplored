@@ -70,27 +70,59 @@ Full plan: `/home/athegreat90/.claude/plans/mutable-tickling-coral.md` (approved
     `onGrassBlockPredicate`'s hardcoded block list. Cosmetic, pre-existing, not in scope
     unless requested.
   Leaving both as out-of-scope follow-ups unless the user asks to pick them up.
-- [x] **T4 — 3/4 done, all PASS so far.** Runtime smoke test (explicitly requested by
-  user). No display server existed in this environment; user chose to install Xvfb +
-  confirmed Mesa software rendering (llvmpipe) was already present, so client tests run
-  headless via `xvfb-run`.
+- [x] **T4 — 4/4 PASS.** Runtime smoke test (explicitly requested by user). No display
+  server existed in this environment; user chose to install Xvfb + confirmed Mesa
+  software rendering (llvmpipe) was already present, so client tests run headless via
+  `xvfb-run`.
   - `runFabricServer`: PASS — `Done (2.194s)!`, 4 datapacks loaded, 145 biomes, 2403
     advancements, zero registry/codec/ERROR/FATAL log lines.
   - `runNeoforgeServer`: PASS — `Done (3.841s)!`, full mod/datapack bootstrap including
     `regions_unexplored`/`apollib`/`lithostitched`, zero registry/codec errors.
   - `runFabricClient`: PASS, and went further than a menu check — drove the GUI with
     xdotool, created a new world, spawned in, confirmed custom RU biome terrain
-    (autumn/snow-peak biome with custom flora) actually generated. This exercises
-    trunk/root/foliage placers and tree decorators live, not just at compile time. Zero
-    registry/codec errors.
-  - `runNeoforgeClient`: pending.
+    (autumn/snow-peak biome with custom flora) actually generated. Zero registry/codec
+    errors.
+  - `runNeoforgeClient`: PASS, confirmed twice — first with an initial false alarm
+    (appeared to hang for 8+ hours; root cause was NeoForge's blocking "Warning while
+    loading mods" modal dialog, triggered by `regions_unexplored`'s then-deprecated
+    `logoFile` property, not a JVM hang — confirmed via Xvfb screenshot, click-through
+    proceeded cleanly), then re-run after the `logoFile` fix (commit `16f760a7`)
+    specifically to confirm the dialog is gone: reached the main menu with **zero**
+    dialog this time, no manual click needed, created a world, spawned into generated
+    terrain, zero errors/exceptions in the full log.
+  This exercises trunk/root/foliage placers and tree decorators live on both loaders,
+  not just at compile time, closing out the user's explicit runtime-validation request.
   Environment notes for future runs: `run/` dir must exist and `eula=true` must be set
   before first server boot; this sandbox pre-binds ~436 local ports including
   25500-25599, so boot tests need a randomized `server-port`/`query.port`; a
   gradle-launched server's stdin doesn't reach the forked Minecraft JVM (the Gradle
   Daemon owns it) — stop it by SIGTERM/SIGINT on the actual `KnotServer`/
   `net.neoforged.fml.startup.Server` PID, found via `pstree`/`lsof` on the world's
-  `session.lock`.
+  `session.lock`. A client that appears "stuck" under headless Xvfb should be checked
+  via xdotool screenshot before assuming a hang — a blocking modal (mod warnings, etc)
+  is far more likely than a deadlock, especially with non-zero CPU usage (idle redraw).
+
+- [x] **T5 — fixed, unplanned follow-up.** User noticed the `logoFile` deprecation
+  warning in logs and asked to work around it. Cloche 0.19.11 only exposes a single
+  `icon` metadata property and hardcodes it into the now-deprecated `logoFile` TOML key
+  with no DSL alternative. Fixed via `neoforge { metadata { withToml { withContents {
+  ... } } } }`, renaming the key to `iconFile` in the generated
+  `neoforge.mods.toml`. Commit `16f760a7`. Verified: generated file correct, byte-
+  identical otherwise; `runNeoforgeServer` clean; `compileNeoforgeJava`/
+  `compileNeoforgeDataJava` unaffected. This fix is also what was blocking the
+  `runNeoforgeClient` dialog in T4 — the two are the same root cause, confirmed fixed by
+  re-running T4's client test after this commit landed.
+
+## Status: feature complete
+
+All tasks done. Two commits on `26.3-indev`:
+- `a95016b6` — docs: record investigation findings (no source change needed for the
+  original migration premise, which turned out invalid).
+- `16f760a7` — fix(build): logoFile → iconFile workaround (unplanned follow-up, also
+  fixed the client dialog hang).
+
+`a95016b6` is pushed to `origin/26.3-indev`. `16f760a7` is NOT yet pushed — awaiting
+user confirmation.
 
 ## Acceptance criteria
 
